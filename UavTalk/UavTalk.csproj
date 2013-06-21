@@ -1,0 +1,461 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F1C961F7-85CC-4A36-BAD8-DA6653FBD334}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UavTalk</RootNamespace>
+    <AssemblyName>UavTalk</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+    <OutputPath>bin\x86\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="HidLibrary">
+      <HintPath>..\packages\hidlibrary.3.2.23.0\lib\HidLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accels.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccessoryDesired.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ActuatorCommand.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ActuatorDesired.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ActuatorSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ADCRouting.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AirspeedActual.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AirspeedSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AltHoldSmoothed.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AltitudeHoldDesired.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AltitudeHoldSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AttitudeActual.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AttitudeSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AttitudeSimulated.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaroAirspeed.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BaroAltitude.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitField.cs" />
+    <Compile Include="ByteBuffer.cs" />
+    <Compile Include="CameraDesired.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CameraStabSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="channels\HidChannel.cs" />
+    <Compile Include="channels\FileChannel.cs" />
+    <Compile Include="ComStats.cs" />
+    <Compile Include="enums\AccessMode.cs" />
+    <Compile Include="enums\UpdateMode.cs" />
+    <Compile Include="channels\ICommChannel.cs" />
+    <Compile Include="FaultSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FirmwareIAPObj.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FixedWingAirspeeds.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FixedWingPathFollowerSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FixedWingPathFollowerSettingsCC.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FixedWingPathFollowerStatus.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FlightBatterySettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FlightBatteryState.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FlightPlanControl.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FlightPlanSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FlightPlanStatus.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FlightStatus.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FlightTelemetryStats.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GCSReceiver.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GCSTelemetryStats.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GPSPosition.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GPSSatellites.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GPSTime.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GPSVelocity.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GroundPathFollowerSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GroundTruth.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Gyros.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GyrosBias.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HomeLocation.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HwCopterControl.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HwDiscoveryF4.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HwFlyingF3.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HwFlyingF4.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HwFreedom.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HwQuanton.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HwRevolution.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HwRevoMini.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HwSparky.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="I2CStats.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="I2CVM.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="I2CVMUserProgram.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="INSSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="INSState.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MagBias.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Magnetometer.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ManualControlCommand.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ManualControlSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Metadata.cs" />
+    <Compile Include="MixerSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MixerStatus.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModuleSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NedAccel.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NEDPosition.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ObjectPersistence.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OPLinkSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OPLinkStatus.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OveroSyncSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OveroSyncStats.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PacketType.cs" />
+    <Compile Include="PathDesired.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PathPlannerSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PathStatus.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PoiLocation.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PositionActual.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="channels\SerialChannel.cs" />
+    <Compile Include="RateDesired.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReceiverActivity.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RelayTuning.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RelayTuningSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SensorSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SonarAltitude.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StabilizationDesired.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StabilizationSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StateEstimation.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SystemAlarms.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SystemSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SystemStats.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TabletInfo.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TaskInfo.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TxPIDSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UAVDataObject.cs" />
+    <Compile Include="UAVMetaObject.cs" />
+    <Compile Include="UAVObjectField.cs" />
+    <Compile Include="UAVObjectManager.cs" />
+    <Compile Include="UAVObjectMetaData.cs" />
+    <Compile Include="UavObject.cs" />
+    <Compile Include="UAVObjectFieldDescription.cs" />
+    <Compile Include="UavObjects.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UavPacket.cs" />
+    <Compile Include="UavTalk.cs" />
+    <Compile Include="Uenum.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="VelocityActual.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VelocityDesired.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VibrationAnalysisOutput.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VibrationAnalysisSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VtolPathFollowerSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WatchdogStatus.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Waypoint.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WaypointActive.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="ttinclude\FileManager V2.1.ttinclude" />
+    <None Include="UavObjects.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UavObjects.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="output\" />
+    <Folder Include="parser\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UsbLibrary\UsbLibrary.csproj">
+      <Project>{71E42A6D-C432-4C03-BF4F-ABFD2A3173E0}</Project>
+      <Name>UsbLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

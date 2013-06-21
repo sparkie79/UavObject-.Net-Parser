@@ -1,0 +1,255 @@
+﻿<#@ template language="C#" hostSpecific="true" #>
+<#@ output extension=".cs" #>
+<#@ include file="ttinclude\FileManager V2.1.ttinclude" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="UavObjectParser" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ assembly name="$(SolutionDir)\UavObjectParser\bin\Debug\UavObjectParser.dll" #>
+using UavTalk;
+
+public static class UAVObjectsInitialize
+{
+	public static void register(UAVObjectManager objMngr) {
+<#
+	var manager = TemplateFileManager.Create(this);
+
+	// ************* Change your uavobject definition folder here *********
+	string folder = @"C:\TauLabs\shared\uavobjectdefinition";
+	// ********************************************************************
+
+	DirectoryInfo dir = new DirectoryInfo(folder);
+	List<UavObjParser> parsers = new List<UavObjParser>();
+
+	foreach(FileInfo file in dir.GetFiles("*.xml"))
+		parsers.Add(new UavObjParser(file.FullName));
+
+	foreach(var parser in parsers)
+    {
+		for(int i=0; i<parser.getNumObjects(); i++)
+        {
+			var obj = parser.getObjectByIndex(i);
+#>		
+		objMngr.registerObject( new <#= obj.name #>() );
+<#	
+		}
+    }
+#>
+	}
+}
+<#
+	foreach(var parser in parsers)
+    {
+		for(int i=0; i<parser.getNumObjects(); i++)
+        {
+			var obj = parser.getObjectByIndex(i);
+		manager.StartNewFile(obj.name + ".cs");	
+#>
+// Object ID: <#= parser.getObjectID(0) #>
+using System.Collections.Generic;
+using System.Linq;
+using System.IO;
+using System.Globalization;
+using System;
+using System.ComponentModel;
+ 
+namespace UavTalk
+{
+	public class <#=obj.name#> : UAVDataObject
+	{
+		public const long OBJID = <#=obj.id#>;
+		public int NUMBYTES { get; set; }
+		protected const String NAME = "<#= obj.name #>";
+	    protected static String DESCRIPTION = @"<#= obj.description #>";
+		protected const bool ISSINGLEINST = <#= obj.isSingleInst.ToString().ToLower() #>;
+		protected const bool ISSETTINGS = <#= obj.isSettings.ToString().ToLower() #>;
+
+<#foreach(var field in obj.fields)
+{
+if(field.type == FieldType.ENUM) { 
+	int idx=0;
+#>
+		public enum <#=field.dotnetType#>
+		{
+<#
+	foreach(var option in field.options)
+    {
+		string optionstr = Regex.Replace(option, @"[^a-zA-Z0-9]", "");
+		if (Regex.IsMatch(optionstr, @"^\d"))
+			optionstr = "v" + optionstr;
+#>
+			[Description("<#= option #>")]
+			<#=optionstr#> = <#= idx++ #>, 
+<#
+}#>
+		}
+<#}
+#>
+		public UAVObjectField<<#=field.dotnetType#>> <#=field.name#>;
+<#
+}
+#>
+
+		public <#=obj.name#>() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
+		{
+			List<UAVObjectField> fields = new List<UAVObjectField>();
+
+<#foreach(var field in obj.fields)
+	{
+		string varelemname = field.name + "ElemNames";
+#>
+			List<String> <#=varelemname#> = new List<String>();
+<#foreach(var element in field.elementNames){#>
+			<#=varelemname#>.Add("<#=element#>");
+<#
+	}
+#>
+<# 
+	if(field.type == FieldType.ENUM) {
+			string varOptionName = field.name + "EnumOptions";
+#>
+			List<String> <#=varOptionName#> = new List<String>();
+<#foreach(var option in field.options){#>
+			<#=varOptionName#>.Add("<#=option#>");
+<#}#>
+			<#=field.name#>=new UAVObjectField<<#=field.dotnetType#>>("<#=field.name#>", "<#=field.units#>", <#=varelemname#>, <#=varOptionName#>, this);
+			fields.Add(<#=field.name#>);
+<#
+    } else
+    {
+#>
+			<#=field.name#>=new UAVObjectField<<#=field.dotnetType#>>("<#=field.name#>", "<#=field.units#>", <#=varelemname#>, null, this);
+			fields.Add(<#=field.name#>);
+<#
+    }
+#>
+
+<#
+	}
+#>
+	
+
+			// Compute the number of bytes for this object
+            NUMBYTES = fields.Sum(j => j.getNumBytes());
+			
+			// Initialize object
+			initializeFields(fields, new ByteBuffer(NUMBYTES), NUMBYTES);
+			// Set the default field values
+			setDefaultFieldValues();
+			// Set the object description
+			setDescription(DESCRIPTION);
+		}
+
+		/**
+		 * Create a Metadata object filled with default values for this object
+		 * @return Metadata object with default values
+		 */
+		public override Metadata getDefaultMetadata() {
+			Metadata metadata = new Metadata();
+    		metadata.flags =
+				(int)AccessMode.<#=obj.flightAccess #> << Metadata.UAVOBJ_ACCESS_SHIFT |
+				(int)AccessMode.<#=obj.gcsAccess #> << Metadata.UAVOBJ_GCS_ACCESS_SHIFT |
+				<#= obj.flightTelemetryAcked ? 1 : 0 #> << Metadata.UAVOBJ_TELEMETRY_ACKED_SHIFT |
+				<#= obj.gcsTelemetryAcked ? 1 : 0 #> << Metadata.UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
+				(int)UPDATEMODE.<#=obj.flightTelemetryUpdateMode #> << Metadata.UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+				(int)UPDATEMODE.<#=obj.gcsTelemetryUpdateMode #> << Metadata.UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
+    		metadata.flightTelemetryUpdatePeriod = <#= obj.flightTelemetryUpdatePeriod #>;
+    		metadata.gcsTelemetryUpdatePeriod = <#= obj.gcsTelemetryUpdatePeriod #>;
+    		metadata.loggingUpdatePeriod = <#= obj.loggingUpdatePeriod #>;
+ 
+			return metadata;
+		}
+
+		/**
+		 * Initialize object fields with the default values.
+		 * If a default value is not specified the object fields
+		 * will be initialized to zero.
+		 */
+		public void setDefaultFieldValues()
+		{
+<#foreach(var field in obj.fields.Where(x=>x.defaultValues.Any()))
+{
+	if(field.numElements == 1)
+    {
+		switch(field.type)
+        {
+			case FieldType.ENUM:
+#>
+			<#=field.name#>.setValue(<#=field.dotnetType + "." + field.defaultValuesSimple[0]#>);
+<#
+				break;
+			case FieldType.FLOAT32:
+#>
+			<#=field.name#>.setValue((<#= field.dotnetType  #>)<#=float.Parse(field.defaultValues[0])#>);
+<#
+				break;
+			default: 
+#>
+			<#=field.name#>.setValue((<#= field.dotnetType  #>)<#=int.Parse(field.defaultValues[0])#>);
+<#
+				break;
+#>
+	
+<#
+    }} else {
+			for(int x=0; x<field.numElements;x++)
+            {
+
+			switch(field.type)
+        {
+			case FieldType.ENUM:
+#>
+			<#=field.name#>.setValue(<#=field.dotnetType + "." + field.defaultValuesSimple[x]#>,<#=x#>);
+<#
+				break;
+			case FieldType.FLOAT32:
+#>
+			<#=field.name#>.setValue((<#= field.dotnetType  #>)<#=float.Parse(field.defaultValues[x], CultureInfo.InvariantCulture)#>,<#=x#>);
+<#
+				break;
+			default:
+				int val = 0;
+				int.TryParse(field.defaultValues[x], out val);
+			try{
+#>
+			<#=field.name#>.setValue((<#= field.dotnetType  #>)<#=val#>,<#=x#>);
+<#}catch(Exception)
+{
+#>viao<#
+}
+				break;
+                }
+                }
+}}
+ #>
+		}
+
+		/**
+		 * Create a clone of this object, a new instance ID must be specified.
+		 * Do not use this function directly to create new instances, the
+		 * UAVObjectManager should be used instead.
+		 */
+		public override UAVDataObject clone(long instID) {
+			// TODO: Need to get specific instance to clone
+			try {
+				<#=obj.name#> obj = new <#=obj.name#>();
+				obj.initialize(instID, this.getMetaObject());
+				return obj;
+			} catch  (Exception) {
+				return null;
+			}
+		}
+
+		/**
+		 * Static function to retrieve an instance of the object.
+		 */
+		public <#=obj.name#> GetInstance(UAVObjectManager objMngr, long instID)
+		{
+			return (<#=obj.name#>)(objMngr.getObject(<#=obj.name#>.OBJID, instID));
+		}
+	}
+}
+<#
+		}
+    }
+	manager.Process();
+#>
