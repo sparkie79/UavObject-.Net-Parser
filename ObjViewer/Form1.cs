@@ -17,6 +17,7 @@ namespace ObjViewer
         UAVObjectManager mgr;
         Dictionary<TreeNode, UAVObject> nodes = new Dictionary<TreeNode,UAVObject>();
         List<fieldData> uavobjectData = new List<fieldData>();
+        Dictionary<string, int> axes = new Dictionary<string, int>();
         int timestamp = 0;
 
         public Form1()
@@ -30,6 +31,7 @@ namespace ObjViewer
                 item[0].onUpdated += new EventHandler(obj_updated);
             }
 
+            applyStyle();
             /*FileChannel ch = new FileChannel(@"C:\Users\mimmo\Google Drive\Mimmo\cc3d\TauLabs-2013-05-19_11-13-29.tll");
             UavTalk.UavTalk tlk = new UavTalk.UavTalk(ch, mgr);
             timestamp = 0;
@@ -192,24 +194,29 @@ namespace ObjViewer
                 curve.curve.IsVisible = true;
             } else
             {
+                var obj = mgr.getObject(t);
+                string units = obj.getField(field).units;
+
                 ZedGraph.CurveItem cv = zedGraphControl1.GraphPane.AddCurve(field, getPoints(t,field,channel), Color.Red,SymbolType.None);
-                if (zedGraphControl1.GraphPane.CurveList.Count() > 1)
+                                
+                if (!axes.ContainsKey(units))
                 {
-                    zedGraphControl1.GraphPane.Y2Axis.IsVisible = true;
-                    
-                    cv.IsY2Axis = true;
-                    cv.YAxisIndex = zedGraphControl1.GraphPane.CurveList.Count() - 2;
-                    if (cv.YAxisIndex > 0)
-                        zedGraphControl1.GraphPane.AddY2Axis("");    
+                    axes.Add(units, zedGraphControl1.GraphPane.AddYAxis(units));
                 }
+                cv.YAxisIndex = axes[units];
+                Axis ax = zedGraphControl1.GraphPane.YAxisList[axes[units]];
+                               
+                ax.IsVisible = true;
+                ax.Title.IsVisible = true;
+                ax.Title.Text = units;
+                ax.Title.Gap = 0.1f;
+                ax.Title.FontSpec.Size = 8f;
+                ax.Scale.LabelGap = 0.1f;
+                ax.Scale.FontSpec.Size = 8f;
 
-                cv.MakeUnique();
+                makeUnique(cv, zedGraphControl1.GraphPane);
                 //((LineItem)cv).Symbol.Type = SymbolType.None;
-                ((LineItem)cv).Symbol.Size = 1.5f;
-                ((LineItem)cv).Line.Width = 1;
-                ((LineItem)cv).Line.SmoothTension = 0.5F;
-                ((LineItem)cv).Line.IsAntiAlias = true;
-
+                
                 GrapCurve gc = new GrapCurve() { objType = t, curve = cv, field = field, channelNumber = channel };
                 curves.Add(gc);
                 zedGraphControl1.AxisChange();
@@ -247,7 +254,7 @@ namespace ObjViewer
                 curves.Clear();
                 FileChannel ch = new FileChannel(dlg.FileName);
                 ch.fileclosed += new EventHandler(fileclosed);
-                UavTalk.UavTalk tlk = new UavTalk.UavTalk(ch, mgr);
+                UavTalk.UavTalkProto tlk = new UavTalk.UavTalkProto(ch, mgr);
                 timestamp = 0;
                 treeView1.Enabled = false;
                 ch.open();
@@ -263,6 +270,49 @@ namespace ObjViewer
                 treeView1.Sort();
                 treeView1.Enabled = true;
             }
+        }
+
+        Color[] colors = new Color[] { Color.FromArgb(65, 140, 240), 
+            Color.FromArgb(252,180,65),
+            Color.FromArgb(224,64,10),
+            Color.FromArgb(5,100,146),
+            Color.FromArgb(191,191,191),
+            Color.FromArgb(26,59,105),
+            Color.FromArgb(255,227,130),
+            Color.FromArgb(15,156,221),
+            Color.FromArgb(202,107,75),
+            Color.FromArgb(0,92,219),
+            Color.FromArgb(243,210,135),
+            Color.FromArgb(80,99,129),
+            Color.FromArgb(241,185,168),
+            Color.FromArgb(224,131,10),
+            Color.FromArgb(120,147,190),
+        };
+        
+
+        private void makeUnique(CurveItem curve, GraphPane pane)
+        {
+            foreach (var color in colors)
+            {
+                if (!pane.CurveList.Any(j => j.Color == color))
+                {
+                    curve.Color = color;
+                    ((LineItem)curve).Symbol.Size = 1.5f;
+                    ((LineItem)curve).Line.Width = 1.7f;
+                    ((LineItem)curve).Line.SmoothTension = 0.5F;
+                    ((LineItem)curve).Line.IsAntiAlias = true;
+                    return;
+                }
+            }
+        }
+
+        private void applyStyle()
+        {
+            var gp = zedGraphControl1.GraphPane;
+            gp.Title.IsVisible = false;
+            gp.YAxisList.Clear();
+            gp.XAxis.Scale.FontSpec.Size = 8f;
+            gp.Border.Color = Color.Gray;
         }
     }
 }
