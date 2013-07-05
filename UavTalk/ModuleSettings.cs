@@ -1,4 +1,4 @@
-﻿// Object ID: 3007679594
+﻿// Object ID: 1377025322
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class ModuleSettings : UAVDataObject
 	{
-		public const long OBJID = 3007679594;
+		public const long OBJID = 1377025322;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "ModuleSettings";
 	    protected static String DESCRIPTION = @"Optional module enable/disable configuration.";
@@ -123,6 +123,7 @@ namespace UavTalk
 			AdminStateElemNames.Add("GroundPathFollower");
 			AdminStateElemNames.Add("GenericI2CSensor");
 			AdminStateElemNames.Add("UAVOMavlinkBridge");
+			AdminStateElemNames.Add("UAVORelay");
 			AdminStateElemNames.Add("VibrationAnalysis");
 			List<String> AdminStateEnumOptions = new List<String>();
 			AdminStateEnumOptions.Add("Disabled");
@@ -245,6 +246,7 @@ namespace UavTalk
 			AdminState.setValue(AdminStateUavEnum.Disabled,14);
 			AdminState.setValue(AdminStateUavEnum.Disabled,15);
 			AdminState.setValue(AdminStateUavEnum.Disabled,16);
+			AdminState.setValue(AdminStateUavEnum.Disabled,17);
 			TelemetrySpeed.setValue(TelemetrySpeedUavEnum.v57600);
 			GPSSpeed.setValue(GPSSpeedUavEnum.v57600);
 			GPSDataProtocol.setValue(GPSDataProtocolUavEnum.UBX);

@@ -21,7 +21,8 @@ namespace UavTalk
         public abstract int unpack(ByteBuffer dataIn);
         public abstract Object getValue();
         public abstract Object getValue(int index);
-        
+        public String units { get; set; }
+
         public UAVObject parent;
         protected int numElements;
 
@@ -34,7 +35,7 @@ namespace UavTalk
     public class UAVObjectField<T> : UAVObjectField where T : struct
     {
         private String name;
-	    private String units;
+	    
 	    private FieldType type;
 	    private List<String> elementNames;
 	    private List<String> options;

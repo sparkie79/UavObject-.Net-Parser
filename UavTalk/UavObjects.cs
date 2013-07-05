@@ -121,6 +121,8 @@ public static class UAVObjectsInitialize
 		
 		objMngr.registerObject( new Magnetometer() );
 		
+		objMngr.registerObject( new MagnetometerSettings() );
+		
 		objMngr.registerObject( new ManualControlCommand() );
 		
 		objMngr.registerObject( new ManualControlSettings() );
@@ -136,6 +138,8 @@ public static class UAVObjectsInitialize
 		objMngr.registerObject( new NEDPosition() );
 		
 		objMngr.registerObject( new ObjectPersistence() );
+		
+		objMngr.registerObject( new OPLinkReceiver() );
 		
 		objMngr.registerObject( new OPLinkSettings() );
 		
@@ -183,6 +187,10 @@ public static class UAVObjectsInitialize
 		
 		objMngr.registerObject( new TaskInfo() );
 		
+		objMngr.registerObject( new TrimAngles() );
+		
+		objMngr.registerObject( new TrimAnglesSettings() );
+		
 		objMngr.registerObject( new TxPIDSettings() );
 		
 		objMngr.registerObject( new VelocityActual() );
@@ -200,10 +208,13 @@ public static class UAVObjectsInitialize
 		objMngr.registerObject( new Waypoint() );
 		
 		objMngr.registerObject( new WaypointActive() );
+		
+		objMngr.registerObject( new WindVelocityActual() );
 	}
 }
 // Generated helper templates
 // Generated items
+// UavTalk\UavTalk\WindVelocityActual.cs
 // UavTalk\UavTalk\WaypointActive.cs
 // UavTalk\UavTalk\Waypoint.cs
 // UavTalk\UavTalk\WatchdogStatus.cs
@@ -213,6 +224,8 @@ public static class UAVObjectsInitialize
 // UavTalk\UavTalk\VelocityDesired.cs
 // UavTalk\UavTalk\VelocityActual.cs
 // UavTalk\UavTalk\TxPIDSettings.cs
+// UavTalk\UavTalk\TrimAnglesSettings.cs
+// UavTalk\UavTalk\TrimAngles.cs
 // UavTalk\UavTalk\TaskInfo.cs
 // UavTalk\UavTalk\TabletInfo.cs
 // UavTalk\UavTalk\SystemStats.cs
@@ -236,6 +249,7 @@ public static class UAVObjectsInitialize
 // UavTalk\UavTalk\OveroSyncSettings.cs
 // UavTalk\UavTalk\OPLinkStatus.cs
 // UavTalk\UavTalk\OPLinkSettings.cs
+// UavTalk\UavTalk\OPLinkReceiver.cs
 // UavTalk\UavTalk\ObjectPersistence.cs
 // UavTalk\UavTalk\NEDPosition.cs
 // UavTalk\UavTalk\NedAccel.cs
@@ -244,6 +258,7 @@ public static class UAVObjectsInitialize
 // UavTalk\UavTalk\MixerSettings.cs
 // UavTalk\UavTalk\ManualControlSettings.cs
 // UavTalk\UavTalk\ManualControlCommand.cs
+// UavTalk\UavTalk\MagnetometerSettings.cs
 // UavTalk\UavTalk\Magnetometer.cs
 // UavTalk\UavTalk\MagBias.cs
 // UavTalk\UavTalk\INSState.cs

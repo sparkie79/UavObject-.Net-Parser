@@ -1,4 +1,4 @@
-﻿// Object ID: 3125741124
+﻿// Object ID: 1827470274
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class FlightStatus : UAVDataObject
 	{
-		public const long OBJID = 3125741124;
+		public const long OBJID = 1827470274;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "FlightStatus";
 	    protected static String DESCRIPTION = @"Contains major flight status information for other modules.";
@@ -51,6 +51,18 @@ namespace UavTalk
 			PathPlanner = 9, 
 		}
 		public UAVObjectField<FlightModeUavEnum> FlightMode;
+		public enum ControlSourceUavEnum
+		{
+			[Description("Geofence")]
+			Geofence = 0, 
+			[Description("Failsafe")]
+			Failsafe = 1, 
+			[Description("Transmitter")]
+			Transmitter = 2, 
+			[Description("Tablet")]
+			Tablet = 3, 
+		}
+		public UAVObjectField<ControlSourceUavEnum> ControlSource;
 
 		public FlightStatus() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
 		{
@@ -80,6 +92,16 @@ namespace UavTalk
 			FlightModeEnumOptions.Add("PathPlanner");
 			FlightMode=new UAVObjectField<FlightModeUavEnum>("FlightMode", "", FlightModeElemNames, FlightModeEnumOptions, this);
 			fields.Add(FlightMode);
+
+			List<String> ControlSourceElemNames = new List<String>();
+			ControlSourceElemNames.Add("0");
+			List<String> ControlSourceEnumOptions = new List<String>();
+			ControlSourceEnumOptions.Add("Geofence");
+			ControlSourceEnumOptions.Add("Failsafe");
+			ControlSourceEnumOptions.Add("Transmitter");
+			ControlSourceEnumOptions.Add("Tablet");
+			ControlSource=new UAVObjectField<ControlSourceUavEnum>("ControlSource", "", ControlSourceElemNames, ControlSourceEnumOptions, this);
+			fields.Add(ControlSource);
 
 	
 
@@ -122,6 +144,7 @@ namespace UavTalk
 		public void setDefaultFieldValues()
 		{
 			Armed.setValue(ArmedUavEnum.Disarmed);
+			ControlSource.setValue(ControlSourceUavEnum.Failsafe);
 		}
 
 		/**

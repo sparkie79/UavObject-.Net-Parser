@@ -1,37 +1,105 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
+using System.IO;
+using UavTalk;
 using System.Threading;
-using System.Threading.Tasks;
-
 using UavTalk.channels;
-using System.Windows.Forms;
+using SharpKml.Dom;
+using SharpKml.Base;
 
-namespace UavTalk
+namespace ConsoleTest
 {
     class Program
     {
         static TextWriter wr;
         static Dictionary<UAVObjectField, object> fields = new Dictionary<UAVObjectField, object>();
+        
+        static CoordinateCollection coords = new CoordinateCollection();
+
         static void Main(string[] args)
         {
-            test();
+            exportKml(@"C:\Users\mimmo\Google Drive\TauLabs-2013-07-04_19-02-10.tll", @"C:\Users\mimmo\Google Drive\TauLabs-2013-07-04_19-02-10.tll.xml");
         }
 
+        static void exportKml(string filename, string outputFile)
+        {
+            Document kml = new Document();
+
+
+            FileChannel ch = new FileChannel(filename);
+            UAVObjectManager mgr = new UAVObjectManager();
+            UAVObjectsInitialize.register(mgr);
+            UavTalk.UavTalkProto tlk = new UavTalkProto(ch, mgr);
+            mgr.getObject<GPSPosition>().onUpdated += new EventHandler(GpsPositionReceived);
+            ch.open();
+            while (ch.isRunning)
+                Thread.Sleep(50);
+
+
+            LineString ls = new LineString();
+
+            ls.AltitudeMode = SharpKml.Dom.AltitudeMode.Absolute;
+            ls.Extrude = true;
+            ls.Coordinates = coords;
+
+            Placemark pm = new Placemark();
+
+            pm.Name = "Flight Path ";
+            //pm.StyleUrl = new Uri("#yellowLineGreenPoly", UriKind.Relative);
+            pm.Geometry = ls;
+
+            kml.AddFeature(pm);
+            
+            Serializer serializer = new Serializer();
+            serializer.Serialize(kml);
+
+            StreamWriter sw = new StreamWriter(outputFile);
+            sw.Write(serializer.Xml);
+            sw.Close();
+        }
+
+        static void GpsPositionReceived(object sender, EventArgs e)
+        {
+            GPSPosition pos = (GPSPosition)sender;
+            
+            coords.Add(new Vector(
+                Convert.ToDouble(pos.Latitude.getValue()) / 10000000f,
+                Convert.ToDouble(pos.Longitude.getValue()) / 10000000f,
+                Convert.ToDouble(pos.Altitude.getValue())
+                ));
+        }
+
+        static void test1()
+        {
+            HidChannel ch = new HidChannel(0x20A0, 0x415C);
+            UAVObjectManager mgr = new UAVObjectManager();
+            UAVObjectsInitialize.register(mgr);
+            UavTalk.UavTalkProto tlk = new UavTalkProto(ch, mgr);
+            ch.open();
+            tlk.sendObjectRequest(mgr.getObject<OPLinkSettings>(), false);
+            while (true)
+            {
+                var obj = mgr.getObject<OPLinkSettings>();
+                obj.CoordID.setValue((uint)0xE4C1B293);
+                tlk.sendObject(obj, false, false);
+                //tlk.sendObjectRequest(mgr.getObject<SystemStats>(),false);
+                Thread.Sleep(2000);
+            }
+
+        }
         // open a log file and export desired objects to csv
         static void test()
         {
             //SerialChannel ch = new SerialChannel("com11", 57600);
             //idChannel1 ch = new HidChannel1(0x20A0,0x415B);
             //HidChannel1 ch = new HidChannel1(0x20A0, 0x415C);
-            
+
             FileChannel ch = new FileChannel(@"C:\Users\mimmo\Google Drive\TauLabs-2013-06-18_18-44-06.tll");
             UAVObjectManager mgr = new UAVObjectManager();
             UAVObjectsInitialize.register(mgr);
-            UavTalk tlk = new UavTalk(ch, mgr);
+            UavTalkProto tlk = new UavTalkProto(ch, mgr);
 
             // export altitude data
             /*fields.Add(mgr.getObject<BaroAltitude>().Pressure, null);
@@ -61,7 +129,7 @@ namespace UavTalk
             fields.Add(mgr.getObject<FlightBatteryState>().ConsumedEnergy, null);
             fields.Add(mgr.getObject<FlightBatteryState>().EstimatedFlightTime, null);
             fields.Add(mgr.getObject<OPLinkStatus>().PairSignalStrengths, null);*/
-                        
+
             foreach (UAVObject uo in fields.Select(j => j.Key.parent).Distinct())
                 uo.onUpdated += uo_onUpdated;
 
@@ -79,7 +147,7 @@ namespace UavTalk
                 Thread.Sleep(2000);
             }
         }
-                        
+
         static void uo_onUpdated(object sender, EventArgs e)
         {
             UAVObject uav = (UAVObject)sender;
@@ -115,7 +183,8 @@ namespace UavTalk
                         {
                             wr.Write(sitem.ToString() + ";");
                         }
-                    } else
+                    }
+                    else
                         wr.Write(item.Value.ToString());
                 }
                 wr.Write(";");

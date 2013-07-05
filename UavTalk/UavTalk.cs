@@ -9,7 +9,7 @@ using System.Timers;
 
 namespace UavTalk
 {
-    public class UavTalk
+    public class UavTalkProto
     {
         private ICommChannel ch;
         private enum commState
@@ -89,7 +89,7 @@ namespace UavTalk
         private bool respAllInstances;
         private Timer statTimer;
 
-        public UavTalk(ICommChannel communicationChannel, UAVObjectManager objMgr)
+        public UavTalkProto(ICommChannel communicationChannel, UAVObjectManager objMgr)
         {
             this.objMgr = objMgr;
             rxState = commState.SYNC;

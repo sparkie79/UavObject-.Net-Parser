@@ -233,6 +233,11 @@ namespace UavTalk
 		    return getObject(name, 0, 0);
 	    }
 
+        public UAVObject getObject(Type type)
+        {
+            return getObject(type.Name, 0, 0);
+        }
+
 	    /**
 	     * Get a specific object given its name and instance ID
 	     * @returns The object is found or NULL if not

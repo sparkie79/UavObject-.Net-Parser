@@ -1,4 +1,4 @@
-﻿// Object ID: 2915493078
+﻿// Object ID: 2123264876
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class StabilizationDesired : UAVDataObject
 	{
-		public const long OBJID = 2915493078;
+		public const long OBJID = 2123264876;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "StabilizationDesired";
 	    protected static String DESCRIPTION = @"The desired attitude that @ref StabilizationModule will try and achieve if FlightMode is Stabilized.  Comes from @ref ManaulControlModule.";
@@ -29,20 +29,22 @@ namespace UavTalk
 			Rate = 1, 
 			[Description("Attitude")]
 			Attitude = 2, 
+			[Description("AttitudePlus")]
+			AttitudePlus = 3, 
 			[Description("AxisLock")]
-			AxisLock = 3, 
+			AxisLock = 4, 
 			[Description("WeakLeveling")]
-			WeakLeveling = 4, 
+			WeakLeveling = 5, 
 			[Description("VirtualBar")]
-			VirtualBar = 5, 
+			VirtualBar = 6, 
 			[Description("RelayRate")]
-			RelayRate = 6, 
+			RelayRate = 7, 
 			[Description("RelayAttitude")]
-			RelayAttitude = 7, 
+			RelayAttitude = 8, 
 			[Description("POI")]
-			POI = 8, 
+			POI = 9, 
 			[Description("CoordinatedFlight")]
-			CoordinatedFlight = 9, 
+			CoordinatedFlight = 10, 
 		}
 		public UAVObjectField<StabilizationModeUavEnum> StabilizationMode;
 
@@ -78,6 +80,7 @@ namespace UavTalk
 			StabilizationModeEnumOptions.Add("None");
 			StabilizationModeEnumOptions.Add("Rate");
 			StabilizationModeEnumOptions.Add("Attitude");
+			StabilizationModeEnumOptions.Add("AttitudePlus");
 			StabilizationModeEnumOptions.Add("AxisLock");
 			StabilizationModeEnumOptions.Add("WeakLeveling");
 			StabilizationModeEnumOptions.Add("VirtualBar");

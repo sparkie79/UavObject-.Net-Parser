@@ -1,4 +1,4 @@
-﻿// Object ID: 3341431406
+﻿// Object ID: 1866184368
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,14 +10,14 @@ namespace UavTalk
 {
 	public class SystemSettings : UAVDataObject
 	{
-		public const long OBJID = 3341431406;
+		public const long OBJID = 1866184368;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "SystemSettings";
 	    protected static String DESCRIPTION = @"Select airframe type.  Currently used by @ref ActuatorModule to choose mixing from @ref ActuatorDesired to @ref ActuatorCommand";
 		protected const bool ISSINGLEINST = true;
 		protected const bool ISSETTINGS = true;
 
-		public UAVObjectField<UInt32> GUIConfigData;
+		public UAVObjectField<UInt32> AirframeCategorySpecificConfiguration;
 		public enum AirframeTypeUavEnum
 		{
 			[Description("FixedWing")]
@@ -65,13 +65,13 @@ namespace UavTalk
 		{
 			List<UAVObjectField> fields = new List<UAVObjectField>();
 
-			List<String> GUIConfigDataElemNames = new List<String>();
-			GUIConfigDataElemNames.Add("0");
-			GUIConfigDataElemNames.Add("1");
-			GUIConfigDataElemNames.Add("2");
-			GUIConfigDataElemNames.Add("3");
-			GUIConfigData=new UAVObjectField<UInt32>("GUIConfigData", "bits", GUIConfigDataElemNames, null, this);
-			fields.Add(GUIConfigData);
+			List<String> AirframeCategorySpecificConfigurationElemNames = new List<String>();
+			AirframeCategorySpecificConfigurationElemNames.Add("0");
+			AirframeCategorySpecificConfigurationElemNames.Add("1");
+			AirframeCategorySpecificConfigurationElemNames.Add("2");
+			AirframeCategorySpecificConfigurationElemNames.Add("3");
+			AirframeCategorySpecificConfiguration=new UAVObjectField<UInt32>("AirframeCategorySpecificConfiguration", "bits", AirframeCategorySpecificConfigurationElemNames, null, this);
+			fields.Add(AirframeCategorySpecificConfiguration);
 
 			List<String> AirframeTypeElemNames = new List<String>();
 			AirframeTypeElemNames.Add("0");
@@ -138,10 +138,10 @@ namespace UavTalk
 		 */
 		public void setDefaultFieldValues()
 		{
-			GUIConfigData.setValue((UInt32)0,0);
-			GUIConfigData.setValue((UInt32)0,1);
-			GUIConfigData.setValue((UInt32)0,2);
-			GUIConfigData.setValue((UInt32)0,3);
+			AirframeCategorySpecificConfiguration.setValue((UInt32)0,0);
+			AirframeCategorySpecificConfiguration.setValue((UInt32)0,1);
+			AirframeCategorySpecificConfiguration.setValue((UInt32)0,2);
+			AirframeCategorySpecificConfiguration.setValue((UInt32)0,3);
 			AirframeType.setValue(AirframeTypeUavEnum.QuadX);
 		}
 

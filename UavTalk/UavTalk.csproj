@@ -1,11 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F1C961F7-85CC-4A36-BAD8-DA6653FBD334}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UavTalk</RootNamespace>
     <AssemblyName>UavTalk</AssemblyName>
@@ -81,6 +84,9 @@
   <ItemGroup>
     <Reference Include="HidLibrary">
       <HintPath>..\packages\hidlibrary.3.2.23.0\lib\HidLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip.Reduced">
+      <HintPath>..\packages\DotNetZip.Reduced.1.9.1.8\lib\net20\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -274,6 +280,9 @@
     <Compile Include="Magnetometer.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
+    <Compile Include="MagnetometerSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
     <Compile Include="ManualControlCommand.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
@@ -297,6 +306,9 @@
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="ObjectPersistence.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OPLinkReceiver.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="OPLinkSettings.cs">
@@ -327,7 +339,6 @@
     <Compile Include="PositionActual.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="channels\SerialChannel.cs" />
     <Compile Include="RateDesired.cs">
@@ -372,6 +383,12 @@
     <Compile Include="TaskInfo.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
+    <Compile Include="TrimAngles.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TrimAnglesSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
     <Compile Include="TxPIDSettings.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
@@ -413,6 +430,9 @@
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="WaypointActive.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WindVelocityActual.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
   </ItemGroup>

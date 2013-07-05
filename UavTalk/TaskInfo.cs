@@ -1,4 +1,4 @@
-﻿// Object ID: 2716312384
+﻿// Object ID: 2821398428
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class TaskInfo : UAVDataObject
 	{
-		public const long OBJID = 2716312384;
+		public const long OBJID = 2821398428;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "TaskInfo";
 	    protected static String DESCRIPTION = @"Task information";
@@ -40,6 +40,7 @@ namespace UavTalk
 			StackRemainingElemNames.Add("TelemetryTx");
 			StackRemainingElemNames.Add("TelemetryTxPri");
 			StackRemainingElemNames.Add("TelemetryRx");
+			StackRemainingElemNames.Add("RadioRx");
 			StackRemainingElemNames.Add("GPS");
 			StackRemainingElemNames.Add("ManualControl");
 			StackRemainingElemNames.Add("Altitude");
@@ -57,10 +58,12 @@ namespace UavTalk
 			StackRemainingElemNames.Add("ModemStat");
 			StackRemainingElemNames.Add("Autotune");
 			StackRemainingElemNames.Add("EventDispatcher");
-			StackRemainingElemNames.Add("GenericI2CSensor");
-			StackRemainingElemNames.Add("UAVOMavlinkBridge");
-			StackRemainingElemNames.Add("VibrationAnalysis");
-			StackRemainingElemNames.Add("Battery");
+			StackRemainingElemNames.Add("MagBaro");
+			StackRemainingElemNames.Add("OSDGen");
+			StackRemainingElemNames.Add("CallbackScheduler0");
+			StackRemainingElemNames.Add("CallbackScheduler1");
+			StackRemainingElemNames.Add("CallbackScheduler2");
+			StackRemainingElemNames.Add("CallbackScheduler3");
 			StackRemaining=new UAVObjectField<UInt16>("StackRemaining", "bytes", StackRemainingElemNames, null, this);
 			fields.Add(StackRemaining);
 
@@ -72,6 +75,7 @@ namespace UavTalk
 			RunningElemNames.Add("TelemetryTx");
 			RunningElemNames.Add("TelemetryTxPri");
 			RunningElemNames.Add("TelemetryRx");
+			RunningElemNames.Add("RadioRx");
 			RunningElemNames.Add("GPS");
 			RunningElemNames.Add("ManualControl");
 			RunningElemNames.Add("Altitude");
@@ -89,10 +93,12 @@ namespace UavTalk
 			RunningElemNames.Add("ModemStat");
 			RunningElemNames.Add("Autotune");
 			RunningElemNames.Add("EventDispatcher");
-			RunningElemNames.Add("GenericI2CSensor");
-			RunningElemNames.Add("UAVOMavlinkBridge");
-			RunningElemNames.Add("VibrationAnalysis");
-			RunningElemNames.Add("Battery");
+			RunningElemNames.Add("MagBaro");
+			RunningElemNames.Add("OSDGen");
+			RunningElemNames.Add("CallbackScheduler0");
+			RunningElemNames.Add("CallbackScheduler1");
+			RunningElemNames.Add("CallbackScheduler2");
+			RunningElemNames.Add("CallbackScheduler3");
 			List<String> RunningEnumOptions = new List<String>();
 			RunningEnumOptions.Add("False");
 			RunningEnumOptions.Add("True");
@@ -107,6 +113,7 @@ namespace UavTalk
 			RunningTimeElemNames.Add("TelemetryTx");
 			RunningTimeElemNames.Add("TelemetryTxPri");
 			RunningTimeElemNames.Add("TelemetryRx");
+			RunningTimeElemNames.Add("RadioRx");
 			RunningTimeElemNames.Add("GPS");
 			RunningTimeElemNames.Add("ManualControl");
 			RunningTimeElemNames.Add("Altitude");
@@ -124,10 +131,12 @@ namespace UavTalk
 			RunningTimeElemNames.Add("ModemStat");
 			RunningTimeElemNames.Add("Autotune");
 			RunningTimeElemNames.Add("EventDispatcher");
-			RunningTimeElemNames.Add("GenericI2CSensor");
-			RunningTimeElemNames.Add("UAVOMavlinkBridge");
-			RunningTimeElemNames.Add("VibrationAnalysis");
-			RunningTimeElemNames.Add("Battery");
+			RunningTimeElemNames.Add("MagBaro");
+			RunningTimeElemNames.Add("OSDGen");
+			RunningTimeElemNames.Add("CallbackScheduler0");
+			RunningTimeElemNames.Add("CallbackScheduler1");
+			RunningTimeElemNames.Add("CallbackScheduler2");
+			RunningTimeElemNames.Add("CallbackScheduler3");
 			RunningTime=new UAVObjectField<byte>("RunningTime", "%", RunningTimeElemNames, null, this);
 			fields.Add(RunningTime);
 

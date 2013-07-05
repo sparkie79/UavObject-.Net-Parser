@@ -1,4 +1,4 @@
-﻿// Object ID: 1549656906
+﻿// Object ID: 616980594
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class ManualControlSettings : UAVDataObject
 	{
-		public const long OBJID = 1549656906;
+		public const long OBJID = 616980594;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "ManualControlSettings";
 	    protected static String DESCRIPTION = @"Settings to indicate how to decode receiver input by @ref ManualControlModule.";
@@ -69,20 +69,22 @@ namespace UavTalk
 			Rate = 1, 
 			[Description("Attitude")]
 			Attitude = 2, 
+			[Description("AttitudePlus")]
+			AttitudePlus = 3, 
 			[Description("AxisLock")]
-			AxisLock = 3, 
+			AxisLock = 4, 
 			[Description("WeakLeveling")]
-			WeakLeveling = 4, 
+			WeakLeveling = 5, 
 			[Description("VirtualBar")]
-			VirtualBar = 5, 
+			VirtualBar = 6, 
 			[Description("RelayRate")]
-			RelayRate = 6, 
+			RelayRate = 7, 
 			[Description("RelayAttitude")]
-			RelayAttitude = 7, 
+			RelayAttitude = 8, 
 			[Description("POI")]
-			POI = 8, 
+			POI = 9, 
 			[Description("CoordinatedFlight")]
-			CoordinatedFlight = 9, 
+			CoordinatedFlight = 10, 
 		}
 		public UAVObjectField<Stabilization1SettingsUavEnum> Stabilization1Settings;
 		public enum Stabilization2SettingsUavEnum
@@ -93,20 +95,22 @@ namespace UavTalk
 			Rate = 1, 
 			[Description("Attitude")]
 			Attitude = 2, 
+			[Description("AttitudePlus")]
+			AttitudePlus = 3, 
 			[Description("AxisLock")]
-			AxisLock = 3, 
+			AxisLock = 4, 
 			[Description("WeakLeveling")]
-			WeakLeveling = 4, 
+			WeakLeveling = 5, 
 			[Description("VirtualBar")]
-			VirtualBar = 5, 
+			VirtualBar = 6, 
 			[Description("RelayRate")]
-			RelayRate = 6, 
+			RelayRate = 7, 
 			[Description("RelayAttitude")]
-			RelayAttitude = 7, 
+			RelayAttitude = 8, 
 			[Description("POI")]
-			POI = 8, 
+			POI = 9, 
 			[Description("CoordinatedFlight")]
-			CoordinatedFlight = 9, 
+			CoordinatedFlight = 10, 
 		}
 		public UAVObjectField<Stabilization2SettingsUavEnum> Stabilization2Settings;
 		public enum Stabilization3SettingsUavEnum
@@ -117,20 +121,22 @@ namespace UavTalk
 			Rate = 1, 
 			[Description("Attitude")]
 			Attitude = 2, 
+			[Description("AttitudePlus")]
+			AttitudePlus = 3, 
 			[Description("AxisLock")]
-			AxisLock = 3, 
+			AxisLock = 4, 
 			[Description("WeakLeveling")]
-			WeakLeveling = 4, 
+			WeakLeveling = 5, 
 			[Description("VirtualBar")]
-			VirtualBar = 5, 
+			VirtualBar = 6, 
 			[Description("RelayRate")]
-			RelayRate = 6, 
+			RelayRate = 7, 
 			[Description("RelayAttitude")]
-			RelayAttitude = 7, 
+			RelayAttitude = 8, 
 			[Description("POI")]
-			POI = 8, 
+			POI = 9, 
 			[Description("CoordinatedFlight")]
-			CoordinatedFlight = 9, 
+			CoordinatedFlight = 10, 
 		}
 		public UAVObjectField<Stabilization3SettingsUavEnum> Stabilization3Settings;
 		public UAVObjectField<byte> FlightModeNumber;
@@ -270,6 +276,7 @@ namespace UavTalk
 			Stabilization1SettingsEnumOptions.Add("None");
 			Stabilization1SettingsEnumOptions.Add("Rate");
 			Stabilization1SettingsEnumOptions.Add("Attitude");
+			Stabilization1SettingsEnumOptions.Add("AttitudePlus");
 			Stabilization1SettingsEnumOptions.Add("AxisLock");
 			Stabilization1SettingsEnumOptions.Add("WeakLeveling");
 			Stabilization1SettingsEnumOptions.Add("VirtualBar");
@@ -288,6 +295,7 @@ namespace UavTalk
 			Stabilization2SettingsEnumOptions.Add("None");
 			Stabilization2SettingsEnumOptions.Add("Rate");
 			Stabilization2SettingsEnumOptions.Add("Attitude");
+			Stabilization2SettingsEnumOptions.Add("AttitudePlus");
 			Stabilization2SettingsEnumOptions.Add("AxisLock");
 			Stabilization2SettingsEnumOptions.Add("WeakLeveling");
 			Stabilization2SettingsEnumOptions.Add("VirtualBar");
@@ -306,6 +314,7 @@ namespace UavTalk
 			Stabilization3SettingsEnumOptions.Add("None");
 			Stabilization3SettingsEnumOptions.Add("Rate");
 			Stabilization3SettingsEnumOptions.Add("Attitude");
+			Stabilization3SettingsEnumOptions.Add("AttitudePlus");
 			Stabilization3SettingsEnumOptions.Add("AxisLock");
 			Stabilization3SettingsEnumOptions.Add("WeakLeveling");
 			Stabilization3SettingsEnumOptions.Add("VirtualBar");

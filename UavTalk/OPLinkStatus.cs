@@ -1,4 +1,4 @@
-﻿// Object ID: 635577328
+﻿// Object ID: 1721521634
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class OPLinkStatus : UAVDataObject
 	{
-		public const long OBJID = 635577328;
+		public const long OBJID = 1721521634;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "OPLinkStatus";
 	    protected static String DESCRIPTION = @"OPLink device status.";
@@ -20,6 +20,7 @@ namespace UavTalk
 		public UAVObjectField<UInt32> DeviceID;
 		public UAVObjectField<UInt32> PairIDs;
 		public UAVObjectField<UInt16> BoardRevision;
+		public UAVObjectField<UInt16> HeapRemaining;
 		public UAVObjectField<UInt16> UAVTalkErrors;
 		public UAVObjectField<UInt16> TXRate;
 		public UAVObjectField<UInt16> RXRate;
@@ -39,7 +40,6 @@ namespace UavTalk
 		public UAVObjectField<byte> Resets;
 		public UAVObjectField<byte> Timeouts;
 		public UAVObjectField<sbyte> RSSI;
-		public UAVObjectField<sbyte> AFCCorrection;
 		public UAVObjectField<byte> LinkQuality;
 		public enum LinkStateUavEnum
 		{
@@ -59,7 +59,7 @@ namespace UavTalk
 
 			List<String> DeviceIDElemNames = new List<String>();
 			DeviceIDElemNames.Add("0");
-			DeviceID=new UAVObjectField<UInt32>("DeviceID", "", DeviceIDElemNames, null, this);
+			DeviceID=new UAVObjectField<UInt32>("DeviceID", "hex", DeviceIDElemNames, null, this);
 			fields.Add(DeviceID);
 
 			List<String> PairIDsElemNames = new List<String>();
@@ -67,13 +67,18 @@ namespace UavTalk
 			PairIDsElemNames.Add("1");
 			PairIDsElemNames.Add("2");
 			PairIDsElemNames.Add("3");
-			PairIDs=new UAVObjectField<UInt32>("PairIDs", "", PairIDsElemNames, null, this);
+			PairIDs=new UAVObjectField<UInt32>("PairIDs", "hex", PairIDsElemNames, null, this);
 			fields.Add(PairIDs);
 
 			List<String> BoardRevisionElemNames = new List<String>();
 			BoardRevisionElemNames.Add("0");
 			BoardRevision=new UAVObjectField<UInt16>("BoardRevision", "", BoardRevisionElemNames, null, this);
 			fields.Add(BoardRevision);
+
+			List<String> HeapRemainingElemNames = new List<String>();
+			HeapRemainingElemNames.Add("0");
+			HeapRemaining=new UAVObjectField<UInt16>("HeapRemaining", "bytes", HeapRemainingElemNames, null, this);
+			fields.Add(HeapRemaining);
 
 			List<String> UAVTalkErrorsElemNames = new List<String>();
 			UAVTalkErrorsElemNames.Add("0");
@@ -157,7 +162,7 @@ namespace UavTalk
 			CPUSerialElemNames.Add("9");
 			CPUSerialElemNames.Add("10");
 			CPUSerialElemNames.Add("11");
-			CPUSerial=new UAVObjectField<byte>("CPUSerial", "", CPUSerialElemNames, null, this);
+			CPUSerial=new UAVObjectField<byte>("CPUSerial", "hex", CPUSerialElemNames, null, this);
 			fields.Add(CPUSerial);
 
 			List<String> BoardTypeElemNames = new List<String>();
@@ -220,11 +225,6 @@ namespace UavTalk
 			RSSI=new UAVObjectField<sbyte>("RSSI", "dBm", RSSIElemNames, null, this);
 			fields.Add(RSSI);
 
-			List<String> AFCCorrectionElemNames = new List<String>();
-			AFCCorrectionElemNames.Add("0");
-			AFCCorrection=new UAVObjectField<sbyte>("AFCCorrection", "Hz", AFCCorrectionElemNames, null, this);
-			fields.Add(AFCCorrection);
-
 			List<String> LinkQualityElemNames = new List<String>();
 			LinkQualityElemNames.Add("0");
 			LinkQuality=new UAVObjectField<byte>("LinkQuality", "", LinkQualityElemNames, null, this);
@@ -271,9 +271,9 @@ namespace UavTalk
 				(int)AccessMode.ACCESS_READONLY << Metadata.UAVOBJ_GCS_ACCESS_SHIFT |
 				0 << Metadata.UAVOBJ_TELEMETRY_ACKED_SHIFT |
 				0 << Metadata.UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
-				(int)UPDATEMODE.UPDATEMODE_PERIODIC << Metadata.UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+				(int)UPDATEMODE.UPDATEMODE_THROTTLED << Metadata.UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
 				(int)UPDATEMODE.UPDATEMODE_MANUAL << Metadata.UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
-    		metadata.flightTelemetryUpdatePeriod = 1000;
+    		metadata.flightTelemetryUpdatePeriod = 500;
     		metadata.gcsTelemetryUpdatePeriod = 0;
     		metadata.loggingUpdatePeriod = 1000;
  
@@ -308,7 +308,6 @@ namespace UavTalk
 			Resets.setValue((byte)0);
 			Timeouts.setValue((byte)0);
 			RSSI.setValue((sbyte)0);
-			AFCCorrection.setValue((sbyte)0);
 			LinkQuality.setValue((byte)0);
 			LinkState.setValue(LinkStateUavEnum.Disconnected);
 			PairSignalStrengths.setValue((sbyte)-127,0);

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace UavTalk
 {
-    class HidChannel : ICommChannel
+    public class HidChannel : ICommChannel
     {
         private int _isReading;
 
