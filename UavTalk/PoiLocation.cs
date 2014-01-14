@@ -64,7 +64,7 @@ namespace UavTalk
 				(int)AccessMode.ACCESS_READWRITE << Metadata.UAVOBJ_GCS_ACCESS_SHIFT |
 				0 << Metadata.UAVOBJ_TELEMETRY_ACKED_SHIFT |
 				0 << Metadata.UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
-				(int)UPDATEMODE.UPDATEMODE_THROTTLED << Metadata.UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+				(int)UPDATEMODE.UPDATEMODE_PERIODIC << Metadata.UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
 				(int)UPDATEMODE.UPDATEMODE_MANUAL << Metadata.UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
     		metadata.flightTelemetryUpdatePeriod = 1000;
     		metadata.gcsTelemetryUpdatePeriod = 0;

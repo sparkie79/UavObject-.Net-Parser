@@ -1,4 +1,4 @@
-﻿// Object ID: 2635022286
+﻿// Object ID: 3285829802
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class FlightBatterySettings : UAVDataObject
 	{
-		public const long OBJID = 2635022286;
+		public const long OBJID = 3285829802;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "FlightBatterySettings";
 	    protected static String DESCRIPTION = @"Flight Battery configuration.";
@@ -18,7 +18,7 @@ namespace UavTalk
 		protected const bool ISSETTINGS = true;
 
 		public UAVObjectField<UInt32> Capacity;
-		public UAVObjectField<float> VoltageThresholds;
+		public UAVObjectField<float> CellVoltageThresholds;
 		public UAVObjectField<float> SensorCalibrations;
 		public enum TypeUavEnum
 		{
@@ -35,14 +35,6 @@ namespace UavTalk
 		}
 		public UAVObjectField<TypeUavEnum> Type;
 		public UAVObjectField<byte> NbCells;
-		public enum SensorTypeUavEnum
-		{
-			[Description("Disabled")]
-			Disabled = 0, 
-			[Description("Enabled")]
-			Enabled = 1, 
-		}
-		public UAVObjectField<SensorTypeUavEnum> SensorType;
 
 		public FlightBatterySettings() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
 		{
@@ -53,15 +45,17 @@ namespace UavTalk
 			Capacity=new UAVObjectField<UInt32>("Capacity", "mAh", CapacityElemNames, null, this);
 			fields.Add(Capacity);
 
-			List<String> VoltageThresholdsElemNames = new List<String>();
-			VoltageThresholdsElemNames.Add("Warning");
-			VoltageThresholdsElemNames.Add("Alarm");
-			VoltageThresholds=new UAVObjectField<float>("VoltageThresholds", "V", VoltageThresholdsElemNames, null, this);
-			fields.Add(VoltageThresholds);
+			List<String> CellVoltageThresholdsElemNames = new List<String>();
+			CellVoltageThresholdsElemNames.Add("Warning");
+			CellVoltageThresholdsElemNames.Add("Alarm");
+			CellVoltageThresholds=new UAVObjectField<float>("CellVoltageThresholds", "V", CellVoltageThresholdsElemNames, null, this);
+			fields.Add(CellVoltageThresholds);
 
 			List<String> SensorCalibrationsElemNames = new List<String>();
 			SensorCalibrationsElemNames.Add("VoltageFactor");
 			SensorCalibrationsElemNames.Add("CurrentFactor");
+			SensorCalibrationsElemNames.Add("VoltageZero");
+			SensorCalibrationsElemNames.Add("CurrentZero");
 			SensorCalibrations=new UAVObjectField<float>("SensorCalibrations", "", SensorCalibrationsElemNames, null, this);
 			fields.Add(SensorCalibrations);
 
@@ -80,15 +74,6 @@ namespace UavTalk
 			NbCellsElemNames.Add("0");
 			NbCells=new UAVObjectField<byte>("NbCells", "", NbCellsElemNames, null, this);
 			fields.Add(NbCells);
-
-			List<String> SensorTypeElemNames = new List<String>();
-			SensorTypeElemNames.Add("BatteryCurrent");
-			SensorTypeElemNames.Add("BatteryVoltage");
-			List<String> SensorTypeEnumOptions = new List<String>();
-			SensorTypeEnumOptions.Add("Disabled");
-			SensorTypeEnumOptions.Add("Enabled");
-			SensorType=new UAVObjectField<SensorTypeUavEnum>("SensorType", "", SensorTypeElemNames, SensorTypeEnumOptions, this);
-			fields.Add(SensorType);
 
 	
 
@@ -131,14 +116,14 @@ namespace UavTalk
 		public void setDefaultFieldValues()
 		{
 			Capacity.setValue((UInt32)2200);
-			VoltageThresholds.setValue((float)9.8,0);
-			VoltageThresholds.setValue((float)9.2,1);
+			CellVoltageThresholds.setValue((float)3.4,0);
+			CellVoltageThresholds.setValue((float)3.1,1);
 			SensorCalibrations.setValue((float)1,0);
 			SensorCalibrations.setValue((float)1,1);
+			SensorCalibrations.setValue((float)0,2);
+			SensorCalibrations.setValue((float)0,3);
 			Type.setValue(TypeUavEnum.LiPo);
 			NbCells.setValue((byte)3);
-			SensorType.setValue(SensorTypeUavEnum.Enabled,0);
-			SensorType.setValue(SensorTypeUavEnum.Enabled,1);
 		}
 
 		/**

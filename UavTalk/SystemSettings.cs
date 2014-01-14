@@ -1,4 +1,4 @@
-﻿// Object ID: 1866184368
+﻿// Object ID: 1096246330
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,14 +10,16 @@ namespace UavTalk
 {
 	public class SystemSettings : UAVDataObject
 	{
-		public const long OBJID = 1866184368;
+		public const long OBJID = 1096246330;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "SystemSettings";
 	    protected static String DESCRIPTION = @"Select airframe type.  Currently used by @ref ActuatorModule to choose mixing from @ref ActuatorDesired to @ref ActuatorCommand";
 		protected const bool ISSINGLEINST = true;
 		protected const bool ISSETTINGS = true;
 
-		public UAVObjectField<UInt32> AirframeCategorySpecificConfiguration;
+		public UAVObjectField<UInt32> GUIConfigData;
+		public UAVObjectField<float> AirSpeedMax;
+		public UAVObjectField<float> AirSpeedMin;
 		public enum AirframeTypeUavEnum
 		{
 			[Description("FixedWing")]
@@ -65,13 +67,23 @@ namespace UavTalk
 		{
 			List<UAVObjectField> fields = new List<UAVObjectField>();
 
-			List<String> AirframeCategorySpecificConfigurationElemNames = new List<String>();
-			AirframeCategorySpecificConfigurationElemNames.Add("0");
-			AirframeCategorySpecificConfigurationElemNames.Add("1");
-			AirframeCategorySpecificConfigurationElemNames.Add("2");
-			AirframeCategorySpecificConfigurationElemNames.Add("3");
-			AirframeCategorySpecificConfiguration=new UAVObjectField<UInt32>("AirframeCategorySpecificConfiguration", "bits", AirframeCategorySpecificConfigurationElemNames, null, this);
-			fields.Add(AirframeCategorySpecificConfiguration);
+			List<String> GUIConfigDataElemNames = new List<String>();
+			GUIConfigDataElemNames.Add("0");
+			GUIConfigDataElemNames.Add("1");
+			GUIConfigDataElemNames.Add("2");
+			GUIConfigDataElemNames.Add("3");
+			GUIConfigData=new UAVObjectField<UInt32>("GUIConfigData", "bits", GUIConfigDataElemNames, null, this);
+			fields.Add(GUIConfigData);
+
+			List<String> AirSpeedMaxElemNames = new List<String>();
+			AirSpeedMaxElemNames.Add("0");
+			AirSpeedMax=new UAVObjectField<float>("AirSpeedMax", "m/s", AirSpeedMaxElemNames, null, this);
+			fields.Add(AirSpeedMax);
+
+			List<String> AirSpeedMinElemNames = new List<String>();
+			AirSpeedMinElemNames.Add("0");
+			AirSpeedMin=new UAVObjectField<float>("AirSpeedMin", "m/s", AirSpeedMinElemNames, null, this);
+			fields.Add(AirSpeedMin);
 
 			List<String> AirframeTypeElemNames = new List<String>();
 			AirframeTypeElemNames.Add("0");
@@ -138,10 +150,12 @@ namespace UavTalk
 		 */
 		public void setDefaultFieldValues()
 		{
-			AirframeCategorySpecificConfiguration.setValue((UInt32)0,0);
-			AirframeCategorySpecificConfiguration.setValue((UInt32)0,1);
-			AirframeCategorySpecificConfiguration.setValue((UInt32)0,2);
-			AirframeCategorySpecificConfiguration.setValue((UInt32)0,3);
+			GUIConfigData.setValue((UInt32)0,0);
+			GUIConfigData.setValue((UInt32)0,1);
+			GUIConfigData.setValue((UInt32)0,2);
+			GUIConfigData.setValue((UInt32)0,3);
+			AirSpeedMax.setValue((float)30);
+			AirSpeedMin.setValue((float)10);
 			AirframeType.setValue(AirframeTypeUavEnum.QuadX);
 		}
 

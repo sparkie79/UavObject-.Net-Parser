@@ -1,4 +1,4 @@
-﻿// Object ID: 283879042
+﻿// Object ID: 1636162670
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class HomeLocation : UAVDataObject
 	{
-		public const long OBJID = 283879042;
+		public const long OBJID = 1636162670;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "HomeLocation";
 	    protected static String DESCRIPTION = @"HomeLocation setting which contains the constants to tranlate from longitutde and latitude to NED reference frame.  Automatically set by @ref GPSModule after acquiring a 3D lock.  Used by @ref AHRSCommsModule.";
@@ -21,7 +21,7 @@ namespace UavTalk
 		public UAVObjectField<Int32> Longitude;
 		public UAVObjectField<float> Altitude;
 		public UAVObjectField<float> Be;
-		public UAVObjectField<UInt16> SeaLevelPressure;
+		public UAVObjectField<float> g_e;
 		public enum SetUavEnum
 		{
 			[Description("FALSE")]
@@ -30,7 +30,6 @@ namespace UavTalk
 			TRUE = 1, 
 		}
 		public UAVObjectField<SetUavEnum> Set;
-		public UAVObjectField<sbyte> GroundTemperature;
 
 		public HomeLocation() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
 		{
@@ -58,10 +57,10 @@ namespace UavTalk
 			Be=new UAVObjectField<float>("Be", "", BeElemNames, null, this);
 			fields.Add(Be);
 
-			List<String> SeaLevelPressureElemNames = new List<String>();
-			SeaLevelPressureElemNames.Add("0");
-			SeaLevelPressure=new UAVObjectField<UInt16>("SeaLevelPressure", "millibar", SeaLevelPressureElemNames, null, this);
-			fields.Add(SeaLevelPressure);
+			List<String> g_eElemNames = new List<String>();
+			g_eElemNames.Add("0");
+			g_e=new UAVObjectField<float>("g_e", "m/s^2", g_eElemNames, null, this);
+			fields.Add(g_e);
 
 			List<String> SetElemNames = new List<String>();
 			SetElemNames.Add("0");
@@ -70,11 +69,6 @@ namespace UavTalk
 			SetEnumOptions.Add("TRUE");
 			Set=new UAVObjectField<SetUavEnum>("Set", "", SetElemNames, SetEnumOptions, this);
 			fields.Add(Set);
-
-			List<String> GroundTemperatureElemNames = new List<String>();
-			GroundTemperatureElemNames.Add("0");
-			GroundTemperature=new UAVObjectField<sbyte>("GroundTemperature", "deg C", GroundTemperatureElemNames, null, this);
-			fields.Add(GroundTemperature);
 
 	
 
@@ -122,9 +116,8 @@ namespace UavTalk
 			Be.setValue((float)0,0);
 			Be.setValue((float)0,1);
 			Be.setValue((float)0,2);
-			SeaLevelPressure.setValue((UInt16)1013);
+			g_e.setValue((float)981);
 			Set.setValue(SetUavEnum.FALSE);
-			GroundTemperature.setValue((sbyte)15);
 		}
 
 		/**

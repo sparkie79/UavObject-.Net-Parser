@@ -1,4 +1,4 @@
-﻿// Object ID: 2747679346
+﻿// Object ID: 700566558
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class ActuatorSettings : UAVDataObject
 	{
-		public const long OBJID = 2747679346;
+		public const long OBJID = 700566558;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "ActuatorSettings";
 	    protected static String DESCRIPTION = @"Settings for the @ref ActuatorModule that controls the channel assignments for the mixer based on AircraftType";
@@ -72,6 +72,8 @@ namespace UavTalk
 			ChannelMaxElemNames.Add("7");
 			ChannelMaxElemNames.Add("8");
 			ChannelMaxElemNames.Add("9");
+			ChannelMaxElemNames.Add("10");
+			ChannelMaxElemNames.Add("11");
 			ChannelMax=new UAVObjectField<Int16>("ChannelMax", "us", ChannelMaxElemNames, null, this);
 			fields.Add(ChannelMax);
 
@@ -86,6 +88,8 @@ namespace UavTalk
 			ChannelNeutralElemNames.Add("7");
 			ChannelNeutralElemNames.Add("8");
 			ChannelNeutralElemNames.Add("9");
+			ChannelNeutralElemNames.Add("10");
+			ChannelNeutralElemNames.Add("11");
 			ChannelNeutral=new UAVObjectField<Int16>("ChannelNeutral", "us", ChannelNeutralElemNames, null, this);
 			fields.Add(ChannelNeutral);
 
@@ -100,6 +104,8 @@ namespace UavTalk
 			ChannelMinElemNames.Add("7");
 			ChannelMinElemNames.Add("8");
 			ChannelMinElemNames.Add("9");
+			ChannelMinElemNames.Add("10");
+			ChannelMinElemNames.Add("11");
 			ChannelMin=new UAVObjectField<Int16>("ChannelMin", "us", ChannelMinElemNames, null, this);
 			fields.Add(ChannelMin);
 
@@ -114,6 +120,8 @@ namespace UavTalk
 			ChannelTypeElemNames.Add("7");
 			ChannelTypeElemNames.Add("8");
 			ChannelTypeElemNames.Add("9");
+			ChannelTypeElemNames.Add("10");
+			ChannelTypeElemNames.Add("11");
 			List<String> ChannelTypeEnumOptions = new List<String>();
 			ChannelTypeEnumOptions.Add("PWM");
 			ChannelTypeEnumOptions.Add("MK");
@@ -135,6 +143,8 @@ namespace UavTalk
 			ChannelAddrElemNames.Add("7");
 			ChannelAddrElemNames.Add("8");
 			ChannelAddrElemNames.Add("9");
+			ChannelAddrElemNames.Add("10");
+			ChannelAddrElemNames.Add("11");
 			ChannelAddr=new UAVObjectField<byte>("ChannelAddr", "", ChannelAddrElemNames, null, this);
 			fields.Add(ChannelAddr);
 
@@ -202,6 +212,8 @@ namespace UavTalk
 			ChannelMax.setValue((Int16)1000,7);
 			ChannelMax.setValue((Int16)1000,8);
 			ChannelMax.setValue((Int16)1000,9);
+			ChannelMax.setValue((Int16)1000,10);
+			ChannelMax.setValue((Int16)1000,11);
 			ChannelNeutral.setValue((Int16)1000,0);
 			ChannelNeutral.setValue((Int16)1000,1);
 			ChannelNeutral.setValue((Int16)1000,2);
@@ -212,6 +224,8 @@ namespace UavTalk
 			ChannelNeutral.setValue((Int16)1000,7);
 			ChannelNeutral.setValue((Int16)1000,8);
 			ChannelNeutral.setValue((Int16)1000,9);
+			ChannelNeutral.setValue((Int16)1000,10);
+			ChannelNeutral.setValue((Int16)1000,11);
 			ChannelMin.setValue((Int16)1000,0);
 			ChannelMin.setValue((Int16)1000,1);
 			ChannelMin.setValue((Int16)1000,2);
@@ -222,6 +236,8 @@ namespace UavTalk
 			ChannelMin.setValue((Int16)1000,7);
 			ChannelMin.setValue((Int16)1000,8);
 			ChannelMin.setValue((Int16)1000,9);
+			ChannelMin.setValue((Int16)1000,10);
+			ChannelMin.setValue((Int16)1000,11);
 			ChannelType.setValue(ChannelTypeUavEnum.PWM,0);
 			ChannelType.setValue(ChannelTypeUavEnum.PWM,1);
 			ChannelType.setValue(ChannelTypeUavEnum.PWM,2);
@@ -232,6 +248,8 @@ namespace UavTalk
 			ChannelType.setValue(ChannelTypeUavEnum.PWM,7);
 			ChannelType.setValue(ChannelTypeUavEnum.PWM,8);
 			ChannelType.setValue(ChannelTypeUavEnum.PWM,9);
+			ChannelType.setValue(ChannelTypeUavEnum.PWM,10);
+			ChannelType.setValue(ChannelTypeUavEnum.PWM,11);
 			ChannelAddr.setValue((byte)0,0);
 			ChannelAddr.setValue((byte)1,1);
 			ChannelAddr.setValue((byte)2,2);
@@ -242,6 +260,8 @@ namespace UavTalk
 			ChannelAddr.setValue((byte)7,7);
 			ChannelAddr.setValue((byte)8,8);
 			ChannelAddr.setValue((byte)9,9);
+			ChannelAddr.setValue((byte)10,10);
+			ChannelAddr.setValue((byte)11,11);
 			MotorsSpinWhileArmed.setValue(MotorsSpinWhileArmedUavEnum.FALSE);
 		}
 

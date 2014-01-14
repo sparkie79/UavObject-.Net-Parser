@@ -1,4 +1,4 @@
-﻿// Object ID: 87182520
+﻿// Object ID: 3089276900
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class ActuatorCommand : UAVDataObject
 	{
-		public const long OBJID = 87182520;
+		public const long OBJID = 3089276900;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "ActuatorCommand";
 	    protected static String DESCRIPTION = @"Contains the pulse duration sent to each of the channels.  Set by @ref ActuatorModule";
@@ -18,8 +18,8 @@ namespace UavTalk
 		protected const bool ISSETTINGS = false;
 
 		public UAVObjectField<Int16> Channel;
+		public UAVObjectField<UInt16> UpdateTime;
 		public UAVObjectField<UInt16> MaxUpdateTime;
-		public UAVObjectField<byte> UpdateTime;
 		public UAVObjectField<byte> NumFailedUpdates;
 
 		public ActuatorCommand() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
@@ -37,18 +37,20 @@ namespace UavTalk
 			ChannelElemNames.Add("7");
 			ChannelElemNames.Add("8");
 			ChannelElemNames.Add("9");
+			ChannelElemNames.Add("10");
+			ChannelElemNames.Add("11");
 			Channel=new UAVObjectField<Int16>("Channel", "us", ChannelElemNames, null, this);
 			fields.Add(Channel);
+
+			List<String> UpdateTimeElemNames = new List<String>();
+			UpdateTimeElemNames.Add("0");
+			UpdateTime=new UAVObjectField<UInt16>("UpdateTime", "ms", UpdateTimeElemNames, null, this);
+			fields.Add(UpdateTime);
 
 			List<String> MaxUpdateTimeElemNames = new List<String>();
 			MaxUpdateTimeElemNames.Add("0");
 			MaxUpdateTime=new UAVObjectField<UInt16>("MaxUpdateTime", "ms", MaxUpdateTimeElemNames, null, this);
 			fields.Add(MaxUpdateTime);
-
-			List<String> UpdateTimeElemNames = new List<String>();
-			UpdateTimeElemNames.Add("0");
-			UpdateTime=new UAVObjectField<byte>("UpdateTime", "ms", UpdateTimeElemNames, null, this);
-			fields.Add(UpdateTime);
 
 			List<String> NumFailedUpdatesElemNames = new List<String>();
 			NumFailedUpdatesElemNames.Add("0");

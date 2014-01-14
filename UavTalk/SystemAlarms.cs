@@ -1,4 +1,4 @@
-﻿// Object ID: 2588107218
+﻿// Object ID: 493935428
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,10 +10,10 @@ namespace UavTalk
 {
 	public class SystemAlarms : UAVDataObject
 	{
-		public const long OBJID = 2588107218;
+		public const long OBJID = 493935428;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "SystemAlarms";
-	    protected static String DESCRIPTION = @"Alarms from OpenPilot to indicate failure conditions or warnings.  Set by various modules.";
+	    protected static String DESCRIPTION = @"Alarms from OpenPilot to indicate failure conditions or warnings.  Set by various modules.  Some modules may have a module defined Status and Substatus fields that details its condition.";
 		protected const bool ISSINGLEINST = true;
 		protected const bool ISSETTINGS = false;
 
@@ -31,54 +31,28 @@ namespace UavTalk
 			Critical = 4, 
 		}
 		public UAVObjectField<AlarmUavEnum> Alarm;
-		public enum ConfigErrorUavEnum
+		public enum ExtendedAlarmStatusUavEnum
 		{
-			[Description("Stabilization")]
-			Stabilization = 0, 
-			[Description("Multirotor")]
-			Multirotor = 1, 
-			[Description("AutoTune")]
-			AutoTune = 2, 
-			[Description("AltitudeHold")]
-			AltitudeHold = 3, 
-			[Description("VelocityControl")]
-			VelocityControl = 4, 
-			[Description("PositionHold")]
-			PositionHold = 5, 
-			[Description("PathPlanner")]
-			PathPlanner = 6, 
-			[Description("Undefined")]
-			Undefined = 7, 
 			[Description("None")]
-			None = 8, 
+			None = 0, 
+			[Description("RebootRequired")]
+			RebootRequired = 1, 
+			[Description("FlightMode")]
+			FlightMode = 2, 
 		}
-		public UAVObjectField<ConfigErrorUavEnum> ConfigError;
-		public enum ManualControlUavEnum
-		{
-			[Description("Settings")]
-			Settings = 0, 
-			[Description("NoRx")]
-			NoRx = 1, 
-			[Description("Accessory")]
-			Accessory = 2, 
-			[Description("AltitudeHold")]
-			AltitudeHold = 3, 
-			[Description("Undefined")]
-			Undefined = 4, 
-			[Description("None")]
-			None = 5, 
-		}
-		public UAVObjectField<ManualControlUavEnum> ManualControl;
+		public UAVObjectField<ExtendedAlarmStatusUavEnum> ExtendedAlarmStatus;
+		public UAVObjectField<byte> ExtendedAlarmSubStatus;
 
 		public SystemAlarms() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
 		{
 			List<UAVObjectField> fields = new List<UAVObjectField>();
 
 			List<String> AlarmElemNames = new List<String>();
-			AlarmElemNames.Add("OutOfMemory");
-			AlarmElemNames.Add("CPUOverload");
-			AlarmElemNames.Add("StackOverflow");
 			AlarmElemNames.Add("SystemConfiguration");
+			AlarmElemNames.Add("BootFault");
+			AlarmElemNames.Add("OutOfMemory");
+			AlarmElemNames.Add("StackOverflow");
+			AlarmElemNames.Add("CPUOverload");
 			AlarmElemNames.Add("EventSystem");
 			AlarmElemNames.Add("Telemetry");
 			AlarmElemNames.Add("ManualControl");
@@ -86,13 +60,12 @@ namespace UavTalk
 			AlarmElemNames.Add("Attitude");
 			AlarmElemNames.Add("Sensors");
 			AlarmElemNames.Add("Stabilization");
-			AlarmElemNames.Add("PathFollower");
-			AlarmElemNames.Add("PathPlanner");
+			AlarmElemNames.Add("Guidance");
 			AlarmElemNames.Add("Battery");
 			AlarmElemNames.Add("FlightTime");
 			AlarmElemNames.Add("I2C");
 			AlarmElemNames.Add("GPS");
-			AlarmElemNames.Add("BootFault");
+			AlarmElemNames.Add("Power");
 			List<String> AlarmEnumOptions = new List<String>();
 			AlarmEnumOptions.Add("Uninitialised");
 			AlarmEnumOptions.Add("OK");
@@ -102,32 +75,21 @@ namespace UavTalk
 			Alarm=new UAVObjectField<AlarmUavEnum>("Alarm", "", AlarmElemNames, AlarmEnumOptions, this);
 			fields.Add(Alarm);
 
-			List<String> ConfigErrorElemNames = new List<String>();
-			ConfigErrorElemNames.Add("0");
-			List<String> ConfigErrorEnumOptions = new List<String>();
-			ConfigErrorEnumOptions.Add("Stabilization");
-			ConfigErrorEnumOptions.Add("Multirotor");
-			ConfigErrorEnumOptions.Add("AutoTune");
-			ConfigErrorEnumOptions.Add("AltitudeHold");
-			ConfigErrorEnumOptions.Add("VelocityControl");
-			ConfigErrorEnumOptions.Add("PositionHold");
-			ConfigErrorEnumOptions.Add("PathPlanner");
-			ConfigErrorEnumOptions.Add("Undefined");
-			ConfigErrorEnumOptions.Add("None");
-			ConfigError=new UAVObjectField<ConfigErrorUavEnum>("ConfigError", "", ConfigErrorElemNames, ConfigErrorEnumOptions, this);
-			fields.Add(ConfigError);
+			List<String> ExtendedAlarmStatusElemNames = new List<String>();
+			ExtendedAlarmStatusElemNames.Add("SystemConfiguration");
+			ExtendedAlarmStatusElemNames.Add("BootFault");
+			List<String> ExtendedAlarmStatusEnumOptions = new List<String>();
+			ExtendedAlarmStatusEnumOptions.Add("None");
+			ExtendedAlarmStatusEnumOptions.Add("RebootRequired");
+			ExtendedAlarmStatusEnumOptions.Add("FlightMode");
+			ExtendedAlarmStatus=new UAVObjectField<ExtendedAlarmStatusUavEnum>("ExtendedAlarmStatus", "", ExtendedAlarmStatusElemNames, ExtendedAlarmStatusEnumOptions, this);
+			fields.Add(ExtendedAlarmStatus);
 
-			List<String> ManualControlElemNames = new List<String>();
-			ManualControlElemNames.Add("0");
-			List<String> ManualControlEnumOptions = new List<String>();
-			ManualControlEnumOptions.Add("Settings");
-			ManualControlEnumOptions.Add("NoRx");
-			ManualControlEnumOptions.Add("Accessory");
-			ManualControlEnumOptions.Add("AltitudeHold");
-			ManualControlEnumOptions.Add("Undefined");
-			ManualControlEnumOptions.Add("None");
-			ManualControl=new UAVObjectField<ManualControlUavEnum>("ManualControl", "", ManualControlElemNames, ManualControlEnumOptions, this);
-			fields.Add(ManualControl);
+			List<String> ExtendedAlarmSubStatusElemNames = new List<String>();
+			ExtendedAlarmSubStatusElemNames.Add("SystemConfiguration");
+			ExtendedAlarmSubStatusElemNames.Add("BootFault");
+			ExtendedAlarmSubStatus=new UAVObjectField<byte>("ExtendedAlarmSubStatus", "", ExtendedAlarmSubStatusElemNames, null, this);
+			fields.Add(ExtendedAlarmSubStatus);
 
 	
 
@@ -187,8 +149,10 @@ namespace UavTalk
 			Alarm.setValue(AlarmUavEnum.Uninitialised,15);
 			Alarm.setValue(AlarmUavEnum.Uninitialised,16);
 			Alarm.setValue(AlarmUavEnum.Uninitialised,17);
-			ConfigError.setValue(ConfigErrorUavEnum.None);
-			ManualControl.setValue(ManualControlUavEnum.None);
+			ExtendedAlarmStatus.setValue(ExtendedAlarmStatusUavEnum.None,0);
+			ExtendedAlarmStatus.setValue(ExtendedAlarmStatusUavEnum.None,1);
+			ExtendedAlarmSubStatus.setValue((byte)0,0);
+			ExtendedAlarmSubStatus.setValue((byte)0,1);
 		}
 
 		/**

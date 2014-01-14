@@ -1,4 +1,4 @@
-﻿// Object ID: 1961243348
+﻿// Object ID: 1732092470
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class SystemStats : UAVDataObject
 	{
-		public const long OBJID = 1961243348;
+		public const long OBJID = 1732092470;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "SystemStats";
 	    protected static String DESCRIPTION = @"CPU and memory usage from OpenPilot computer. ";
@@ -18,11 +18,15 @@ namespace UavTalk
 		protected const bool ISSETTINGS = false;
 
 		public UAVObjectField<UInt32> FlightTime;
-		public UAVObjectField<UInt32> HeapRemaining;
 		public UAVObjectField<UInt32> EventSystemWarningID;
 		public UAVObjectField<UInt32> ObjectManagerCallbackID;
 		public UAVObjectField<UInt32> ObjectManagerQueueID;
+		public UAVObjectField<UInt16> HeapRemaining;
 		public UAVObjectField<UInt16> IRQStackRemaining;
+		public UAVObjectField<UInt16> SysSlotsFree;
+		public UAVObjectField<UInt16> SysSlotsActive;
+		public UAVObjectField<UInt16> UsrSlotsFree;
+		public UAVObjectField<UInt16> UsrSlotsActive;
 		public UAVObjectField<byte> CPULoad;
 		public UAVObjectField<sbyte> CPUTemp;
 
@@ -34,11 +38,6 @@ namespace UavTalk
 			FlightTimeElemNames.Add("0");
 			FlightTime=new UAVObjectField<UInt32>("FlightTime", "ms", FlightTimeElemNames, null, this);
 			fields.Add(FlightTime);
-
-			List<String> HeapRemainingElemNames = new List<String>();
-			HeapRemainingElemNames.Add("0");
-			HeapRemaining=new UAVObjectField<UInt32>("HeapRemaining", "bytes", HeapRemainingElemNames, null, this);
-			fields.Add(HeapRemaining);
 
 			List<String> EventSystemWarningIDElemNames = new List<String>();
 			EventSystemWarningIDElemNames.Add("0");
@@ -55,10 +54,35 @@ namespace UavTalk
 			ObjectManagerQueueID=new UAVObjectField<UInt32>("ObjectManagerQueueID", "uavoid", ObjectManagerQueueIDElemNames, null, this);
 			fields.Add(ObjectManagerQueueID);
 
+			List<String> HeapRemainingElemNames = new List<String>();
+			HeapRemainingElemNames.Add("0");
+			HeapRemaining=new UAVObjectField<UInt16>("HeapRemaining", "bytes", HeapRemainingElemNames, null, this);
+			fields.Add(HeapRemaining);
+
 			List<String> IRQStackRemainingElemNames = new List<String>();
 			IRQStackRemainingElemNames.Add("0");
 			IRQStackRemaining=new UAVObjectField<UInt16>("IRQStackRemaining", "bytes", IRQStackRemainingElemNames, null, this);
 			fields.Add(IRQStackRemaining);
+
+			List<String> SysSlotsFreeElemNames = new List<String>();
+			SysSlotsFreeElemNames.Add("0");
+			SysSlotsFree=new UAVObjectField<UInt16>("SysSlotsFree", "slots", SysSlotsFreeElemNames, null, this);
+			fields.Add(SysSlotsFree);
+
+			List<String> SysSlotsActiveElemNames = new List<String>();
+			SysSlotsActiveElemNames.Add("0");
+			SysSlotsActive=new UAVObjectField<UInt16>("SysSlotsActive", "slots", SysSlotsActiveElemNames, null, this);
+			fields.Add(SysSlotsActive);
+
+			List<String> UsrSlotsFreeElemNames = new List<String>();
+			UsrSlotsFreeElemNames.Add("0");
+			UsrSlotsFree=new UAVObjectField<UInt16>("UsrSlotsFree", "slots", UsrSlotsFreeElemNames, null, this);
+			fields.Add(UsrSlotsFree);
+
+			List<String> UsrSlotsActiveElemNames = new List<String>();
+			UsrSlotsActiveElemNames.Add("0");
+			UsrSlotsActive=new UAVObjectField<UInt16>("UsrSlotsActive", "slots", UsrSlotsActiveElemNames, null, this);
+			fields.Add(UsrSlotsActive);
 
 			List<String> CPULoadElemNames = new List<String>();
 			CPULoadElemNames.Add("0");

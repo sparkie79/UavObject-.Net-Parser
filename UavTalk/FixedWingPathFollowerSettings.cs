@@ -1,4 +1,4 @@
-﻿// Object ID: 1455625946
+﻿// Object ID: 3874321172
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,33 +10,57 @@ namespace UavTalk
 {
 	public class FixedWingPathFollowerSettings : UAVDataObject
 	{
-		public const long OBJID = 1455625946;
+		public const long OBJID = 3874321172;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "FixedWingPathFollowerSettings";
 	    protected static String DESCRIPTION = @"Settings for the @ref FixedWingPathFollowerModule";
 		protected const bool ISSINGLEINST = true;
 		protected const bool ISSETTINGS = true;
 
+		public UAVObjectField<float> HorizontalVelMax;
+		public UAVObjectField<float> HorizontalVelMin;
+		public UAVObjectField<float> VerticalVelMax;
+		public UAVObjectField<float> CourseFeedForward;
 		public UAVObjectField<float> HorizontalPosP;
 		public UAVObjectField<float> VerticalPosP;
-		public UAVObjectField<float> BearingPI;
-		public UAVObjectField<float> PowerPI;
-		public UAVObjectField<float> VerticalToPitchCrossFeed;
-		public UAVObjectField<float> AirspeedToVerticalCrossFeed;
+		public UAVObjectField<float> CoursePI;
 		public UAVObjectField<float> SpeedPI;
+		public UAVObjectField<float> VerticalToPitchCrossFeed;
+		public UAVObjectField<float> AirspeedToPowerCrossFeed;
+		public UAVObjectField<float> PowerPI;
 		public UAVObjectField<float> RollLimit;
 		public UAVObjectField<float> PitchLimit;
 		public UAVObjectField<float> ThrottleLimit;
-		public UAVObjectField<float> OrbitRadius;
-		public UAVObjectField<Int16> UpdatePeriod;
+		public UAVObjectField<float> Safetymargins;
+		public UAVObjectField<Int32> UpdatePeriod;
 
 		public FixedWingPathFollowerSettings() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
 		{
 			List<UAVObjectField> fields = new List<UAVObjectField>();
 
+			List<String> HorizontalVelMaxElemNames = new List<String>();
+			HorizontalVelMaxElemNames.Add("0");
+			HorizontalVelMax=new UAVObjectField<float>("HorizontalVelMax", "m/s", HorizontalVelMaxElemNames, null, this);
+			fields.Add(HorizontalVelMax);
+
+			List<String> HorizontalVelMinElemNames = new List<String>();
+			HorizontalVelMinElemNames.Add("0");
+			HorizontalVelMin=new UAVObjectField<float>("HorizontalVelMin", "m/s", HorizontalVelMinElemNames, null, this);
+			fields.Add(HorizontalVelMin);
+
+			List<String> VerticalVelMaxElemNames = new List<String>();
+			VerticalVelMaxElemNames.Add("0");
+			VerticalVelMax=new UAVObjectField<float>("VerticalVelMax", "m/s", VerticalVelMaxElemNames, null, this);
+			fields.Add(VerticalVelMax);
+
+			List<String> CourseFeedForwardElemNames = new List<String>();
+			CourseFeedForwardElemNames.Add("0");
+			CourseFeedForward=new UAVObjectField<float>("CourseFeedForward", "s", CourseFeedForwardElemNames, null, this);
+			fields.Add(CourseFeedForward);
+
 			List<String> HorizontalPosPElemNames = new List<String>();
 			HorizontalPosPElemNames.Add("0");
-			HorizontalPosP=new UAVObjectField<float>("HorizontalPosP", "", HorizontalPosPElemNames, null, this);
+			HorizontalPosP=new UAVObjectField<float>("HorizontalPosP", "(m/s)/m", HorizontalPosPElemNames, null, this);
 			fields.Add(HorizontalPosP);
 
 			List<String> VerticalPosPElemNames = new List<String>();
@@ -44,38 +68,38 @@ namespace UavTalk
 			VerticalPosP=new UAVObjectField<float>("VerticalPosP", "(m/s)/m", VerticalPosPElemNames, null, this);
 			fields.Add(VerticalPosP);
 
-			List<String> BearingPIElemNames = new List<String>();
-			BearingPIElemNames.Add("Kp");
-			BearingPIElemNames.Add("Ki");
-			BearingPIElemNames.Add("ILimit");
-			BearingPI=new UAVObjectField<float>("BearingPI", "deg/deg", BearingPIElemNames, null, this);
-			fields.Add(BearingPI);
-
-			List<String> PowerPIElemNames = new List<String>();
-			PowerPIElemNames.Add("Kp");
-			PowerPIElemNames.Add("Ki");
-			PowerPIElemNames.Add("ILimit");
-			PowerPI=new UAVObjectField<float>("PowerPI", "deg / (m/s)", PowerPIElemNames, null, this);
-			fields.Add(PowerPI);
-
-			List<String> VerticalToPitchCrossFeedElemNames = new List<String>();
-			VerticalToPitchCrossFeedElemNames.Add("Kp");
-			VerticalToPitchCrossFeedElemNames.Add("Max");
-			VerticalToPitchCrossFeed=new UAVObjectField<float>("VerticalToPitchCrossFeed", "deg / ((m/s)/(m/s))", VerticalToPitchCrossFeedElemNames, null, this);
-			fields.Add(VerticalToPitchCrossFeed);
-
-			List<String> AirspeedToVerticalCrossFeedElemNames = new List<String>();
-			AirspeedToVerticalCrossFeedElemNames.Add("Kp");
-			AirspeedToVerticalCrossFeedElemNames.Add("Max");
-			AirspeedToVerticalCrossFeed=new UAVObjectField<float>("AirspeedToVerticalCrossFeed", "(m/s) / ((m/s)/(m/s))", AirspeedToVerticalCrossFeedElemNames, null, this);
-			fields.Add(AirspeedToVerticalCrossFeed);
+			List<String> CoursePIElemNames = new List<String>();
+			CoursePIElemNames.Add("Kp");
+			CoursePIElemNames.Add("Ki");
+			CoursePIElemNames.Add("ILimit");
+			CoursePI=new UAVObjectField<float>("CoursePI", "deg/deg", CoursePIElemNames, null, this);
+			fields.Add(CoursePI);
 
 			List<String> SpeedPIElemNames = new List<String>();
 			SpeedPIElemNames.Add("Kp");
 			SpeedPIElemNames.Add("Ki");
 			SpeedPIElemNames.Add("ILimit");
-			SpeedPI=new UAVObjectField<float>("SpeedPI", "1/(m/s)", SpeedPIElemNames, null, this);
+			SpeedPI=new UAVObjectField<float>("SpeedPI", "deg / (m/s)", SpeedPIElemNames, null, this);
 			fields.Add(SpeedPI);
+
+			List<String> VerticalToPitchCrossFeedElemNames = new List<String>();
+			VerticalToPitchCrossFeedElemNames.Add("Kp");
+			VerticalToPitchCrossFeedElemNames.Add("Max");
+			VerticalToPitchCrossFeed=new UAVObjectField<float>("VerticalToPitchCrossFeed", "deg / (m/s)", VerticalToPitchCrossFeedElemNames, null, this);
+			fields.Add(VerticalToPitchCrossFeed);
+
+			List<String> AirspeedToPowerCrossFeedElemNames = new List<String>();
+			AirspeedToPowerCrossFeedElemNames.Add("Kp");
+			AirspeedToPowerCrossFeedElemNames.Add("Max");
+			AirspeedToPowerCrossFeed=new UAVObjectField<float>("AirspeedToPowerCrossFeed", "1 / (m/s)", AirspeedToPowerCrossFeedElemNames, null, this);
+			fields.Add(AirspeedToPowerCrossFeed);
+
+			List<String> PowerPIElemNames = new List<String>();
+			PowerPIElemNames.Add("Kp");
+			PowerPIElemNames.Add("Ki");
+			PowerPIElemNames.Add("ILimit");
+			PowerPI=new UAVObjectField<float>("PowerPI", "1/(m/s)", PowerPIElemNames, null, this);
+			fields.Add(PowerPI);
 
 			List<String> RollLimitElemNames = new List<String>();
 			RollLimitElemNames.Add("Min");
@@ -98,14 +122,21 @@ namespace UavTalk
 			ThrottleLimit=new UAVObjectField<float>("ThrottleLimit", "", ThrottleLimitElemNames, null, this);
 			fields.Add(ThrottleLimit);
 
-			List<String> OrbitRadiusElemNames = new List<String>();
-			OrbitRadiusElemNames.Add("0");
-			OrbitRadius=new UAVObjectField<float>("OrbitRadius", "m", OrbitRadiusElemNames, null, this);
-			fields.Add(OrbitRadius);
+			List<String> SafetymarginsElemNames = new List<String>();
+			SafetymarginsElemNames.Add("Wind");
+			SafetymarginsElemNames.Add("Stallspeed");
+			SafetymarginsElemNames.Add("Lowspeed");
+			SafetymarginsElemNames.Add("Highspeed");
+			SafetymarginsElemNames.Add("Overspeed");
+			SafetymarginsElemNames.Add("Lowpower");
+			SafetymarginsElemNames.Add("Highpower");
+			SafetymarginsElemNames.Add("Pitchcontrol");
+			Safetymargins=new UAVObjectField<float>("Safetymargins", "", SafetymarginsElemNames, null, this);
+			fields.Add(Safetymargins);
 
 			List<String> UpdatePeriodElemNames = new List<String>();
 			UpdatePeriodElemNames.Add("0");
-			UpdatePeriod=new UAVObjectField<Int16>("UpdatePeriod", "ms", UpdatePeriodElemNames, null, this);
+			UpdatePeriod=new UAVObjectField<Int32>("UpdatePeriod", "ms", UpdatePeriodElemNames, null, this);
 			fields.Add(UpdatePeriod);
 
 	
@@ -148,32 +179,43 @@ namespace UavTalk
 		 */
 		public void setDefaultFieldValues()
 		{
-			HorizontalPosP.setValue((float)6);
-			VerticalPosP.setValue((float)5);
-			BearingPI.setValue((float)0.6,0);
-			BearingPI.setValue((float)0,1);
-			BearingPI.setValue((float)0,2);
-			PowerPI.setValue((float)1.5,0);
-			PowerPI.setValue((float)0.15,1);
-			PowerPI.setValue((float)20,2);
+			HorizontalVelMax.setValue((float)20);
+			HorizontalVelMin.setValue((float)10);
+			VerticalVelMax.setValue((float)10);
+			CourseFeedForward.setValue((float)30);
+			HorizontalPosP.setValue((float)5);
+			VerticalPosP.setValue((float)2);
+			CoursePI.setValue((float)0.2,0);
+			CoursePI.setValue((float)0,1);
+			CoursePI.setValue((float)0,2);
+			SpeedPI.setValue((float)2.5,0);
+			SpeedPI.setValue((float)0.25,1);
+			SpeedPI.setValue((float)10,2);
 			VerticalToPitchCrossFeed.setValue((float)5,0);
 			VerticalToPitchCrossFeed.setValue((float)10,1);
-			AirspeedToVerticalCrossFeed.setValue((float)10,0);
-			AirspeedToVerticalCrossFeed.setValue((float)100,1);
-			SpeedPI.setValue((float)0.01,0);
-			SpeedPI.setValue((float)0.01,1);
-			SpeedPI.setValue((float)0.8,2);
+			AirspeedToPowerCrossFeed.setValue((float)0.2,0);
+			AirspeedToPowerCrossFeed.setValue((float)1,1);
+			PowerPI.setValue((float)0.01,0);
+			PowerPI.setValue((float)0.05,1);
+			PowerPI.setValue((float)0.5,2);
 			RollLimit.setValue((float)-35,0);
 			RollLimit.setValue((float)0,1);
 			RollLimit.setValue((float)35,2);
 			PitchLimit.setValue((float)-10,0);
-			PitchLimit.setValue((float)0,1);
-			PitchLimit.setValue((float)10,2);
-			ThrottleLimit.setValue((float)0,0);
+			PitchLimit.setValue((float)5,1);
+			PitchLimit.setValue((float)20,2);
+			ThrottleLimit.setValue((float)0.1,0);
 			ThrottleLimit.setValue((float)0.5,1);
-			ThrottleLimit.setValue((float)1,2);
-			OrbitRadius.setValue((float)50);
-			UpdatePeriod.setValue((Int16)100);
+			ThrottleLimit.setValue((float)0.9,2);
+			Safetymargins.setValue((float)90,0);
+			Safetymargins.setValue((float)1,1);
+			Safetymargins.setValue((float)0.5,2);
+			Safetymargins.setValue((float)1.5,3);
+			Safetymargins.setValue((float)1,4);
+			Safetymargins.setValue((float)1,5);
+			Safetymargins.setValue((float)1,6);
+			Safetymargins.setValue((float)1,7);
+			UpdatePeriod.setValue((Int32)100);
 		}
 
 		/**

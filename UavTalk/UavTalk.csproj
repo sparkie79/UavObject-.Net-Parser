@@ -98,7 +98,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Accels.cs">
+    <Compile Include="AccelSensor.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccelState.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="AccessoryDesired.cs">
@@ -113,16 +116,19 @@
     <Compile Include="ActuatorSettings.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="ADCRouting.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="AirspeedActual.cs">
+    <Compile Include="AirspeedSensor.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="AirspeedSettings.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
+    <Compile Include="AirspeedState.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
     <Compile Include="AltHoldSmoothed.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AltitudeFilterSettings.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="AltitudeHoldDesired.cs">
@@ -131,19 +137,16 @@
     <Compile Include="AltitudeHoldSettings.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="AttitudeActual.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
     <Compile Include="AttitudeSettings.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="AttitudeSimulated.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="BaroAirspeed.cs">
+    <Compile Include="AttitudeState.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="BaroAltitude.cs">
+    <Compile Include="BaroSensor.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="BitField.cs" />
@@ -157,6 +160,13 @@
     <Compile Include="channels\HidChannel.cs" />
     <Compile Include="channels\FileChannel.cs" />
     <Compile Include="ComStats.cs" />
+    <Compile Include="CRC.cs" />
+    <Compile Include="EKFConfiguration.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EKFStateVariance.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
     <Compile Include="enums\AccessMode.cs" />
     <Compile Include="enums\UpdateMode.cs" />
     <Compile Include="channels\ICommChannel.cs" />
@@ -166,13 +176,7 @@
     <Compile Include="FirmwareIAPObj.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="FixedWingAirspeeds.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
     <Compile Include="FixedWingPathFollowerSettings.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="FixedWingPathFollowerSettingsCC.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="FixedWingPathFollowerStatus.cs">
@@ -205,82 +209,43 @@
     <Compile Include="GCSTelemetryStats.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="GPSPosition.cs">
+    <Compile Include="GPSPositionSensor.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="GPSSatellites.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
+    <Compile Include="GPSSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
     <Compile Include="GPSTime.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="GPSVelocity.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GroundPathFollowerSettings.cs">
+    <Compile Include="GPSVelocitySensor.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="GroundTruth.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="Gyros.cs">
+    <Compile Include="GyroSensor.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="GyrosBias.cs">
+    <Compile Include="GyroState.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="HomeLocation.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="HwCopterControl.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="HwDiscoveryF4.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="HwFlyingF3.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="HwFlyingF4.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="HwFreedom.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="HwQuanton.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="HwRevolution.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="HwRevoMini.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="HwSparky.cs">
+    <Compile Include="HwSettings.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="I2CStats.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="I2CVM.cs">
+    <Compile Include="MagSensor.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="I2CVMUserProgram.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="INSSettings.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="INSState.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MagBias.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Magnetometer.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MagnetometerSettings.cs">
+    <Compile Include="MagState.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="ManualControlCommand.cs">
@@ -296,13 +261,10 @@
     <Compile Include="MixerStatus.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="ModuleSettings.cs">
+    <Compile Include="Mpu6000Settings.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="NedAccel.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="NEDPosition.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="ObjectPersistence.cs">
@@ -317,6 +279,9 @@
     <Compile Include="OPLinkStatus.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
+    <Compile Include="OsdSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
     <Compile Include="OveroSyncSettings.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
@@ -324,19 +289,23 @@
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="PacketType.cs" />
-    <Compile Include="PathDesired.cs">
+    <Compile Include="parser\UavDataparser.cs" />
+    <Compile Include="PathAction.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="PathPlannerSettings.cs">
+    <Compile Include="PathDesired.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="PathStatus.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
+    <Compile Include="PoiLearnSettings.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
     <Compile Include="PoiLocation.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="PositionActual.cs">
+    <Compile Include="PositionState.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -353,7 +322,10 @@
     <Compile Include="RelayTuningSettings.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="SensorSettings.cs">
+    <Compile Include="RevoCalibration.cs">
+      <DependentUpon>UavObjects.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RevoSettings.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="SonarAltitude.cs">
@@ -365,9 +337,6 @@
     <Compile Include="StabilizationSettings.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="StateEstimation.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
     <Compile Include="SystemAlarms.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
@@ -377,22 +346,15 @@
     <Compile Include="SystemStats.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="TabletInfo.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
     <Compile Include="TaskInfo.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TrimAngles.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="TrimAnglesSettings.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="TxPIDSettings.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
+    <Compile Include="uavConsts.cs" />
     <Compile Include="UAVDataObject.cs" />
+    <Compile Include="UavLogReader.cs" />
     <Compile Include="UAVMetaObject.cs" />
     <Compile Include="UAVObjectField.cs" />
     <Compile Include="UAVObjectManager.cs" />
@@ -408,16 +370,10 @@
     <Compile Include="UavTalk.cs" />
     <Compile Include="Uenum.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="VelocityActual.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
     <Compile Include="VelocityDesired.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
-    <Compile Include="VibrationAnalysisOutput.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="VibrationAnalysisSettings.cs">
+    <Compile Include="VelocityState.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="VtolPathFollowerSettings.cs">
@@ -430,9 +386,6 @@
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
     <Compile Include="WaypointActive.cs">
-      <DependentUpon>UavObjects.tt</DependentUpon>
-    </Compile>
-    <Compile Include="WindVelocityActual.cs">
       <DependentUpon>UavObjects.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -450,7 +403,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="output\" />
-    <Folder Include="parser\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

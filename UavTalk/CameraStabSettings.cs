@@ -1,4 +1,4 @@
-﻿// Object ID: 4194936090
+﻿// Object ID: 3931694394
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class CameraStabSettings : UAVDataObject
 	{
-		public const long OBJID = 4194936090;
+		public const long OBJID = 3931694394;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "CameraStabSettings";
 	    protected static String DESCRIPTION = @"Settings for the @ref CameraStab mmodule";
@@ -18,7 +18,7 @@ namespace UavTalk
 		protected const bool ISSETTINGS = true;
 
 		public UAVObjectField<float> MaxAxisLockRate;
-		public UAVObjectField<float> MaxAccel;
+		public UAVObjectField<UInt16> MaxAccel;
 		public enum InputUavEnum
 		{
 			[Description("Accessory0")]
@@ -33,16 +33,12 @@ namespace UavTalk
 			Accessory4 = 4, 
 			[Description("Accessory5")]
 			Accessory5 = 5, 
-			[Description("POI")]
-			POI = 6, 
 			[Description("None")]
-			None = 7, 
+			None = 6, 
 		}
 		public UAVObjectField<InputUavEnum> Input;
 		public UAVObjectField<byte> InputRange;
 		public UAVObjectField<byte> InputRate;
-		public UAVObjectField<byte> OutputRange;
-		public UAVObjectField<byte> FeedForward;
 		public enum StabilizationModeUavEnum
 		{
 			[Description("Attitude")]
@@ -51,9 +47,39 @@ namespace UavTalk
 			AxisLock = 1, 
 		}
 		public UAVObjectField<StabilizationModeUavEnum> StabilizationMode;
-		public UAVObjectField<byte> AttitudeFilter;
-		public UAVObjectField<byte> InputFilter;
-		public UAVObjectField<byte> FeedForwardTime;
+		public UAVObjectField<byte> OutputRange;
+		public UAVObjectField<byte> ResponseTime;
+		public enum GimbalTypeUavEnum
+		{
+			[Description("Generic")]
+			Generic = 0, 
+			[Description("Yaw-Roll-Pitch")]
+			YawRollPitch = 1, 
+			[Description("Yaw-Pitch-Roll")]
+			YawPitchRoll = 2, 
+			[Description("Roll-Pitch-Mixed")]
+			RollPitchMixed = 3, 
+		}
+		public UAVObjectField<GimbalTypeUavEnum> GimbalType;
+		public UAVObjectField<byte> FeedForward;
+		public UAVObjectField<byte> AccelTime;
+		public UAVObjectField<byte> DecelTime;
+		public enum Servo1PitchReverseUavEnum
+		{
+			[Description("FALSE")]
+			FALSE = 0, 
+			[Description("TRUE")]
+			TRUE = 1, 
+		}
+		public UAVObjectField<Servo1PitchReverseUavEnum> Servo1PitchReverse;
+		public enum Servo2PitchReverseUavEnum
+		{
+			[Description("FALSE")]
+			FALSE = 0, 
+			[Description("TRUE")]
+			TRUE = 1, 
+		}
+		public UAVObjectField<Servo2PitchReverseUavEnum> Servo2PitchReverse;
 
 		public CameraStabSettings() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
 		{
@@ -66,7 +92,7 @@ namespace UavTalk
 
 			List<String> MaxAccelElemNames = new List<String>();
 			MaxAccelElemNames.Add("0");
-			MaxAccel=new UAVObjectField<float>("MaxAccel", "units/sec", MaxAccelElemNames, null, this);
+			MaxAccel=new UAVObjectField<UInt16>("MaxAccel", "units/sec", MaxAccelElemNames, null, this);
 			fields.Add(MaxAccel);
 
 			List<String> InputElemNames = new List<String>();
@@ -80,7 +106,6 @@ namespace UavTalk
 			InputEnumOptions.Add("Accessory3");
 			InputEnumOptions.Add("Accessory4");
 			InputEnumOptions.Add("Accessory5");
-			InputEnumOptions.Add("POI");
 			InputEnumOptions.Add("None");
 			Input=new UAVObjectField<InputUavEnum>("Input", "channel", InputElemNames, InputEnumOptions, this);
 			fields.Add(Input);
@@ -99,20 +124,6 @@ namespace UavTalk
 			InputRate=new UAVObjectField<byte>("InputRate", "deg/s", InputRateElemNames, null, this);
 			fields.Add(InputRate);
 
-			List<String> OutputRangeElemNames = new List<String>();
-			OutputRangeElemNames.Add("Roll");
-			OutputRangeElemNames.Add("Pitch");
-			OutputRangeElemNames.Add("Yaw");
-			OutputRange=new UAVObjectField<byte>("OutputRange", "deg", OutputRangeElemNames, null, this);
-			fields.Add(OutputRange);
-
-			List<String> FeedForwardElemNames = new List<String>();
-			FeedForwardElemNames.Add("Roll");
-			FeedForwardElemNames.Add("Pitch");
-			FeedForwardElemNames.Add("Yaw");
-			FeedForward=new UAVObjectField<byte>("FeedForward", "", FeedForwardElemNames, null, this);
-			fields.Add(FeedForward);
-
 			List<String> StabilizationModeElemNames = new List<String>();
 			StabilizationModeElemNames.Add("Roll");
 			StabilizationModeElemNames.Add("Pitch");
@@ -123,20 +134,66 @@ namespace UavTalk
 			StabilizationMode=new UAVObjectField<StabilizationModeUavEnum>("StabilizationMode", "", StabilizationModeElemNames, StabilizationModeEnumOptions, this);
 			fields.Add(StabilizationMode);
 
-			List<String> AttitudeFilterElemNames = new List<String>();
-			AttitudeFilterElemNames.Add("0");
-			AttitudeFilter=new UAVObjectField<byte>("AttitudeFilter", "ms", AttitudeFilterElemNames, null, this);
-			fields.Add(AttitudeFilter);
+			List<String> OutputRangeElemNames = new List<String>();
+			OutputRangeElemNames.Add("Roll");
+			OutputRangeElemNames.Add("Pitch");
+			OutputRangeElemNames.Add("Yaw");
+			OutputRange=new UAVObjectField<byte>("OutputRange", "deg", OutputRangeElemNames, null, this);
+			fields.Add(OutputRange);
 
-			List<String> InputFilterElemNames = new List<String>();
-			InputFilterElemNames.Add("0");
-			InputFilter=new UAVObjectField<byte>("InputFilter", "ms", InputFilterElemNames, null, this);
-			fields.Add(InputFilter);
+			List<String> ResponseTimeElemNames = new List<String>();
+			ResponseTimeElemNames.Add("Roll");
+			ResponseTimeElemNames.Add("Pitch");
+			ResponseTimeElemNames.Add("Yaw");
+			ResponseTime=new UAVObjectField<byte>("ResponseTime", "ms", ResponseTimeElemNames, null, this);
+			fields.Add(ResponseTime);
 
-			List<String> FeedForwardTimeElemNames = new List<String>();
-			FeedForwardTimeElemNames.Add("0");
-			FeedForwardTime=new UAVObjectField<byte>("FeedForwardTime", "ms", FeedForwardTimeElemNames, null, this);
-			fields.Add(FeedForwardTime);
+			List<String> GimbalTypeElemNames = new List<String>();
+			GimbalTypeElemNames.Add("0");
+			List<String> GimbalTypeEnumOptions = new List<String>();
+			GimbalTypeEnumOptions.Add("Generic");
+			GimbalTypeEnumOptions.Add("Yaw-Roll-Pitch");
+			GimbalTypeEnumOptions.Add("Yaw-Pitch-Roll");
+			GimbalTypeEnumOptions.Add("Roll-Pitch-Mixed");
+			GimbalType=new UAVObjectField<GimbalTypeUavEnum>("GimbalType", "", GimbalTypeElemNames, GimbalTypeEnumOptions, this);
+			fields.Add(GimbalType);
+
+			List<String> FeedForwardElemNames = new List<String>();
+			FeedForwardElemNames.Add("Roll");
+			FeedForwardElemNames.Add("Pitch");
+			FeedForwardElemNames.Add("Yaw");
+			FeedForward=new UAVObjectField<byte>("FeedForward", "", FeedForwardElemNames, null, this);
+			fields.Add(FeedForward);
+
+			List<String> AccelTimeElemNames = new List<String>();
+			AccelTimeElemNames.Add("Roll");
+			AccelTimeElemNames.Add("Pitch");
+			AccelTimeElemNames.Add("Yaw");
+			AccelTime=new UAVObjectField<byte>("AccelTime", "ms", AccelTimeElemNames, null, this);
+			fields.Add(AccelTime);
+
+			List<String> DecelTimeElemNames = new List<String>();
+			DecelTimeElemNames.Add("Roll");
+			DecelTimeElemNames.Add("Pitch");
+			DecelTimeElemNames.Add("Yaw");
+			DecelTime=new UAVObjectField<byte>("DecelTime", "ms", DecelTimeElemNames, null, this);
+			fields.Add(DecelTime);
+
+			List<String> Servo1PitchReverseElemNames = new List<String>();
+			Servo1PitchReverseElemNames.Add("0");
+			List<String> Servo1PitchReverseEnumOptions = new List<String>();
+			Servo1PitchReverseEnumOptions.Add("FALSE");
+			Servo1PitchReverseEnumOptions.Add("TRUE");
+			Servo1PitchReverse=new UAVObjectField<Servo1PitchReverseUavEnum>("Servo1PitchReverse", "", Servo1PitchReverseElemNames, Servo1PitchReverseEnumOptions, this);
+			fields.Add(Servo1PitchReverse);
+
+			List<String> Servo2PitchReverseElemNames = new List<String>();
+			Servo2PitchReverseElemNames.Add("0");
+			List<String> Servo2PitchReverseEnumOptions = new List<String>();
+			Servo2PitchReverseEnumOptions.Add("FALSE");
+			Servo2PitchReverseEnumOptions.Add("TRUE");
+			Servo2PitchReverse=new UAVObjectField<Servo2PitchReverseUavEnum>("Servo2PitchReverse", "", Servo2PitchReverseElemNames, Servo2PitchReverseEnumOptions, this);
+			fields.Add(Servo2PitchReverse);
 
 	
 
@@ -179,7 +236,7 @@ namespace UavTalk
 		public void setDefaultFieldValues()
 		{
 			MaxAxisLockRate.setValue((float)1);
-			MaxAccel.setValue((float)1000);
+			MaxAccel.setValue((UInt16)500);
 			Input.setValue(InputUavEnum.None,0);
 			Input.setValue(InputUavEnum.None,1);
 			Input.setValue(InputUavEnum.None,2);
@@ -189,18 +246,27 @@ namespace UavTalk
 			InputRate.setValue((byte)50,0);
 			InputRate.setValue((byte)50,1);
 			InputRate.setValue((byte)50,2);
-			OutputRange.setValue((byte)20,0);
-			OutputRange.setValue((byte)20,1);
-			OutputRange.setValue((byte)20,2);
-			FeedForward.setValue((byte)0,0);
-			FeedForward.setValue((byte)0,1);
-			FeedForward.setValue((byte)0,2);
 			StabilizationMode.setValue(StabilizationModeUavEnum.Attitude,0);
 			StabilizationMode.setValue(StabilizationModeUavEnum.Attitude,1);
 			StabilizationMode.setValue(StabilizationModeUavEnum.Attitude,2);
-			AttitudeFilter.setValue((byte)0);
-			InputFilter.setValue((byte)0);
-			FeedForwardTime.setValue((byte)0);
+			OutputRange.setValue((byte)20,0);
+			OutputRange.setValue((byte)20,1);
+			OutputRange.setValue((byte)20,2);
+			ResponseTime.setValue((byte)0,0);
+			ResponseTime.setValue((byte)0,1);
+			ResponseTime.setValue((byte)0,2);
+			GimbalType.setValue(GimbalTypeUavEnum.Generic);
+			FeedForward.setValue((byte)0,0);
+			FeedForward.setValue((byte)0,1);
+			FeedForward.setValue((byte)0,2);
+			AccelTime.setValue((byte)5,0);
+			AccelTime.setValue((byte)5,1);
+			AccelTime.setValue((byte)5,2);
+			DecelTime.setValue((byte)5,0);
+			DecelTime.setValue((byte)5,1);
+			DecelTime.setValue((byte)5,2);
+			Servo1PitchReverse.setValue(Servo1PitchReverseUavEnum.FALSE);
+			Servo2PitchReverse.setValue(Servo2PitchReverseUavEnum.FALSE);
 		}
 
 		/**

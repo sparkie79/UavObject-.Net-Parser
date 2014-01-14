@@ -1,4 +1,4 @@
-﻿// Object ID: 2401030424
+﻿// Object ID: 3515296630
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class PathDesired : UAVDataObject
 	{
-		public const long OBJID = 2401030424;
+		public const long OBJID = 3515296630;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "PathDesired";
 	    protected static String DESCRIPTION = @"The endpoint or path the craft is trying to achieve.  Can come from @ref ManualControl or @ref PathPlanner ";
@@ -22,6 +22,7 @@ namespace UavTalk
 		public UAVObjectField<float> StartingVelocity;
 		public UAVObjectField<float> EndingVelocity;
 		public UAVObjectField<float> ModeParameters;
+		public UAVObjectField<Int16> UID;
 		public enum ModeUavEnum
 		{
 			[Description("FlyEndpoint")]
@@ -40,14 +41,14 @@ namespace UavTalk
 			DriveCircleLeft = 6, 
 			[Description("DriveCircleRight")]
 			DriveCircleRight = 7, 
-			[Description("HoldPosition")]
-			HoldPosition = 8, 
-			[Description("CirclePositionLeft")]
-			CirclePositionLeft = 9, 
-			[Description("CirclePositionRight")]
-			CirclePositionRight = 10, 
+			[Description("FixedAttitude")]
+			FixedAttitude = 8, 
+			[Description("SetAccessory")]
+			SetAccessory = 9, 
 			[Description("Land")]
-			Land = 11, 
+			Land = 10, 
+			[Description("DisarmAlarm")]
+			DisarmAlarm = 11, 
 		}
 		public UAVObjectField<ModeUavEnum> Mode;
 
@@ -81,8 +82,16 @@ namespace UavTalk
 
 			List<String> ModeParametersElemNames = new List<String>();
 			ModeParametersElemNames.Add("0");
+			ModeParametersElemNames.Add("1");
+			ModeParametersElemNames.Add("2");
+			ModeParametersElemNames.Add("3");
 			ModeParameters=new UAVObjectField<float>("ModeParameters", "", ModeParametersElemNames, null, this);
 			fields.Add(ModeParameters);
+
+			List<String> UIDElemNames = new List<String>();
+			UIDElemNames.Add("0");
+			UID=new UAVObjectField<Int16>("UID", "", UIDElemNames, null, this);
+			fields.Add(UID);
 
 			List<String> ModeElemNames = new List<String>();
 			ModeElemNames.Add("0");
@@ -95,10 +104,10 @@ namespace UavTalk
 			ModeEnumOptions.Add("DriveVector");
 			ModeEnumOptions.Add("DriveCircleLeft");
 			ModeEnumOptions.Add("DriveCircleRight");
-			ModeEnumOptions.Add("HoldPosition");
-			ModeEnumOptions.Add("CirclePositionLeft");
-			ModeEnumOptions.Add("CirclePositionRight");
+			ModeEnumOptions.Add("FixedAttitude");
+			ModeEnumOptions.Add("SetAccessory");
 			ModeEnumOptions.Add("Land");
+			ModeEnumOptions.Add("DisarmAlarm");
 			Mode=new UAVObjectField<ModeUavEnum>("Mode", "", ModeElemNames, ModeEnumOptions, this);
 			fields.Add(Mode);
 
@@ -126,7 +135,7 @@ namespace UavTalk
 				(int)AccessMode.ACCESS_READWRITE << Metadata.UAVOBJ_GCS_ACCESS_SHIFT |
 				0 << Metadata.UAVOBJ_TELEMETRY_ACKED_SHIFT |
 				0 << Metadata.UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
-				(int)UPDATEMODE.UPDATEMODE_THROTTLED << Metadata.UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+				(int)UPDATEMODE.UPDATEMODE_ONCHANGE << Metadata.UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
 				(int)UPDATEMODE.UPDATEMODE_MANUAL << Metadata.UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
     		metadata.flightTelemetryUpdatePeriod = 1000;
     		metadata.gcsTelemetryUpdatePeriod = 0;

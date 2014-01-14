@@ -1,4 +1,4 @@
-﻿// Object ID: 2779700644
+﻿// Object ID: 944315734
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class StabilizationSettings : UAVDataObject
 	{
-		public const long OBJID = 2779700644;
+		public const long OBJID = 944315734;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "StabilizationSettings";
 	    protected static String DESCRIPTION = @"PID settings used by the Stabilization module to combine the @ref AttitudeActual and @ref AttitudeDesired to compute @ref ActuatorDesired";
@@ -19,7 +19,6 @@ namespace UavTalk
 
 		public UAVObjectField<float> ManualRate;
 		public UAVObjectField<float> MaximumRate;
-		public UAVObjectField<float> PoiMaximumRate;
 		public UAVObjectField<float> RollRatePID;
 		public UAVObjectField<float> PitchRatePID;
 		public UAVObjectField<float> YawRatePID;
@@ -34,6 +33,8 @@ namespace UavTalk
 		public UAVObjectField<float> GyroTau;
 		public UAVObjectField<float> DerivativeGamma;
 		public UAVObjectField<float> WeakLevelingKp;
+		public UAVObjectField<float> ScaleToAirspeed;
+		public UAVObjectField<float> ScaleToAirspeedLimits;
 		public UAVObjectField<byte> RollMax;
 		public UAVObjectField<byte> PitchMax;
 		public UAVObjectField<byte> YawMax;
@@ -59,6 +60,14 @@ namespace UavTalk
 			TRUE = 1, 
 		}
 		public UAVObjectField<LowThrottleZeroIntegralUavEnum> LowThrottleZeroIntegral;
+		public enum LowThrottleZeroAxisUavEnum
+		{
+			[Description("FALSE")]
+			FALSE = 0, 
+			[Description("TRUE")]
+			TRUE = 1, 
+		}
+		public UAVObjectField<LowThrottleZeroAxisUavEnum> LowThrottleZeroAxis;
 
 		public StabilizationSettings() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
 		{
@@ -77,13 +86,6 @@ namespace UavTalk
 			MaximumRateElemNames.Add("Yaw");
 			MaximumRate=new UAVObjectField<float>("MaximumRate", "degrees/sec", MaximumRateElemNames, null, this);
 			fields.Add(MaximumRate);
-
-			List<String> PoiMaximumRateElemNames = new List<String>();
-			PoiMaximumRateElemNames.Add("Roll");
-			PoiMaximumRateElemNames.Add("Pitch");
-			PoiMaximumRateElemNames.Add("Yaw");
-			PoiMaximumRate=new UAVObjectField<float>("PoiMaximumRate", "degrees/sec", PoiMaximumRateElemNames, null, this);
-			fields.Add(PoiMaximumRate);
 
 			List<String> RollRatePIDElemNames = new List<String>();
 			RollRatePIDElemNames.Add("Kp");
@@ -175,6 +177,17 @@ namespace UavTalk
 			WeakLevelingKp=new UAVObjectField<float>("WeakLevelingKp", "(deg/s)/deg", WeakLevelingKpElemNames, null, this);
 			fields.Add(WeakLevelingKp);
 
+			List<String> ScaleToAirspeedElemNames = new List<String>();
+			ScaleToAirspeedElemNames.Add("0");
+			ScaleToAirspeed=new UAVObjectField<float>("ScaleToAirspeed", "m/s", ScaleToAirspeedElemNames, null, this);
+			fields.Add(ScaleToAirspeed);
+
+			List<String> ScaleToAirspeedLimitsElemNames = new List<String>();
+			ScaleToAirspeedLimitsElemNames.Add("Min");
+			ScaleToAirspeedLimitsElemNames.Add("Max");
+			ScaleToAirspeedLimits=new UAVObjectField<float>("ScaleToAirspeedLimits", "", ScaleToAirspeedLimitsElemNames, null, this);
+			fields.Add(ScaleToAirspeedLimits);
+
 			List<String> RollMaxElemNames = new List<String>();
 			RollMaxElemNames.Add("0");
 			RollMax=new UAVObjectField<byte>("RollMax", "degrees", RollMaxElemNames, null, this);
@@ -236,6 +249,16 @@ namespace UavTalk
 			LowThrottleZeroIntegral=new UAVObjectField<LowThrottleZeroIntegralUavEnum>("LowThrottleZeroIntegral", "", LowThrottleZeroIntegralElemNames, LowThrottleZeroIntegralEnumOptions, this);
 			fields.Add(LowThrottleZeroIntegral);
 
+			List<String> LowThrottleZeroAxisElemNames = new List<String>();
+			LowThrottleZeroAxisElemNames.Add("Roll");
+			LowThrottleZeroAxisElemNames.Add("Pitch");
+			LowThrottleZeroAxisElemNames.Add("Yaw");
+			List<String> LowThrottleZeroAxisEnumOptions = new List<String>();
+			LowThrottleZeroAxisEnumOptions.Add("FALSE");
+			LowThrottleZeroAxisEnumOptions.Add("TRUE");
+			LowThrottleZeroAxis=new UAVObjectField<LowThrottleZeroAxisUavEnum>("LowThrottleZeroAxis", "", LowThrottleZeroAxisElemNames, LowThrottleZeroAxisEnumOptions, this);
+			fields.Add(LowThrottleZeroAxis);
+
 	
 
 			// Compute the number of bytes for this object
@@ -278,29 +301,26 @@ namespace UavTalk
 		{
 			ManualRate.setValue((float)150,0);
 			ManualRate.setValue((float)150,1);
-			ManualRate.setValue((float)150,2);
+			ManualRate.setValue((float)175,2);
 			MaximumRate.setValue((float)300,0);
 			MaximumRate.setValue((float)300,1);
-			MaximumRate.setValue((float)300,2);
-			PoiMaximumRate.setValue((float)30,0);
-			PoiMaximumRate.setValue((float)30,1);
-			PoiMaximumRate.setValue((float)30,2);
-			RollRatePID.setValue((float)0.002,0);
-			RollRatePID.setValue((float)0,1);
-			RollRatePID.setValue((float)0,2);
+			MaximumRate.setValue((float)50,2);
+			RollRatePID.setValue((float)0.003,0);
+			RollRatePID.setValue((float)0.003,1);
+			RollRatePID.setValue((float)2E-05,2);
 			RollRatePID.setValue((float)0.3,3);
-			PitchRatePID.setValue((float)0.002,0);
-			PitchRatePID.setValue((float)0,1);
-			PitchRatePID.setValue((float)0,2);
+			PitchRatePID.setValue((float)0.003,0);
+			PitchRatePID.setValue((float)0.003,1);
+			PitchRatePID.setValue((float)2E-05,2);
 			PitchRatePID.setValue((float)0.3,3);
 			YawRatePID.setValue((float)0.0035,0);
 			YawRatePID.setValue((float)0.0035,1);
 			YawRatePID.setValue((float)0,2);
 			YawRatePID.setValue((float)0.3,3);
-			RollPI.setValue((float)2,0);
+			RollPI.setValue((float)2.5,0);
 			RollPI.setValue((float)0,1);
 			RollPI.setValue((float)50,2);
-			PitchPI.setValue((float)2,0);
+			PitchPI.setValue((float)2.5,0);
 			PitchPI.setValue((float)0,1);
 			PitchPI.setValue((float)50,2);
 			YawPI.setValue((float)2,0);
@@ -319,17 +339,23 @@ namespace UavTalk
 			GyroTau.setValue((float)5);
 			DerivativeGamma.setValue((float)1);
 			WeakLevelingKp.setValue((float)1);
-			RollMax.setValue((byte)55);
-			PitchMax.setValue((byte)55);
-			YawMax.setValue((byte)35);
+			ScaleToAirspeed.setValue((float)0);
+			ScaleToAirspeedLimits.setValue((float)0.05,0);
+			ScaleToAirspeedLimits.setValue((float)3,1);
+			RollMax.setValue((byte)42);
+			PitchMax.setValue((byte)42);
+			YawMax.setValue((byte)42);
 			VbarGyroSuppress.setValue((sbyte)30);
 			VbarPiroComp.setValue(VbarPiroCompUavEnum.FALSE);
 			VbarMaxAngle.setValue((byte)10);
 			DerivativeCutoff.setValue((byte)20);
-			MaxAxisLock.setValue((byte)15);
+			MaxAxisLock.setValue((byte)30);
 			MaxAxisLockRate.setValue((byte)2);
 			MaxWeakLevelingRate.setValue((byte)5);
 			LowThrottleZeroIntegral.setValue(LowThrottleZeroIntegralUavEnum.TRUE);
+			LowThrottleZeroAxis.setValue(LowThrottleZeroAxisUavEnum.FALSE,0);
+			LowThrottleZeroAxis.setValue(LowThrottleZeroAxisUavEnum.FALSE,1);
+			LowThrottleZeroAxis.setValue(LowThrottleZeroAxisUavEnum.FALSE,2);
 		}
 
 		/**

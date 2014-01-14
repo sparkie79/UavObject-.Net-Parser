@@ -1,4 +1,4 @@
-﻿// Object ID: 1176693896
+﻿// Object ID: 1681920078
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,47 +10,35 @@ namespace UavTalk
 {
 	public class CameraDesired : UAVDataObject
 	{
-		public const long OBJID = 1176693896;
+		public const long OBJID = 1681920078;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "CameraDesired";
 	    protected static String DESCRIPTION = @"Desired camera outputs.  Comes from @ref CameraStabilization module.";
 		protected const bool ISSINGLEINST = true;
 		protected const bool ISSETTINGS = false;
 
-		public UAVObjectField<float> Roll;
-		public UAVObjectField<float> Pitch;
+		public UAVObjectField<float> RollOrServo1;
+		public UAVObjectField<float> PitchOrServo2;
 		public UAVObjectField<float> Yaw;
-		public UAVObjectField<float> Bearing;
-		public UAVObjectField<float> Declination;
 
 		public CameraDesired() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
 		{
 			List<UAVObjectField> fields = new List<UAVObjectField>();
 
-			List<String> RollElemNames = new List<String>();
-			RollElemNames.Add("0");
-			Roll=new UAVObjectField<float>("Roll", "", RollElemNames, null, this);
-			fields.Add(Roll);
+			List<String> RollOrServo1ElemNames = new List<String>();
+			RollOrServo1ElemNames.Add("0");
+			RollOrServo1=new UAVObjectField<float>("RollOrServo1", "", RollOrServo1ElemNames, null, this);
+			fields.Add(RollOrServo1);
 
-			List<String> PitchElemNames = new List<String>();
-			PitchElemNames.Add("0");
-			Pitch=new UAVObjectField<float>("Pitch", "", PitchElemNames, null, this);
-			fields.Add(Pitch);
+			List<String> PitchOrServo2ElemNames = new List<String>();
+			PitchOrServo2ElemNames.Add("0");
+			PitchOrServo2=new UAVObjectField<float>("PitchOrServo2", "", PitchOrServo2ElemNames, null, this);
+			fields.Add(PitchOrServo2);
 
 			List<String> YawElemNames = new List<String>();
 			YawElemNames.Add("0");
 			Yaw=new UAVObjectField<float>("Yaw", "", YawElemNames, null, this);
 			fields.Add(Yaw);
-
-			List<String> BearingElemNames = new List<String>();
-			BearingElemNames.Add("0");
-			Bearing=new UAVObjectField<float>("Bearing", "deg", BearingElemNames, null, this);
-			fields.Add(Bearing);
-
-			List<String> DeclinationElemNames = new List<String>();
-			DeclinationElemNames.Add("0");
-			Declination=new UAVObjectField<float>("Declination", "deg", DeclinationElemNames, null, this);
-			fields.Add(Declination);
 
 	
 

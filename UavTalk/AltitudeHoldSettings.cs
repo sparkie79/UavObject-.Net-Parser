@@ -1,4 +1,4 @@
-﻿// Object ID: 4274346818
+﻿// Object ID: 47767504
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class AltitudeHoldSettings : UAVDataObject
 	{
-		public const long OBJID = 4274346818;
+		public const long OBJID = 47767504;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "AltitudeHoldSettings";
 	    protected static String DESCRIPTION = @"Settings for the @ref AltitudeHold module";
@@ -24,6 +24,8 @@ namespace UavTalk
 		public UAVObjectField<float> PressureNoise;
 		public UAVObjectField<float> AccelNoise;
 		public UAVObjectField<float> AccelDrift;
+		public UAVObjectField<byte> ThrottleExp;
+		public UAVObjectField<byte> ThrottleRate;
 
 		public AltitudeHoldSettings() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
 		{
@@ -63,6 +65,16 @@ namespace UavTalk
 			AccelDriftElemNames.Add("0");
 			AccelDrift=new UAVObjectField<float>("AccelDrift", "m/s^2", AccelDriftElemNames, null, this);
 			fields.Add(AccelDrift);
+
+			List<String> ThrottleExpElemNames = new List<String>();
+			ThrottleExpElemNames.Add("0");
+			ThrottleExp=new UAVObjectField<byte>("ThrottleExp", "", ThrottleExpElemNames, null, this);
+			fields.Add(ThrottleExp);
+
+			List<String> ThrottleRateElemNames = new List<String>();
+			ThrottleRateElemNames.Add("0");
+			ThrottleRate=new UAVObjectField<byte>("ThrottleRate", "m/s", ThrottleRateElemNames, null, this);
+			fields.Add(ThrottleRate);
 
 	
 
@@ -104,13 +116,15 @@ namespace UavTalk
 		 */
 		public void setDefaultFieldValues()
 		{
-			Kp.setValue((float)3);
+			Kp.setValue((float)1);
 			Ki.setValue((float)0);
-			Kd.setValue((float)3);
+			Kd.setValue((float)5);
 			Ka.setValue((float)5);
 			PressureNoise.setValue((float)4);
 			AccelNoise.setValue((float)5);
 			AccelDrift.setValue((float)1);
+			ThrottleExp.setValue((byte)128);
+			ThrottleRate.setValue((byte)5);
 		}
 
 		/**

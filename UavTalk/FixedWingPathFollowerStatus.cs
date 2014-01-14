@@ -1,4 +1,4 @@
-﻿// Object ID: 2896693256
+﻿// Object ID: 904726664
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class FixedWingPathFollowerStatus : UAVDataObject
 	{
-		public const long OBJID = 2896693256;
+		public const long OBJID = 904726664;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "FixedWingPathFollowerStatus";
 	    protected static String DESCRIPTION = @"Object Storing Debugging Information on PID internals";
@@ -27,25 +27,22 @@ namespace UavTalk
 			List<UAVObjectField> fields = new List<UAVObjectField>();
 
 			List<String> ErrorElemNames = new List<String>();
-			ErrorElemNames.Add("Bearing");
+			ErrorElemNames.Add("Course");
 			ErrorElemNames.Add("Speed");
-			ErrorElemNames.Add("Accel");
 			ErrorElemNames.Add("Power");
 			Error=new UAVObjectField<float>("Error", "", ErrorElemNames, null, this);
 			fields.Add(Error);
 
 			List<String> ErrorIntElemNames = new List<String>();
-			ErrorIntElemNames.Add("Bearing");
+			ErrorIntElemNames.Add("Course");
 			ErrorIntElemNames.Add("Speed");
-			ErrorIntElemNames.Add("Accel");
 			ErrorIntElemNames.Add("Power");
 			ErrorInt=new UAVObjectField<float>("ErrorInt", "", ErrorIntElemNames, null, this);
 			fields.Add(ErrorInt);
 
 			List<String> CommandElemNames = new List<String>();
-			CommandElemNames.Add("Bearing");
+			CommandElemNames.Add("Course");
 			CommandElemNames.Add("Speed");
-			CommandElemNames.Add("Accel");
 			CommandElemNames.Add("Power");
 			Command=new UAVObjectField<float>("Command", "", CommandElemNames, null, this);
 			fields.Add(Command);
@@ -88,7 +85,7 @@ namespace UavTalk
 				0 << Metadata.UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
 				(int)UPDATEMODE.UPDATEMODE_PERIODIC << Metadata.UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
 				(int)UPDATEMODE.UPDATEMODE_MANUAL << Metadata.UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
-    		metadata.flightTelemetryUpdatePeriod = 50000;
+    		metadata.flightTelemetryUpdatePeriod = 500;
     		metadata.gcsTelemetryUpdatePeriod = 0;
     		metadata.loggingUpdatePeriod = 0;
  

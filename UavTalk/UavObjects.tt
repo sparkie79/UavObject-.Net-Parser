@@ -14,7 +14,7 @@ public static class UAVObjectsInitialize
 	var manager = TemplateFileManager.Create(this);
 
 	// ************* Change your uavobject definition folder here *********
-	string folder = @"C:\TauLabs\shared\uavobjectdefinition";
+	string folder = @"C:\OpenPilot\shared\uavobjectdefinition";
 	// ********************************************************************
 
 	DirectoryInfo dir = new DirectoryInfo(folder);

@@ -1,4 +1,4 @@
-﻿// Object ID: 1721521634
+﻿// Object ID: 3190129850
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class OPLinkStatus : UAVDataObject
 	{
-		public const long OBJID = 1721521634;
+		public const long OBJID = 3190129850;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "OPLinkStatus";
 	    protected static String DESCRIPTION = @"OPLink device status.";
@@ -43,12 +43,16 @@ namespace UavTalk
 		public UAVObjectField<byte> LinkQuality;
 		public enum LinkStateUavEnum
 		{
+			[Description("Disabled")]
+			Disabled = 0, 
+			[Description("Enabled")]
+			Enabled = 1, 
 			[Description("Disconnected")]
-			Disconnected = 0, 
+			Disconnected = 2, 
 			[Description("Connecting")]
-			Connecting = 1, 
+			Connecting = 3, 
 			[Description("Connected")]
-			Connected = 2, 
+			Connected = 4, 
 		}
 		public UAVObjectField<LinkStateUavEnum> LinkState;
 		public UAVObjectField<sbyte> PairSignalStrengths;
@@ -233,6 +237,8 @@ namespace UavTalk
 			List<String> LinkStateElemNames = new List<String>();
 			LinkStateElemNames.Add("0");
 			List<String> LinkStateEnumOptions = new List<String>();
+			LinkStateEnumOptions.Add("Disabled");
+			LinkStateEnumOptions.Add("Enabled");
 			LinkStateEnumOptions.Add("Disconnected");
 			LinkStateEnumOptions.Add("Connecting");
 			LinkStateEnumOptions.Add("Connected");
@@ -309,7 +315,7 @@ namespace UavTalk
 			Timeouts.setValue((byte)0);
 			RSSI.setValue((sbyte)0);
 			LinkQuality.setValue((byte)0);
-			LinkState.setValue(LinkStateUavEnum.Disconnected);
+			LinkState.setValue(LinkStateUavEnum.Disabled);
 			PairSignalStrengths.setValue((sbyte)-127,0);
 			PairSignalStrengths.setValue((sbyte)-127,1);
 			PairSignalStrengths.setValue((sbyte)-127,2);

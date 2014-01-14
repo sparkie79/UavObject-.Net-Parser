@@ -5,7 +5,9 @@ public static class UAVObjectsInitialize
 {
 	public static void register(UAVObjectManager objMngr) {
 		
-		objMngr.registerObject( new Accels() );
+		objMngr.registerObject( new AccelSensor() );
+		
+		objMngr.registerObject( new AccelState() );
 		
 		objMngr.registerObject( new AccessoryDesired() );
 		
@@ -15,41 +17,41 @@ public static class UAVObjectsInitialize
 		
 		objMngr.registerObject( new ActuatorSettings() );
 		
-		objMngr.registerObject( new ADCRouting() );
-		
-		objMngr.registerObject( new AirspeedActual() );
+		objMngr.registerObject( new AirspeedSensor() );
 		
 		objMngr.registerObject( new AirspeedSettings() );
 		
+		objMngr.registerObject( new AirspeedState() );
+		
 		objMngr.registerObject( new AltHoldSmoothed() );
+		
+		objMngr.registerObject( new AltitudeFilterSettings() );
 		
 		objMngr.registerObject( new AltitudeHoldDesired() );
 		
 		objMngr.registerObject( new AltitudeHoldSettings() );
 		
-		objMngr.registerObject( new AttitudeActual() );
-		
 		objMngr.registerObject( new AttitudeSettings() );
 		
 		objMngr.registerObject( new AttitudeSimulated() );
 		
-		objMngr.registerObject( new BaroAirspeed() );
+		objMngr.registerObject( new AttitudeState() );
 		
-		objMngr.registerObject( new BaroAltitude() );
+		objMngr.registerObject( new BaroSensor() );
 		
 		objMngr.registerObject( new CameraDesired() );
 		
 		objMngr.registerObject( new CameraStabSettings() );
 		
+		objMngr.registerObject( new EKFConfiguration() );
+		
+		objMngr.registerObject( new EKFStateVariance() );
+		
 		objMngr.registerObject( new FaultSettings() );
 		
 		objMngr.registerObject( new FirmwareIAPObj() );
 		
-		objMngr.registerObject( new FixedWingAirspeeds() );
-		
 		objMngr.registerObject( new FixedWingPathFollowerSettings() );
-		
-		objMngr.registerObject( new FixedWingPathFollowerSettingsCC() );
 		
 		objMngr.registerObject( new FixedWingPathFollowerStatus() );
 		
@@ -71,57 +73,31 @@ public static class UAVObjectsInitialize
 		
 		objMngr.registerObject( new GCSTelemetryStats() );
 		
-		objMngr.registerObject( new GPSPosition() );
+		objMngr.registerObject( new GPSPositionSensor() );
 		
 		objMngr.registerObject( new GPSSatellites() );
 		
+		objMngr.registerObject( new GPSSettings() );
+		
 		objMngr.registerObject( new GPSTime() );
 		
-		objMngr.registerObject( new GPSVelocity() );
-		
-		objMngr.registerObject( new GroundPathFollowerSettings() );
+		objMngr.registerObject( new GPSVelocitySensor() );
 		
 		objMngr.registerObject( new GroundTruth() );
 		
-		objMngr.registerObject( new Gyros() );
+		objMngr.registerObject( new GyroSensor() );
 		
-		objMngr.registerObject( new GyrosBias() );
+		objMngr.registerObject( new GyroState() );
 		
 		objMngr.registerObject( new HomeLocation() );
 		
-		objMngr.registerObject( new HwCopterControl() );
-		
-		objMngr.registerObject( new HwDiscoveryF4() );
-		
-		objMngr.registerObject( new HwFlyingF3() );
-		
-		objMngr.registerObject( new HwFlyingF4() );
-		
-		objMngr.registerObject( new HwFreedom() );
-		
-		objMngr.registerObject( new HwQuanton() );
-		
-		objMngr.registerObject( new HwRevolution() );
-		
-		objMngr.registerObject( new HwRevoMini() );
-		
-		objMngr.registerObject( new HwSparky() );
+		objMngr.registerObject( new HwSettings() );
 		
 		objMngr.registerObject( new I2CStats() );
 		
-		objMngr.registerObject( new I2CVM() );
+		objMngr.registerObject( new MagSensor() );
 		
-		objMngr.registerObject( new I2CVMUserProgram() );
-		
-		objMngr.registerObject( new INSSettings() );
-		
-		objMngr.registerObject( new INSState() );
-		
-		objMngr.registerObject( new MagBias() );
-		
-		objMngr.registerObject( new Magnetometer() );
-		
-		objMngr.registerObject( new MagnetometerSettings() );
+		objMngr.registerObject( new MagState() );
 		
 		objMngr.registerObject( new ManualControlCommand() );
 		
@@ -131,11 +107,9 @@ public static class UAVObjectsInitialize
 		
 		objMngr.registerObject( new MixerStatus() );
 		
-		objMngr.registerObject( new ModuleSettings() );
+		objMngr.registerObject( new Mpu6000Settings() );
 		
 		objMngr.registerObject( new NedAccel() );
-		
-		objMngr.registerObject( new NEDPosition() );
 		
 		objMngr.registerObject( new ObjectPersistence() );
 		
@@ -145,19 +119,23 @@ public static class UAVObjectsInitialize
 		
 		objMngr.registerObject( new OPLinkStatus() );
 		
+		objMngr.registerObject( new OsdSettings() );
+		
 		objMngr.registerObject( new OveroSyncSettings() );
 		
 		objMngr.registerObject( new OveroSyncStats() );
 		
-		objMngr.registerObject( new PathDesired() );
+		objMngr.registerObject( new PathAction() );
 		
-		objMngr.registerObject( new PathPlannerSettings() );
+		objMngr.registerObject( new PathDesired() );
 		
 		objMngr.registerObject( new PathStatus() );
 		
+		objMngr.registerObject( new PoiLearnSettings() );
+		
 		objMngr.registerObject( new PoiLocation() );
 		
-		objMngr.registerObject( new PositionActual() );
+		objMngr.registerObject( new PositionState() );
 		
 		objMngr.registerObject( new RateDesired() );
 		
@@ -167,7 +145,9 @@ public static class UAVObjectsInitialize
 		
 		objMngr.registerObject( new RelayTuningSettings() );
 		
-		objMngr.registerObject( new SensorSettings() );
+		objMngr.registerObject( new RevoCalibration() );
+		
+		objMngr.registerObject( new RevoSettings() );
 		
 		objMngr.registerObject( new SonarAltitude() );
 		
@@ -175,31 +155,19 @@ public static class UAVObjectsInitialize
 		
 		objMngr.registerObject( new StabilizationSettings() );
 		
-		objMngr.registerObject( new StateEstimation() );
-		
 		objMngr.registerObject( new SystemAlarms() );
 		
 		objMngr.registerObject( new SystemSettings() );
 		
 		objMngr.registerObject( new SystemStats() );
 		
-		objMngr.registerObject( new TabletInfo() );
-		
 		objMngr.registerObject( new TaskInfo() );
-		
-		objMngr.registerObject( new TrimAngles() );
-		
-		objMngr.registerObject( new TrimAnglesSettings() );
 		
 		objMngr.registerObject( new TxPIDSettings() );
 		
-		objMngr.registerObject( new VelocityActual() );
-		
 		objMngr.registerObject( new VelocityDesired() );
 		
-		objMngr.registerObject( new VibrationAnalysisOutput() );
-		
-		objMngr.registerObject( new VibrationAnalysisSettings() );
+		objMngr.registerObject( new VelocityState() );
 		
 		objMngr.registerObject( new VtolPathFollowerSettings() );
 		
@@ -208,82 +176,62 @@ public static class UAVObjectsInitialize
 		objMngr.registerObject( new Waypoint() );
 		
 		objMngr.registerObject( new WaypointActive() );
-		
-		objMngr.registerObject( new WindVelocityActual() );
 	}
 }
 // Generated helper templates
 // Generated items
-// UavTalk\UavTalk\WindVelocityActual.cs
 // UavTalk\UavTalk\WaypointActive.cs
 // UavTalk\UavTalk\Waypoint.cs
 // UavTalk\UavTalk\WatchdogStatus.cs
 // UavTalk\UavTalk\VtolPathFollowerSettings.cs
-// UavTalk\UavTalk\VibrationAnalysisSettings.cs
-// UavTalk\UavTalk\VibrationAnalysisOutput.cs
+// UavTalk\UavTalk\VelocityState.cs
 // UavTalk\UavTalk\VelocityDesired.cs
-// UavTalk\UavTalk\VelocityActual.cs
 // UavTalk\UavTalk\TxPIDSettings.cs
-// UavTalk\UavTalk\TrimAnglesSettings.cs
-// UavTalk\UavTalk\TrimAngles.cs
 // UavTalk\UavTalk\TaskInfo.cs
-// UavTalk\UavTalk\TabletInfo.cs
 // UavTalk\UavTalk\SystemStats.cs
 // UavTalk\UavTalk\SystemSettings.cs
 // UavTalk\UavTalk\SystemAlarms.cs
-// UavTalk\UavTalk\StateEstimation.cs
 // UavTalk\UavTalk\StabilizationSettings.cs
 // UavTalk\UavTalk\StabilizationDesired.cs
 // UavTalk\UavTalk\SonarAltitude.cs
-// UavTalk\UavTalk\SensorSettings.cs
+// UavTalk\UavTalk\RevoSettings.cs
+// UavTalk\UavTalk\RevoCalibration.cs
 // UavTalk\UavTalk\RelayTuningSettings.cs
 // UavTalk\UavTalk\RelayTuning.cs
 // UavTalk\UavTalk\ReceiverActivity.cs
 // UavTalk\UavTalk\RateDesired.cs
-// UavTalk\UavTalk\PositionActual.cs
+// UavTalk\UavTalk\PositionState.cs
 // UavTalk\UavTalk\PoiLocation.cs
+// UavTalk\UavTalk\PoiLearnSettings.cs
 // UavTalk\UavTalk\PathStatus.cs
-// UavTalk\UavTalk\PathPlannerSettings.cs
 // UavTalk\UavTalk\PathDesired.cs
+// UavTalk\UavTalk\PathAction.cs
 // UavTalk\UavTalk\OveroSyncStats.cs
 // UavTalk\UavTalk\OveroSyncSettings.cs
+// UavTalk\UavTalk\OsdSettings.cs
 // UavTalk\UavTalk\OPLinkStatus.cs
 // UavTalk\UavTalk\OPLinkSettings.cs
 // UavTalk\UavTalk\OPLinkReceiver.cs
 // UavTalk\UavTalk\ObjectPersistence.cs
-// UavTalk\UavTalk\NEDPosition.cs
 // UavTalk\UavTalk\NedAccel.cs
-// UavTalk\UavTalk\ModuleSettings.cs
+// UavTalk\UavTalk\Mpu6000Settings.cs
 // UavTalk\UavTalk\MixerStatus.cs
 // UavTalk\UavTalk\MixerSettings.cs
 // UavTalk\UavTalk\ManualControlSettings.cs
 // UavTalk\UavTalk\ManualControlCommand.cs
-// UavTalk\UavTalk\MagnetometerSettings.cs
-// UavTalk\UavTalk\Magnetometer.cs
-// UavTalk\UavTalk\MagBias.cs
-// UavTalk\UavTalk\INSState.cs
-// UavTalk\UavTalk\INSSettings.cs
-// UavTalk\UavTalk\I2CVMUserProgram.cs
-// UavTalk\UavTalk\I2CVM.cs
+// UavTalk\UavTalk\MagState.cs
+// UavTalk\UavTalk\MagSensor.cs
 // UavTalk\UavTalk\I2CStats.cs
-// UavTalk\UavTalk\HwSparky.cs
-// UavTalk\UavTalk\HwRevoMini.cs
-// UavTalk\UavTalk\HwRevolution.cs
-// UavTalk\UavTalk\HwQuanton.cs
-// UavTalk\UavTalk\HwFreedom.cs
-// UavTalk\UavTalk\HwFlyingF4.cs
-// UavTalk\UavTalk\HwFlyingF3.cs
-// UavTalk\UavTalk\HwDiscoveryF4.cs
-// UavTalk\UavTalk\HwCopterControl.cs
+// UavTalk\UavTalk\HwSettings.cs
 // UavTalk\UavTalk\HomeLocation.cs
-// UavTalk\UavTalk\GyrosBias.cs
-// UavTalk\UavTalk\Gyros.cs
+// UavTalk\UavTalk\GyroState.cs
+// UavTalk\UavTalk\GyroSensor.cs
 // UavTalk\UavTalk\GroundTruth.cs
-// UavTalk\UavTalk\GroundPathFollowerSettings.cs
-// UavTalk\UavTalk\GPSVelocity.cs
+// UavTalk\UavTalk\GPSVelocitySensor.cs
 // UavTalk\UavTalk\GPSTime.cs
+// UavTalk\UavTalk\GPSSettings.cs
 // UavTalk\UavTalk\GPSSatellites.cs
-// UavTalk\UavTalk\GPSPosition.cs
+// UavTalk\UavTalk\GPSPositionSensor.cs
 // UavTalk\UavTalk\GCSTelemetryStats.cs
 // UavTalk\UavTalk\GCSReceiver.cs
 // UavTalk\UavTalk\FlightTelemetryStats.cs
@@ -294,26 +242,27 @@ public static class UAVObjectsInitialize
 // UavTalk\UavTalk\FlightBatteryState.cs
 // UavTalk\UavTalk\FlightBatterySettings.cs
 // UavTalk\UavTalk\FixedWingPathFollowerStatus.cs
-// UavTalk\UavTalk\FixedWingPathFollowerSettingsCC.cs
 // UavTalk\UavTalk\FixedWingPathFollowerSettings.cs
-// UavTalk\UavTalk\FixedWingAirspeeds.cs
 // UavTalk\UavTalk\FirmwareIAPObj.cs
 // UavTalk\UavTalk\FaultSettings.cs
+// UavTalk\UavTalk\EKFStateVariance.cs
+// UavTalk\UavTalk\EKFConfiguration.cs
 // UavTalk\UavTalk\CameraStabSettings.cs
 // UavTalk\UavTalk\CameraDesired.cs
-// UavTalk\UavTalk\BaroAltitude.cs
-// UavTalk\UavTalk\BaroAirspeed.cs
+// UavTalk\UavTalk\BaroSensor.cs
+// UavTalk\UavTalk\AttitudeState.cs
 // UavTalk\UavTalk\AttitudeSimulated.cs
 // UavTalk\UavTalk\AttitudeSettings.cs
-// UavTalk\UavTalk\AttitudeActual.cs
 // UavTalk\UavTalk\AltitudeHoldSettings.cs
 // UavTalk\UavTalk\AltitudeHoldDesired.cs
+// UavTalk\UavTalk\AltitudeFilterSettings.cs
 // UavTalk\UavTalk\AltHoldSmoothed.cs
+// UavTalk\UavTalk\AirspeedState.cs
 // UavTalk\UavTalk\AirspeedSettings.cs
-// UavTalk\UavTalk\AirspeedActual.cs
-// UavTalk\UavTalk\ADCRouting.cs
+// UavTalk\UavTalk\AirspeedSensor.cs
 // UavTalk\UavTalk\ActuatorSettings.cs
 // UavTalk\UavTalk\ActuatorDesired.cs
 // UavTalk\UavTalk\ActuatorCommand.cs
 // UavTalk\UavTalk\AccessoryDesired.cs
-// UavTalk\UavTalk\Accels.cs
+// UavTalk\UavTalk\AccelState.cs
+// UavTalk\UavTalk\AccelSensor.cs

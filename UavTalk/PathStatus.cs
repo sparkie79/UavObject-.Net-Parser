@@ -1,4 +1,4 @@
-﻿// Object ID: 11292708
+﻿// Object ID: 428578562
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class PathStatus : UAVDataObject
 	{
-		public const long OBJID = 11292708;
+		public const long OBJID = 428578562;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "PathStatus";
 	    protected static String DESCRIPTION = @"Status of the current path mode  Can come from any @ref PathFollower module";
@@ -19,6 +19,7 @@ namespace UavTalk
 
 		public UAVObjectField<float> fractional_progress;
 		public UAVObjectField<float> error;
+		public UAVObjectField<Int16> UID;
 		public enum StatusUavEnum
 		{
 			[Description("InProgress")]
@@ -45,6 +46,11 @@ namespace UavTalk
 			errorElemNames.Add("0");
 			error=new UAVObjectField<float>("error", "m", errorElemNames, null, this);
 			fields.Add(error);
+
+			List<String> UIDElemNames = new List<String>();
+			UIDElemNames.Add("0");
+			UID=new UAVObjectField<Int16>("UID", "", UIDElemNames, null, this);
+			fields.Add(UID);
 
 			List<String> StatusElemNames = new List<String>();
 			StatusElemNames.Add("0");
@@ -80,11 +86,11 @@ namespace UavTalk
 				(int)AccessMode.ACCESS_READWRITE << Metadata.UAVOBJ_GCS_ACCESS_SHIFT |
 				0 << Metadata.UAVOBJ_TELEMETRY_ACKED_SHIFT |
 				0 << Metadata.UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
-				(int)UPDATEMODE.UPDATEMODE_ONCHANGE << Metadata.UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+				(int)UPDATEMODE.UPDATEMODE_PERIODIC << Metadata.UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
 				(int)UPDATEMODE.UPDATEMODE_MANUAL << Metadata.UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
-    		metadata.flightTelemetryUpdatePeriod = 0;
+    		metadata.flightTelemetryUpdatePeriod = 1000;
     		metadata.gcsTelemetryUpdatePeriod = 0;
-    		metadata.loggingUpdatePeriod = 0;
+    		metadata.loggingUpdatePeriod = 1000;
  
 			return metadata;
 		}

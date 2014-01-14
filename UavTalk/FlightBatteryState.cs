@@ -90,7 +90,7 @@ namespace UavTalk
 				0 << Metadata.UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
 				(int)UPDATEMODE.UPDATEMODE_PERIODIC << Metadata.UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
 				(int)UPDATEMODE.UPDATEMODE_MANUAL << Metadata.UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
-    		metadata.flightTelemetryUpdatePeriod = 50000;
+    		metadata.flightTelemetryUpdatePeriod = 1000;
     		metadata.gcsTelemetryUpdatePeriod = 0;
     		metadata.loggingUpdatePeriod = 0;
  

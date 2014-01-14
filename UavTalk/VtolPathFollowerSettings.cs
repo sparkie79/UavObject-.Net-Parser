@@ -1,4 +1,4 @@
-﻿// Object ID: 3163903036
+﻿// Object ID: 2537132534
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class VtolPathFollowerSettings : UAVDataObject
 	{
-		public const long OBJID = 3163903036;
+		public const long OBJID = 2537132534;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "VtolPathFollowerSettings";
 	    protected static String DESCRIPTION = @"Settings for the @ref VtolPathFollowerModule";
@@ -24,8 +24,6 @@ namespace UavTalk
 		public UAVObjectField<float> VelocityFeedforward;
 		public UAVObjectField<float> MaxRollPitch;
 		public UAVObjectField<Int32> UpdatePeriod;
-		public UAVObjectField<float> LandingRate;
-		public UAVObjectField<float> HoverThrottle;
 		public UAVObjectField<UInt16> HorizontalVelMax;
 		public UAVObjectField<UInt16> VerticalVelMax;
 		public enum GuidanceModeUavEnum
@@ -44,19 +42,24 @@ namespace UavTalk
 			TRUE = 1, 
 		}
 		public UAVObjectField<ThrottleControlUavEnum> ThrottleControl;
-		public UAVObjectField<byte> EndpointRadius;
-		public enum YawModeUavEnum
+		public enum VelocitySourceUavEnum
 		{
-			[Description("Rate")]
-			Rate = 0, 
-			[Description("AxisLock")]
-			AxisLock = 1, 
-			[Description("Attitude")]
-			Attitude = 2, 
-			[Description("POI")]
-			POI = 3, 
+			[Description("EKF")]
+			EKF = 0, 
+			[Description("NEDVEL")]
+			NEDVEL = 1, 
+			[Description("GPSPOS")]
+			GPSPOS = 2, 
 		}
-		public UAVObjectField<YawModeUavEnum> YawMode;
+		public UAVObjectField<VelocitySourceUavEnum> VelocitySource;
+		public enum PositionSourceUavEnum
+		{
+			[Description("EKF")]
+			EKF = 0, 
+			[Description("GPSPOS")]
+			GPSPOS = 1, 
+		}
+		public UAVObjectField<PositionSourceUavEnum> PositionSource;
 
 		public VtolPathFollowerSettings() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
 		{
@@ -107,16 +110,6 @@ namespace UavTalk
 			UpdatePeriod=new UAVObjectField<Int32>("UpdatePeriod", "ms", UpdatePeriodElemNames, null, this);
 			fields.Add(UpdatePeriod);
 
-			List<String> LandingRateElemNames = new List<String>();
-			LandingRateElemNames.Add("0");
-			LandingRate=new UAVObjectField<float>("LandingRate", "m/s", LandingRateElemNames, null, this);
-			fields.Add(LandingRate);
-
-			List<String> HoverThrottleElemNames = new List<String>();
-			HoverThrottleElemNames.Add("0");
-			HoverThrottle=new UAVObjectField<float>("HoverThrottle", "", HoverThrottleElemNames, null, this);
-			fields.Add(HoverThrottle);
-
 			List<String> HorizontalVelMaxElemNames = new List<String>();
 			HorizontalVelMaxElemNames.Add("0");
 			HorizontalVelMax=new UAVObjectField<UInt16>("HorizontalVelMax", "m/s", HorizontalVelMaxElemNames, null, this);
@@ -143,20 +136,22 @@ namespace UavTalk
 			ThrottleControl=new UAVObjectField<ThrottleControlUavEnum>("ThrottleControl", "", ThrottleControlElemNames, ThrottleControlEnumOptions, this);
 			fields.Add(ThrottleControl);
 
-			List<String> EndpointRadiusElemNames = new List<String>();
-			EndpointRadiusElemNames.Add("0");
-			EndpointRadius=new UAVObjectField<byte>("EndpointRadius", "m", EndpointRadiusElemNames, null, this);
-			fields.Add(EndpointRadius);
+			List<String> VelocitySourceElemNames = new List<String>();
+			VelocitySourceElemNames.Add("0");
+			List<String> VelocitySourceEnumOptions = new List<String>();
+			VelocitySourceEnumOptions.Add("EKF");
+			VelocitySourceEnumOptions.Add("NEDVEL");
+			VelocitySourceEnumOptions.Add("GPSPOS");
+			VelocitySource=new UAVObjectField<VelocitySourceUavEnum>("VelocitySource", "", VelocitySourceElemNames, VelocitySourceEnumOptions, this);
+			fields.Add(VelocitySource);
 
-			List<String> YawModeElemNames = new List<String>();
-			YawModeElemNames.Add("0");
-			List<String> YawModeEnumOptions = new List<String>();
-			YawModeEnumOptions.Add("Rate");
-			YawModeEnumOptions.Add("AxisLock");
-			YawModeEnumOptions.Add("Attitude");
-			YawModeEnumOptions.Add("POI");
-			YawMode=new UAVObjectField<YawModeUavEnum>("YawMode", "", YawModeElemNames, YawModeEnumOptions, this);
-			fields.Add(YawMode);
+			List<String> PositionSourceElemNames = new List<String>();
+			PositionSourceElemNames.Add("0");
+			List<String> PositionSourceEnumOptions = new List<String>();
+			PositionSourceEnumOptions.Add("EKF");
+			PositionSourceEnumOptions.Add("GPSPOS");
+			PositionSource=new UAVObjectField<PositionSourceUavEnum>("PositionSource", "", PositionSourceElemNames, PositionSourceEnumOptions, this);
+			fields.Add(PositionSource);
 
 	
 
@@ -198,31 +193,29 @@ namespace UavTalk
 		 */
 		public void setDefaultFieldValues()
 		{
-			HorizontalPosPI.setValue((float)1,0);
-			HorizontalPosPI.setValue((float)0.1,1);
-			HorizontalPosPI.setValue((float)2,2);
-			HorizontalVelPID.setValue((float)7,0);
-			HorizontalVelPID.setValue((float)0,1);
-			HorizontalVelPID.setValue((float)1,2);
-			HorizontalVelPID.setValue((float)0,3);
-			VerticalPosPI.setValue((float)0.3,0);
-			VerticalPosPI.setValue((float)0.001,1);
-			VerticalPosPI.setValue((float)2,2);
-			VerticalVelPID.setValue((float)0.3,0);
-			VerticalVelPID.setValue((float)0,1);
+			HorizontalPosPI.setValue((float)0.25,0);
+			HorizontalPosPI.setValue((float)0.02,1);
+			HorizontalPosPI.setValue((float)1,2);
+			HorizontalVelPID.setValue((float)8,0);
+			HorizontalVelPID.setValue((float)0.5,1);
+			HorizontalVelPID.setValue((float)0.002,2);
+			HorizontalVelPID.setValue((float)4,3);
+			VerticalPosPI.setValue((float)0.4,0);
+			VerticalPosPI.setValue((float)0.02,1);
+			VerticalPosPI.setValue((float)1,2);
+			VerticalVelPID.setValue((float)0.1,0);
+			VerticalVelPID.setValue((float)0.01,1);
 			VerticalVelPID.setValue((float)0,2);
-			VerticalVelPID.setValue((float)0,3);
-			VelocityFeedforward.setValue((float)0);
+			VerticalVelPID.setValue((float)1,3);
+			VelocityFeedforward.setValue((float)2);
 			MaxRollPitch.setValue((float)20);
-			UpdatePeriod.setValue((Int32)100);
-			LandingRate.setValue((float)1);
-			HoverThrottle.setValue((float)0);
-			HorizontalVelMax.setValue((UInt16)10);
+			UpdatePeriod.setValue((Int32)50);
+			HorizontalVelMax.setValue((UInt16)2);
 			VerticalVelMax.setValue((UInt16)1);
 			GuidanceMode.setValue(GuidanceModeUavEnum.DUALLOOP);
 			ThrottleControl.setValue(ThrottleControlUavEnum.FALSE);
-			EndpointRadius.setValue((byte)2);
-			YawMode.setValue(YawModeUavEnum.AxisLock);
+			VelocitySource.setValue(VelocitySourceUavEnum.EKF);
+			PositionSource.setValue(PositionSourceUavEnum.EKF);
 		}
 
 		/**

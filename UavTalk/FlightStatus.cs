@@ -1,4 +1,4 @@
-﻿// Object ID: 1827470274
+﻿// Object ID: 188197398
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class FlightStatus : UAVDataObject
 	{
-		public const long OBJID = 1827470274;
+		public const long OBJID = 188197398;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "FlightStatus";
 	    protected static String DESCRIPTION = @"Contains major flight status information for other modules.";
@@ -41,28 +41,22 @@ namespace UavTalk
 			Autotune = 4, 
 			[Description("AltitudeHold")]
 			AltitudeHold = 5, 
+			[Description("AltitudeVario")]
+			AltitudeVario = 6, 
 			[Description("VelocityControl")]
-			VelocityControl = 6, 
+			VelocityControl = 7, 
 			[Description("PositionHold")]
-			PositionHold = 7, 
-			[Description("ReturnToHome")]
-			ReturnToHome = 8, 
+			PositionHold = 8, 
+			[Description("ReturnToBase")]
+			ReturnToBase = 9, 
+			[Description("Land")]
+			Land = 10, 
 			[Description("PathPlanner")]
-			PathPlanner = 9, 
+			PathPlanner = 11, 
+			[Description("POI")]
+			POI = 12, 
 		}
 		public UAVObjectField<FlightModeUavEnum> FlightMode;
-		public enum ControlSourceUavEnum
-		{
-			[Description("Geofence")]
-			Geofence = 0, 
-			[Description("Failsafe")]
-			Failsafe = 1, 
-			[Description("Transmitter")]
-			Transmitter = 2, 
-			[Description("Tablet")]
-			Tablet = 3, 
-		}
-		public UAVObjectField<ControlSourceUavEnum> ControlSource;
 
 		public FlightStatus() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
 		{
@@ -86,22 +80,15 @@ namespace UavTalk
 			FlightModeEnumOptions.Add("Stabilized3");
 			FlightModeEnumOptions.Add("Autotune");
 			FlightModeEnumOptions.Add("AltitudeHold");
+			FlightModeEnumOptions.Add("AltitudeVario");
 			FlightModeEnumOptions.Add("VelocityControl");
 			FlightModeEnumOptions.Add("PositionHold");
-			FlightModeEnumOptions.Add("ReturnToHome");
+			FlightModeEnumOptions.Add("ReturnToBase");
+			FlightModeEnumOptions.Add("Land");
 			FlightModeEnumOptions.Add("PathPlanner");
+			FlightModeEnumOptions.Add("POI");
 			FlightMode=new UAVObjectField<FlightModeUavEnum>("FlightMode", "", FlightModeElemNames, FlightModeEnumOptions, this);
 			fields.Add(FlightMode);
-
-			List<String> ControlSourceElemNames = new List<String>();
-			ControlSourceElemNames.Add("0");
-			List<String> ControlSourceEnumOptions = new List<String>();
-			ControlSourceEnumOptions.Add("Geofence");
-			ControlSourceEnumOptions.Add("Failsafe");
-			ControlSourceEnumOptions.Add("Transmitter");
-			ControlSourceEnumOptions.Add("Tablet");
-			ControlSource=new UAVObjectField<ControlSourceUavEnum>("ControlSource", "", ControlSourceElemNames, ControlSourceEnumOptions, this);
-			fields.Add(ControlSource);
 
 	
 
@@ -144,7 +131,6 @@ namespace UavTalk
 		public void setDefaultFieldValues()
 		{
 			Armed.setValue(ArmedUavEnum.Disarmed);
-			ControlSource.setValue(ControlSourceUavEnum.Failsafe);
 		}
 
 		/**

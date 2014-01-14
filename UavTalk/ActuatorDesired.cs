@@ -30,22 +30,22 @@ namespace UavTalk
 
 			List<String> RollElemNames = new List<String>();
 			RollElemNames.Add("0");
-			Roll=new UAVObjectField<float>("Roll", "% / 100", RollElemNames, null, this);
+			Roll=new UAVObjectField<float>("Roll", "%", RollElemNames, null, this);
 			fields.Add(Roll);
 
 			List<String> PitchElemNames = new List<String>();
 			PitchElemNames.Add("0");
-			Pitch=new UAVObjectField<float>("Pitch", "% / 100", PitchElemNames, null, this);
+			Pitch=new UAVObjectField<float>("Pitch", "%", PitchElemNames, null, this);
 			fields.Add(Pitch);
 
 			List<String> YawElemNames = new List<String>();
 			YawElemNames.Add("0");
-			Yaw=new UAVObjectField<float>("Yaw", "% / 100", YawElemNames, null, this);
+			Yaw=new UAVObjectField<float>("Yaw", "%", YawElemNames, null, this);
 			fields.Add(Yaw);
 
 			List<String> ThrottleElemNames = new List<String>();
 			ThrottleElemNames.Add("0");
-			Throttle=new UAVObjectField<float>("Throttle", "% / 100", ThrottleElemNames, null, this);
+			Throttle=new UAVObjectField<float>("Throttle", "%", ThrottleElemNames, null, this);
 			fields.Add(Throttle);
 
 			List<String> UpdateTimeElemNames = new List<String>();

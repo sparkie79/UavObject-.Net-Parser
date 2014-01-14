@@ -35,7 +35,7 @@ public abstract class UAVObject
     public  string name { get; set; }
     public  int numBytes { get; set; }
     public  string description { get; set; }
-    public int timestsamp { get; set; }
+    public UInt32 timestamp { get; set; }
     private List<UAVObjectField> fields;
 
     public event EventHandler onUpdated;

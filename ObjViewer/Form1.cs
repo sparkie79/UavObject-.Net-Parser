@@ -81,7 +81,6 @@ namespace ObjViewer
             {
                 if(!b.isMetadata() && !((UAVDataObject)b).isSettings())
                 {
-                    timestamp++;
                     foreach (var prop in b.GetType().GetFields().Where(j => j.FieldType.BaseType == typeof(UAVObjectField)))
                     {
                         UAVObjectField f = (UAVObjectField)prop.GetValue(b);
@@ -91,7 +90,7 @@ namespace ObjViewer
                             fieldData data = new fieldData()
                             {
                                 fieldName = f.getName(),
-                                timestamp = timestamp,
+                                timestamp = b.timestamp,
                                 type = b.GetType(),
                                 value = Convert.ToDouble(f.getValue(i)),
                                 channel = i
@@ -162,7 +161,7 @@ namespace ObjViewer
         {
             public Type type { get; set; }
             public string fieldName { get; set; }
-            public int timestamp { get; set; }
+            public uint timestamp { get; set; }
             public double value { get; set; }
             public int channel { get; set; }
         }
@@ -244,7 +243,7 @@ namespace ObjViewer
         private void apriToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Log Files *.tll|*.tll";
+            dlg.Filter = "Log Files *.tll;*.opl|*.tll;*.opl";
             if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 uavobjectData.Clear();
@@ -313,6 +312,22 @@ namespace ObjViewer
             gp.YAxisList.Clear();
             gp.XAxis.Scale.FontSpec.Size = 8f;
             gp.Border.Color = Color.Gray;
+        }
+
+        private void magPlotToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ScatterPlot form;
+            lock (uavobjectData)
+            {
+                Type t = typeof(MagState);
+                var x = getPoints(t, "x", 0).Select(k=>k.Y).ToArray();
+                var y = getPoints(t, "y", 0).Select(k => k.Y).ToArray();
+                var z = getPoints(t, "z", 0).Select(k => k.Y).ToArray();
+
+                form = new ScatterPlot(x,y,z);
+            }
+            
+            form.Show();
         }
     }
 }

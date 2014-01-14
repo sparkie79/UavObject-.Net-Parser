@@ -389,6 +389,8 @@ namespace UavTalk
             }
         }
 
+        public T value { get { return (T)getValue(0); } }
+
         public UAVObjectField clone()
         {
     	    UAVObjectField<T> newField = new UAVObjectField<T>(name, units, 

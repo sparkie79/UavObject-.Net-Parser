@@ -1,4 +1,4 @@
-﻿// Object ID: 2333987988
+﻿// Object ID: 2871421120
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class OPLinkSettings : UAVDataObject
 	{
-		public const long OBJID = 2333987988;
+		public const long OBJID = 2871421120;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "OPLinkSettings";
 	    protected static String DESCRIPTION = @"OPLink configurations options.";
@@ -26,14 +26,30 @@ namespace UavTalk
 			TRUE = 1, 
 		}
 		public UAVObjectField<CoordinatorUavEnum> Coordinator;
-		public enum OneWayLinkUavEnum
+		public enum OneWayUavEnum
 		{
 			[Description("FALSE")]
 			FALSE = 0, 
 			[Description("TRUE")]
 			TRUE = 1, 
 		}
-		public UAVObjectField<OneWayLinkUavEnum> OneWayLink;
+		public UAVObjectField<OneWayUavEnum> OneWay;
+		public enum PPMUavEnum
+		{
+			[Description("FALSE")]
+			FALSE = 0, 
+			[Description("TRUE")]
+			TRUE = 1, 
+		}
+		public UAVObjectField<PPMUavEnum> PPM;
+		public enum PPMOnlyUavEnum
+		{
+			[Description("FALSE")]
+			FALSE = 0, 
+			[Description("TRUE")]
+			TRUE = 1, 
+		}
+		public UAVObjectField<PPMOnlyUavEnum> PPMOnly;
 		public enum MainPortUavEnum
 		{
 			[Description("Disabled")]
@@ -44,6 +60,8 @@ namespace UavTalk
 			Serial = 2, 
 			[Description("PPM")]
 			PPM = 3, 
+			[Description("PWM")]
+			PWM = 4, 
 		}
 		public UAVObjectField<MainPortUavEnum> MainPort;
 		public enum FlexiPortUavEnum
@@ -56,6 +74,8 @@ namespace UavTalk
 			Serial = 2, 
 			[Description("PPM")]
 			PPM = 3, 
+			[Description("PWM")]
+			PWM = 4, 
 		}
 		public UAVObjectField<FlexiPortUavEnum> FlexiPort;
 		public enum VCPPortUavEnum
@@ -68,47 +88,45 @@ namespace UavTalk
 		public UAVObjectField<VCPPortUavEnum> VCPPort;
 		public enum ComSpeedUavEnum
 		{
-			[Description("2400")]
-			v2400 = 0, 
 			[Description("4800")]
-			v4800 = 1, 
+			v4800 = 0, 
 			[Description("9600")]
-			v9600 = 2, 
+			v9600 = 1, 
 			[Description("19200")]
-			v19200 = 3, 
+			v19200 = 2, 
 			[Description("38400")]
-			v38400 = 4, 
+			v38400 = 3, 
 			[Description("57600")]
-			v57600 = 5, 
+			v57600 = 4, 
 			[Description("115200")]
-			v115200 = 6, 
+			v115200 = 5, 
 		}
 		public UAVObjectField<ComSpeedUavEnum> ComSpeed;
 		public enum MaxRFPowerUavEnum
 		{
+			[Description("0")]
+			v0 = 0, 
 			[Description("1.25")]
-			v125 = 0, 
+			v125 = 1, 
 			[Description("1.6")]
-			v16 = 1, 
+			v16 = 2, 
 			[Description("3.16")]
-			v316 = 2, 
+			v316 = 3, 
 			[Description("6.3")]
-			v63 = 3, 
+			v63 = 4, 
 			[Description("12.6")]
-			v126 = 4, 
+			v126 = 5, 
 			[Description("25")]
-			v25 = 5, 
+			v25 = 6, 
 			[Description("50")]
-			v50 = 6, 
+			v50 = 7, 
 			[Description("100")]
-			v100 = 7, 
+			v100 = 8, 
 		}
 		public UAVObjectField<MaxRFPowerUavEnum> MaxRFPower;
 		public UAVObjectField<byte> MinChannel;
 		public UAVObjectField<byte> MaxChannel;
-		public UAVObjectField<byte> NumChannels;
 		public UAVObjectField<byte> ChannelSet;
-		public UAVObjectField<byte> PacketTime;
 
 		public OPLinkSettings() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
 		{
@@ -127,13 +145,29 @@ namespace UavTalk
 			Coordinator=new UAVObjectField<CoordinatorUavEnum>("Coordinator", "", CoordinatorElemNames, CoordinatorEnumOptions, this);
 			fields.Add(Coordinator);
 
-			List<String> OneWayLinkElemNames = new List<String>();
-			OneWayLinkElemNames.Add("0");
-			List<String> OneWayLinkEnumOptions = new List<String>();
-			OneWayLinkEnumOptions.Add("FALSE");
-			OneWayLinkEnumOptions.Add("TRUE");
-			OneWayLink=new UAVObjectField<OneWayLinkUavEnum>("OneWayLink", "", OneWayLinkElemNames, OneWayLinkEnumOptions, this);
-			fields.Add(OneWayLink);
+			List<String> OneWayElemNames = new List<String>();
+			OneWayElemNames.Add("0");
+			List<String> OneWayEnumOptions = new List<String>();
+			OneWayEnumOptions.Add("FALSE");
+			OneWayEnumOptions.Add("TRUE");
+			OneWay=new UAVObjectField<OneWayUavEnum>("OneWay", "", OneWayElemNames, OneWayEnumOptions, this);
+			fields.Add(OneWay);
+
+			List<String> PPMElemNames = new List<String>();
+			PPMElemNames.Add("0");
+			List<String> PPMEnumOptions = new List<String>();
+			PPMEnumOptions.Add("FALSE");
+			PPMEnumOptions.Add("TRUE");
+			PPM=new UAVObjectField<PPMUavEnum>("PPM", "", PPMElemNames, PPMEnumOptions, this);
+			fields.Add(PPM);
+
+			List<String> PPMOnlyElemNames = new List<String>();
+			PPMOnlyElemNames.Add("0");
+			List<String> PPMOnlyEnumOptions = new List<String>();
+			PPMOnlyEnumOptions.Add("FALSE");
+			PPMOnlyEnumOptions.Add("TRUE");
+			PPMOnly=new UAVObjectField<PPMOnlyUavEnum>("PPMOnly", "", PPMOnlyElemNames, PPMOnlyEnumOptions, this);
+			fields.Add(PPMOnly);
 
 			List<String> MainPortElemNames = new List<String>();
 			MainPortElemNames.Add("0");
@@ -142,6 +176,7 @@ namespace UavTalk
 			MainPortEnumOptions.Add("Telemetry");
 			MainPortEnumOptions.Add("Serial");
 			MainPortEnumOptions.Add("PPM");
+			MainPortEnumOptions.Add("PWM");
 			MainPort=new UAVObjectField<MainPortUavEnum>("MainPort", "", MainPortElemNames, MainPortEnumOptions, this);
 			fields.Add(MainPort);
 
@@ -152,6 +187,7 @@ namespace UavTalk
 			FlexiPortEnumOptions.Add("Telemetry");
 			FlexiPortEnumOptions.Add("Serial");
 			FlexiPortEnumOptions.Add("PPM");
+			FlexiPortEnumOptions.Add("PWM");
 			FlexiPort=new UAVObjectField<FlexiPortUavEnum>("FlexiPort", "", FlexiPortElemNames, FlexiPortEnumOptions, this);
 			fields.Add(FlexiPort);
 
@@ -166,7 +202,6 @@ namespace UavTalk
 			List<String> ComSpeedElemNames = new List<String>();
 			ComSpeedElemNames.Add("0");
 			List<String> ComSpeedEnumOptions = new List<String>();
-			ComSpeedEnumOptions.Add("2400");
 			ComSpeedEnumOptions.Add("4800");
 			ComSpeedEnumOptions.Add("9600");
 			ComSpeedEnumOptions.Add("19200");
@@ -179,6 +214,7 @@ namespace UavTalk
 			List<String> MaxRFPowerElemNames = new List<String>();
 			MaxRFPowerElemNames.Add("0");
 			List<String> MaxRFPowerEnumOptions = new List<String>();
+			MaxRFPowerEnumOptions.Add("0");
 			MaxRFPowerEnumOptions.Add("1.25");
 			MaxRFPowerEnumOptions.Add("1.6");
 			MaxRFPowerEnumOptions.Add("3.16");
@@ -200,20 +236,10 @@ namespace UavTalk
 			MaxChannel=new UAVObjectField<byte>("MaxChannel", "", MaxChannelElemNames, null, this);
 			fields.Add(MaxChannel);
 
-			List<String> NumChannelsElemNames = new List<String>();
-			NumChannelsElemNames.Add("0");
-			NumChannels=new UAVObjectField<byte>("NumChannels", "", NumChannelsElemNames, null, this);
-			fields.Add(NumChannels);
-
 			List<String> ChannelSetElemNames = new List<String>();
 			ChannelSetElemNames.Add("0");
 			ChannelSet=new UAVObjectField<byte>("ChannelSet", "", ChannelSetElemNames, null, this);
 			fields.Add(ChannelSet);
-
-			List<String> PacketTimeElemNames = new List<String>();
-			PacketTimeElemNames.Add("0");
-			PacketTime=new UAVObjectField<byte>("PacketTime", "ms", PacketTimeElemNames, null, this);
-			fields.Add(PacketTime);
 
 	
 
@@ -257,17 +283,17 @@ namespace UavTalk
 		{
 			CoordID.setValue((UInt32)0);
 			Coordinator.setValue(CoordinatorUavEnum.FALSE);
-			OneWayLink.setValue(OneWayLinkUavEnum.FALSE);
-			MainPort.setValue(MainPortUavEnum.Telemetry);
+			OneWay.setValue(OneWayUavEnum.FALSE);
+			PPM.setValue(PPMUavEnum.FALSE);
+			PPMOnly.setValue(PPMOnlyUavEnum.FALSE);
+			MainPort.setValue(MainPortUavEnum.Disabled);
 			FlexiPort.setValue(FlexiPortUavEnum.Disabled);
 			VCPPort.setValue(VCPPortUavEnum.Disabled);
 			ComSpeed.setValue(ComSpeedUavEnum.v38400);
-			MaxRFPower.setValue(MaxRFPowerUavEnum.v125);
+			MaxRFPower.setValue(MaxRFPowerUavEnum.v0);
 			MinChannel.setValue((byte)0);
 			MaxChannel.setValue((byte)250);
-			NumChannels.setValue((byte)10);
 			ChannelSet.setValue((byte)39);
-			PacketTime.setValue((byte)15);
 		}
 
 		/**

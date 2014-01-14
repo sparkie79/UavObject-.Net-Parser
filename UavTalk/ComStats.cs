@@ -8,13 +8,13 @@ namespace UavTalk
 {
     public class ComStats
     {
-        public int txBytes {get;set;}
-        public int rxBytes { get; set; }
-        public int txObjectBytes { get; set; }
-        public int rxObjectBytes { get; set; }
-        public int rxObjects { get; set; }
-        public int txObjects { get; set; }
-        public int txErrors { get; set; }
-        public int rxErrors { get; set; }
+        
+        public int Bytes { get; set; }
+        
+        public int ObjectBytes { get; set; }
+        
+        public int Objects { get; set; }
+        
+        public int Errors { get; set; }
     }
 }

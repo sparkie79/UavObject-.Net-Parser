@@ -1,4 +1,4 @@
-﻿// Object ID: 1561777860
+﻿// Object ID: 485485170
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class MixerSettings : UAVDataObject
 	{
-		public const long OBJID = 1561777860;
+		public const long OBJID = 485485170;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "MixerSettings";
 	    protected static String DESCRIPTION = @"Settings for the @ref ActuatorModule that controls the channel assignments for the mixer based on AircraftType";
@@ -57,10 +57,10 @@ namespace UavTalk
 			Motor = 1, 
 			[Description("Servo")]
 			Servo = 2, 
-			[Description("CameraRoll")]
-			CameraRoll = 3, 
-			[Description("CameraPitch")]
-			CameraPitch = 4, 
+			[Description("CameraRollOrServo1")]
+			CameraRollOrServo1 = 3, 
+			[Description("CameraPitchOrServo2")]
+			CameraPitchOrServo2 = 4, 
 			[Description("CameraYaw")]
 			CameraYaw = 5, 
 			[Description("Accessory0")]
@@ -86,10 +86,10 @@ namespace UavTalk
 			Motor = 1, 
 			[Description("Servo")]
 			Servo = 2, 
-			[Description("CameraRoll")]
-			CameraRoll = 3, 
-			[Description("CameraPitch")]
-			CameraPitch = 4, 
+			[Description("CameraRollOrServo1")]
+			CameraRollOrServo1 = 3, 
+			[Description("CameraPitchOrServo2")]
+			CameraPitchOrServo2 = 4, 
 			[Description("CameraYaw")]
 			CameraYaw = 5, 
 			[Description("Accessory0")]
@@ -115,10 +115,10 @@ namespace UavTalk
 			Motor = 1, 
 			[Description("Servo")]
 			Servo = 2, 
-			[Description("CameraRoll")]
-			CameraRoll = 3, 
-			[Description("CameraPitch")]
-			CameraPitch = 4, 
+			[Description("CameraRollOrServo1")]
+			CameraRollOrServo1 = 3, 
+			[Description("CameraPitchOrServo2")]
+			CameraPitchOrServo2 = 4, 
 			[Description("CameraYaw")]
 			CameraYaw = 5, 
 			[Description("Accessory0")]
@@ -144,10 +144,10 @@ namespace UavTalk
 			Motor = 1, 
 			[Description("Servo")]
 			Servo = 2, 
-			[Description("CameraRoll")]
-			CameraRoll = 3, 
-			[Description("CameraPitch")]
-			CameraPitch = 4, 
+			[Description("CameraRollOrServo1")]
+			CameraRollOrServo1 = 3, 
+			[Description("CameraPitchOrServo2")]
+			CameraPitchOrServo2 = 4, 
 			[Description("CameraYaw")]
 			CameraYaw = 5, 
 			[Description("Accessory0")]
@@ -173,10 +173,10 @@ namespace UavTalk
 			Motor = 1, 
 			[Description("Servo")]
 			Servo = 2, 
-			[Description("CameraRoll")]
-			CameraRoll = 3, 
-			[Description("CameraPitch")]
-			CameraPitch = 4, 
+			[Description("CameraRollOrServo1")]
+			CameraRollOrServo1 = 3, 
+			[Description("CameraPitchOrServo2")]
+			CameraPitchOrServo2 = 4, 
 			[Description("CameraYaw")]
 			CameraYaw = 5, 
 			[Description("Accessory0")]
@@ -202,10 +202,10 @@ namespace UavTalk
 			Motor = 1, 
 			[Description("Servo")]
 			Servo = 2, 
-			[Description("CameraRoll")]
-			CameraRoll = 3, 
-			[Description("CameraPitch")]
-			CameraPitch = 4, 
+			[Description("CameraRollOrServo1")]
+			CameraRollOrServo1 = 3, 
+			[Description("CameraPitchOrServo2")]
+			CameraPitchOrServo2 = 4, 
 			[Description("CameraYaw")]
 			CameraYaw = 5, 
 			[Description("Accessory0")]
@@ -231,10 +231,10 @@ namespace UavTalk
 			Motor = 1, 
 			[Description("Servo")]
 			Servo = 2, 
-			[Description("CameraRoll")]
-			CameraRoll = 3, 
-			[Description("CameraPitch")]
-			CameraPitch = 4, 
+			[Description("CameraRollOrServo1")]
+			CameraRollOrServo1 = 3, 
+			[Description("CameraPitchOrServo2")]
+			CameraPitchOrServo2 = 4, 
 			[Description("CameraYaw")]
 			CameraYaw = 5, 
 			[Description("Accessory0")]
@@ -260,10 +260,10 @@ namespace UavTalk
 			Motor = 1, 
 			[Description("Servo")]
 			Servo = 2, 
-			[Description("CameraRoll")]
-			CameraRoll = 3, 
-			[Description("CameraPitch")]
-			CameraPitch = 4, 
+			[Description("CameraRollOrServo1")]
+			CameraRollOrServo1 = 3, 
+			[Description("CameraPitchOrServo2")]
+			CameraPitchOrServo2 = 4, 
 			[Description("CameraYaw")]
 			CameraYaw = 5, 
 			[Description("Accessory0")]
@@ -289,10 +289,10 @@ namespace UavTalk
 			Motor = 1, 
 			[Description("Servo")]
 			Servo = 2, 
-			[Description("CameraRoll")]
-			CameraRoll = 3, 
-			[Description("CameraPitch")]
-			CameraPitch = 4, 
+			[Description("CameraRollOrServo1")]
+			CameraRollOrServo1 = 3, 
+			[Description("CameraPitchOrServo2")]
+			CameraPitchOrServo2 = 4, 
 			[Description("CameraYaw")]
 			CameraYaw = 5, 
 			[Description("Accessory0")]
@@ -318,10 +318,10 @@ namespace UavTalk
 			Motor = 1, 
 			[Description("Servo")]
 			Servo = 2, 
-			[Description("CameraRoll")]
-			CameraRoll = 3, 
-			[Description("CameraPitch")]
-			CameraPitch = 4, 
+			[Description("CameraRollOrServo1")]
+			CameraRollOrServo1 = 3, 
+			[Description("CameraPitchOrServo2")]
+			CameraPitchOrServo2 = 4, 
 			[Description("CameraYaw")]
 			CameraYaw = 5, 
 			[Description("Accessory0")]
@@ -339,6 +339,64 @@ namespace UavTalk
 		}
 		public UAVObjectField<Mixer10TypeUavEnum> Mixer10Type;
 		public UAVObjectField<sbyte> Mixer10Vector;
+		public enum Mixer11TypeUavEnum
+		{
+			[Description("Disabled")]
+			Disabled = 0, 
+			[Description("Motor")]
+			Motor = 1, 
+			[Description("Servo")]
+			Servo = 2, 
+			[Description("CameraRollOrServo1")]
+			CameraRollOrServo1 = 3, 
+			[Description("CameraPitchOrServo2")]
+			CameraPitchOrServo2 = 4, 
+			[Description("CameraYaw")]
+			CameraYaw = 5, 
+			[Description("Accessory0")]
+			Accessory0 = 6, 
+			[Description("Accessory1")]
+			Accessory1 = 7, 
+			[Description("Accessory2")]
+			Accessory2 = 8, 
+			[Description("Accessory3")]
+			Accessory3 = 9, 
+			[Description("Accessory4")]
+			Accessory4 = 10, 
+			[Description("Accessory5")]
+			Accessory5 = 11, 
+		}
+		public UAVObjectField<Mixer11TypeUavEnum> Mixer11Type;
+		public UAVObjectField<sbyte> Mixer11Vector;
+		public enum Mixer12TypeUavEnum
+		{
+			[Description("Disabled")]
+			Disabled = 0, 
+			[Description("Motor")]
+			Motor = 1, 
+			[Description("Servo")]
+			Servo = 2, 
+			[Description("CameraRollOrServo1")]
+			CameraRollOrServo1 = 3, 
+			[Description("CameraPitchOrServo2")]
+			CameraPitchOrServo2 = 4, 
+			[Description("CameraYaw")]
+			CameraYaw = 5, 
+			[Description("Accessory0")]
+			Accessory0 = 6, 
+			[Description("Accessory1")]
+			Accessory1 = 7, 
+			[Description("Accessory2")]
+			Accessory2 = 8, 
+			[Description("Accessory3")]
+			Accessory3 = 9, 
+			[Description("Accessory4")]
+			Accessory4 = 10, 
+			[Description("Accessory5")]
+			Accessory5 = 11, 
+		}
+		public UAVObjectField<Mixer12TypeUavEnum> Mixer12Type;
+		public UAVObjectField<sbyte> Mixer12Vector;
 
 		public MixerSettings() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
 		{
@@ -405,8 +463,8 @@ namespace UavTalk
 			Mixer1TypeEnumOptions.Add("Disabled");
 			Mixer1TypeEnumOptions.Add("Motor");
 			Mixer1TypeEnumOptions.Add("Servo");
-			Mixer1TypeEnumOptions.Add("CameraRoll");
-			Mixer1TypeEnumOptions.Add("CameraPitch");
+			Mixer1TypeEnumOptions.Add("CameraRollOrServo1");
+			Mixer1TypeEnumOptions.Add("CameraPitchOrServo2");
 			Mixer1TypeEnumOptions.Add("CameraYaw");
 			Mixer1TypeEnumOptions.Add("Accessory0");
 			Mixer1TypeEnumOptions.Add("Accessory1");
@@ -432,8 +490,8 @@ namespace UavTalk
 			Mixer2TypeEnumOptions.Add("Disabled");
 			Mixer2TypeEnumOptions.Add("Motor");
 			Mixer2TypeEnumOptions.Add("Servo");
-			Mixer2TypeEnumOptions.Add("CameraRoll");
-			Mixer2TypeEnumOptions.Add("CameraPitch");
+			Mixer2TypeEnumOptions.Add("CameraRollOrServo1");
+			Mixer2TypeEnumOptions.Add("CameraPitchOrServo2");
 			Mixer2TypeEnumOptions.Add("CameraYaw");
 			Mixer2TypeEnumOptions.Add("Accessory0");
 			Mixer2TypeEnumOptions.Add("Accessory1");
@@ -459,8 +517,8 @@ namespace UavTalk
 			Mixer3TypeEnumOptions.Add("Disabled");
 			Mixer3TypeEnumOptions.Add("Motor");
 			Mixer3TypeEnumOptions.Add("Servo");
-			Mixer3TypeEnumOptions.Add("CameraRoll");
-			Mixer3TypeEnumOptions.Add("CameraPitch");
+			Mixer3TypeEnumOptions.Add("CameraRollOrServo1");
+			Mixer3TypeEnumOptions.Add("CameraPitchOrServo2");
 			Mixer3TypeEnumOptions.Add("CameraYaw");
 			Mixer3TypeEnumOptions.Add("Accessory0");
 			Mixer3TypeEnumOptions.Add("Accessory1");
@@ -486,8 +544,8 @@ namespace UavTalk
 			Mixer4TypeEnumOptions.Add("Disabled");
 			Mixer4TypeEnumOptions.Add("Motor");
 			Mixer4TypeEnumOptions.Add("Servo");
-			Mixer4TypeEnumOptions.Add("CameraRoll");
-			Mixer4TypeEnumOptions.Add("CameraPitch");
+			Mixer4TypeEnumOptions.Add("CameraRollOrServo1");
+			Mixer4TypeEnumOptions.Add("CameraPitchOrServo2");
 			Mixer4TypeEnumOptions.Add("CameraYaw");
 			Mixer4TypeEnumOptions.Add("Accessory0");
 			Mixer4TypeEnumOptions.Add("Accessory1");
@@ -513,8 +571,8 @@ namespace UavTalk
 			Mixer5TypeEnumOptions.Add("Disabled");
 			Mixer5TypeEnumOptions.Add("Motor");
 			Mixer5TypeEnumOptions.Add("Servo");
-			Mixer5TypeEnumOptions.Add("CameraRoll");
-			Mixer5TypeEnumOptions.Add("CameraPitch");
+			Mixer5TypeEnumOptions.Add("CameraRollOrServo1");
+			Mixer5TypeEnumOptions.Add("CameraPitchOrServo2");
 			Mixer5TypeEnumOptions.Add("CameraYaw");
 			Mixer5TypeEnumOptions.Add("Accessory0");
 			Mixer5TypeEnumOptions.Add("Accessory1");
@@ -540,8 +598,8 @@ namespace UavTalk
 			Mixer6TypeEnumOptions.Add("Disabled");
 			Mixer6TypeEnumOptions.Add("Motor");
 			Mixer6TypeEnumOptions.Add("Servo");
-			Mixer6TypeEnumOptions.Add("CameraRoll");
-			Mixer6TypeEnumOptions.Add("CameraPitch");
+			Mixer6TypeEnumOptions.Add("CameraRollOrServo1");
+			Mixer6TypeEnumOptions.Add("CameraPitchOrServo2");
 			Mixer6TypeEnumOptions.Add("CameraYaw");
 			Mixer6TypeEnumOptions.Add("Accessory0");
 			Mixer6TypeEnumOptions.Add("Accessory1");
@@ -567,8 +625,8 @@ namespace UavTalk
 			Mixer7TypeEnumOptions.Add("Disabled");
 			Mixer7TypeEnumOptions.Add("Motor");
 			Mixer7TypeEnumOptions.Add("Servo");
-			Mixer7TypeEnumOptions.Add("CameraRoll");
-			Mixer7TypeEnumOptions.Add("CameraPitch");
+			Mixer7TypeEnumOptions.Add("CameraRollOrServo1");
+			Mixer7TypeEnumOptions.Add("CameraPitchOrServo2");
 			Mixer7TypeEnumOptions.Add("CameraYaw");
 			Mixer7TypeEnumOptions.Add("Accessory0");
 			Mixer7TypeEnumOptions.Add("Accessory1");
@@ -594,8 +652,8 @@ namespace UavTalk
 			Mixer8TypeEnumOptions.Add("Disabled");
 			Mixer8TypeEnumOptions.Add("Motor");
 			Mixer8TypeEnumOptions.Add("Servo");
-			Mixer8TypeEnumOptions.Add("CameraRoll");
-			Mixer8TypeEnumOptions.Add("CameraPitch");
+			Mixer8TypeEnumOptions.Add("CameraRollOrServo1");
+			Mixer8TypeEnumOptions.Add("CameraPitchOrServo2");
 			Mixer8TypeEnumOptions.Add("CameraYaw");
 			Mixer8TypeEnumOptions.Add("Accessory0");
 			Mixer8TypeEnumOptions.Add("Accessory1");
@@ -621,8 +679,8 @@ namespace UavTalk
 			Mixer9TypeEnumOptions.Add("Disabled");
 			Mixer9TypeEnumOptions.Add("Motor");
 			Mixer9TypeEnumOptions.Add("Servo");
-			Mixer9TypeEnumOptions.Add("CameraRoll");
-			Mixer9TypeEnumOptions.Add("CameraPitch");
+			Mixer9TypeEnumOptions.Add("CameraRollOrServo1");
+			Mixer9TypeEnumOptions.Add("CameraPitchOrServo2");
 			Mixer9TypeEnumOptions.Add("CameraYaw");
 			Mixer9TypeEnumOptions.Add("Accessory0");
 			Mixer9TypeEnumOptions.Add("Accessory1");
@@ -648,8 +706,8 @@ namespace UavTalk
 			Mixer10TypeEnumOptions.Add("Disabled");
 			Mixer10TypeEnumOptions.Add("Motor");
 			Mixer10TypeEnumOptions.Add("Servo");
-			Mixer10TypeEnumOptions.Add("CameraRoll");
-			Mixer10TypeEnumOptions.Add("CameraPitch");
+			Mixer10TypeEnumOptions.Add("CameraRollOrServo1");
+			Mixer10TypeEnumOptions.Add("CameraPitchOrServo2");
 			Mixer10TypeEnumOptions.Add("CameraYaw");
 			Mixer10TypeEnumOptions.Add("Accessory0");
 			Mixer10TypeEnumOptions.Add("Accessory1");
@@ -668,6 +726,60 @@ namespace UavTalk
 			Mixer10VectorElemNames.Add("Yaw");
 			Mixer10Vector=new UAVObjectField<sbyte>("Mixer10Vector", "", Mixer10VectorElemNames, null, this);
 			fields.Add(Mixer10Vector);
+
+			List<String> Mixer11TypeElemNames = new List<String>();
+			Mixer11TypeElemNames.Add("0");
+			List<String> Mixer11TypeEnumOptions = new List<String>();
+			Mixer11TypeEnumOptions.Add("Disabled");
+			Mixer11TypeEnumOptions.Add("Motor");
+			Mixer11TypeEnumOptions.Add("Servo");
+			Mixer11TypeEnumOptions.Add("CameraRollOrServo1");
+			Mixer11TypeEnumOptions.Add("CameraPitchOrServo2");
+			Mixer11TypeEnumOptions.Add("CameraYaw");
+			Mixer11TypeEnumOptions.Add("Accessory0");
+			Mixer11TypeEnumOptions.Add("Accessory1");
+			Mixer11TypeEnumOptions.Add("Accessory2");
+			Mixer11TypeEnumOptions.Add("Accessory3");
+			Mixer11TypeEnumOptions.Add("Accessory4");
+			Mixer11TypeEnumOptions.Add("Accessory5");
+			Mixer11Type=new UAVObjectField<Mixer11TypeUavEnum>("Mixer11Type", "", Mixer11TypeElemNames, Mixer11TypeEnumOptions, this);
+			fields.Add(Mixer11Type);
+
+			List<String> Mixer11VectorElemNames = new List<String>();
+			Mixer11VectorElemNames.Add("ThrottleCurve1");
+			Mixer11VectorElemNames.Add("ThrottleCurve2");
+			Mixer11VectorElemNames.Add("Roll");
+			Mixer11VectorElemNames.Add("Pitch");
+			Mixer11VectorElemNames.Add("Yaw");
+			Mixer11Vector=new UAVObjectField<sbyte>("Mixer11Vector", "", Mixer11VectorElemNames, null, this);
+			fields.Add(Mixer11Vector);
+
+			List<String> Mixer12TypeElemNames = new List<String>();
+			Mixer12TypeElemNames.Add("0");
+			List<String> Mixer12TypeEnumOptions = new List<String>();
+			Mixer12TypeEnumOptions.Add("Disabled");
+			Mixer12TypeEnumOptions.Add("Motor");
+			Mixer12TypeEnumOptions.Add("Servo");
+			Mixer12TypeEnumOptions.Add("CameraRollOrServo1");
+			Mixer12TypeEnumOptions.Add("CameraPitchOrServo2");
+			Mixer12TypeEnumOptions.Add("CameraYaw");
+			Mixer12TypeEnumOptions.Add("Accessory0");
+			Mixer12TypeEnumOptions.Add("Accessory1");
+			Mixer12TypeEnumOptions.Add("Accessory2");
+			Mixer12TypeEnumOptions.Add("Accessory3");
+			Mixer12TypeEnumOptions.Add("Accessory4");
+			Mixer12TypeEnumOptions.Add("Accessory5");
+			Mixer12Type=new UAVObjectField<Mixer12TypeUavEnum>("Mixer12Type", "", Mixer12TypeElemNames, Mixer12TypeEnumOptions, this);
+			fields.Add(Mixer12Type);
+
+			List<String> Mixer12VectorElemNames = new List<String>();
+			Mixer12VectorElemNames.Add("ThrottleCurve1");
+			Mixer12VectorElemNames.Add("ThrottleCurve2");
+			Mixer12VectorElemNames.Add("Roll");
+			Mixer12VectorElemNames.Add("Pitch");
+			Mixer12VectorElemNames.Add("Yaw");
+			Mixer12Vector=new UAVObjectField<sbyte>("Mixer12Vector", "", Mixer12VectorElemNames, null, this);
+			fields.Add(Mixer12Vector);
 
 	
 
@@ -784,6 +896,18 @@ namespace UavTalk
 			Mixer10Vector.setValue((sbyte)0,2);
 			Mixer10Vector.setValue((sbyte)0,3);
 			Mixer10Vector.setValue((sbyte)0,4);
+			Mixer11Type.setValue(Mixer11TypeUavEnum.Disabled);
+			Mixer11Vector.setValue((sbyte)0,0);
+			Mixer11Vector.setValue((sbyte)0,1);
+			Mixer11Vector.setValue((sbyte)0,2);
+			Mixer11Vector.setValue((sbyte)0,3);
+			Mixer11Vector.setValue((sbyte)0,4);
+			Mixer12Type.setValue(Mixer12TypeUavEnum.Disabled);
+			Mixer12Vector.setValue((sbyte)0,0);
+			Mixer12Vector.setValue((sbyte)0,1);
+			Mixer12Vector.setValue((sbyte)0,2);
+			Mixer12Vector.setValue((sbyte)0,3);
+			Mixer12Vector.setValue((sbyte)0,4);
 		}
 
 		/**

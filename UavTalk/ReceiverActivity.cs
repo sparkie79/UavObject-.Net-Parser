@@ -1,4 +1,4 @@
-﻿// Object ID: 511464410
+﻿// Object ID: 4283633700
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class ReceiverActivity : UAVDataObject
 	{
-		public const long OBJID = 511464410;
+		public const long OBJID = 4283633700;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "ReceiverActivity";
 	    protected static String DESCRIPTION = @"Monitors which receiver channels have been active within the last second.";
@@ -31,8 +31,10 @@ namespace UavTalk
 			SBus = 4, 
 			[Description("GCS")]
 			GCS = 5, 
+			[Description("OPLink")]
+			OPLink = 6, 
 			[Description("None")]
-			None = 6, 
+			None = 7, 
 		}
 		public UAVObjectField<ActiveGroupUavEnum> ActiveGroup;
 		public UAVObjectField<byte> ActiveChannel;
@@ -50,6 +52,7 @@ namespace UavTalk
 			ActiveGroupEnumOptions.Add("DSM (FlexiPort)");
 			ActiveGroupEnumOptions.Add("S.Bus");
 			ActiveGroupEnumOptions.Add("GCS");
+			ActiveGroupEnumOptions.Add("OPLink");
 			ActiveGroupEnumOptions.Add("None");
 			ActiveGroup=new UAVObjectField<ActiveGroupUavEnum>("ActiveGroup", "Channel Group", ActiveGroupElemNames, ActiveGroupEnumOptions, this);
 			fields.Add(ActiveGroup);

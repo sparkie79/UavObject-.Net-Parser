@@ -1,4 +1,4 @@
-﻿// Object ID: 3119888558
+﻿// Object ID: 2642197224
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class AirspeedSettings : UAVDataObject
 	{
-		public const long OBJID = 3119888558;
+		public const long OBJID = 2642197224;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "AirspeedSettings";
 	    protected static String DESCRIPTION = @"Settings for the @ref BaroAirspeed module used on CopterControl or Revolution";
@@ -18,8 +18,9 @@ namespace UavTalk
 		protected const bool ISSETTINGS = true;
 
 		public UAVObjectField<float> Scale;
+		public UAVObjectField<float> GroundSpeedBasedEstimationLowPassAlpha;
 		public UAVObjectField<UInt16> ZeroPoint;
-		public UAVObjectField<byte> GPSSamplePeriod_ms;
+		public UAVObjectField<byte> SamplePeriod;
 		public enum AirspeedSensorTypeUavEnum
 		{
 			[Description("EagleTreeAirspeedV3")]
@@ -28,8 +29,8 @@ namespace UavTalk
 			DIYDronesMPXV5004 = 1, 
 			[Description("DIYDronesMPXV7002")]
 			DIYDronesMPXV7002 = 2, 
-			[Description("GPSOnly")]
-			GPSOnly = 3, 
+			[Description("GroundSpeedBasedWindEstimation")]
+			GroundSpeedBasedWindEstimation = 3, 
 		}
 		public UAVObjectField<AirspeedSensorTypeUavEnum> AirspeedSensorType;
 
@@ -42,15 +43,20 @@ namespace UavTalk
 			Scale=new UAVObjectField<float>("Scale", "raw", ScaleElemNames, null, this);
 			fields.Add(Scale);
 
+			List<String> GroundSpeedBasedEstimationLowPassAlphaElemNames = new List<String>();
+			GroundSpeedBasedEstimationLowPassAlphaElemNames.Add("0");
+			GroundSpeedBasedEstimationLowPassAlpha=new UAVObjectField<float>("GroundSpeedBasedEstimationLowPassAlpha", "", GroundSpeedBasedEstimationLowPassAlphaElemNames, null, this);
+			fields.Add(GroundSpeedBasedEstimationLowPassAlpha);
+
 			List<String> ZeroPointElemNames = new List<String>();
 			ZeroPointElemNames.Add("0");
 			ZeroPoint=new UAVObjectField<UInt16>("ZeroPoint", "raw", ZeroPointElemNames, null, this);
 			fields.Add(ZeroPoint);
 
-			List<String> GPSSamplePeriod_msElemNames = new List<String>();
-			GPSSamplePeriod_msElemNames.Add("0");
-			GPSSamplePeriod_ms=new UAVObjectField<byte>("GPSSamplePeriod_ms", "ms", GPSSamplePeriod_msElemNames, null, this);
-			fields.Add(GPSSamplePeriod_ms);
+			List<String> SamplePeriodElemNames = new List<String>();
+			SamplePeriodElemNames.Add("0");
+			SamplePeriod=new UAVObjectField<byte>("SamplePeriod", "ms", SamplePeriodElemNames, null, this);
+			fields.Add(SamplePeriod);
 
 			List<String> AirspeedSensorTypeElemNames = new List<String>();
 			AirspeedSensorTypeElemNames.Add("0");
@@ -58,7 +64,7 @@ namespace UavTalk
 			AirspeedSensorTypeEnumOptions.Add("EagleTreeAirspeedV3");
 			AirspeedSensorTypeEnumOptions.Add("DIYDronesMPXV5004");
 			AirspeedSensorTypeEnumOptions.Add("DIYDronesMPXV7002");
-			AirspeedSensorTypeEnumOptions.Add("GPSOnly");
+			AirspeedSensorTypeEnumOptions.Add("GroundSpeedBasedWindEstimation");
 			AirspeedSensorType=new UAVObjectField<AirspeedSensorTypeUavEnum>("AirspeedSensorType", "", AirspeedSensorTypeElemNames, AirspeedSensorTypeEnumOptions, this);
 			fields.Add(AirspeedSensorType);
 
@@ -103,9 +109,10 @@ namespace UavTalk
 		public void setDefaultFieldValues()
 		{
 			Scale.setValue((float)10);
+			GroundSpeedBasedEstimationLowPassAlpha.setValue((float)8);
 			ZeroPoint.setValue((UInt16)0);
-			GPSSamplePeriod_ms.setValue((byte)100);
-			AirspeedSensorType.setValue(AirspeedSensorTypeUavEnum.GPSOnly);
+			SamplePeriod.setValue((byte)100);
+			AirspeedSensorType.setValue(AirspeedSensorTypeUavEnum.DIYDronesMPXV7002);
 		}
 
 		/**

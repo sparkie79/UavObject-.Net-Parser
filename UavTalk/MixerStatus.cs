@@ -1,4 +1,4 @@
-﻿// Object ID: 19194506
+﻿// Object ID: 894177088
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class MixerStatus : UAVDataObject
 	{
-		public const long OBJID = 19194506;
+		public const long OBJID = 894177088;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "MixerStatus";
 	    protected static String DESCRIPTION = @"Status for the matrix mixer showing the output of each mixer after all scaling";
@@ -27,6 +27,8 @@ namespace UavTalk
 		public UAVObjectField<float> Mixer8;
 		public UAVObjectField<float> Mixer9;
 		public UAVObjectField<float> Mixer10;
+		public UAVObjectField<float> Mixer11;
+		public UAVObjectField<float> Mixer12;
 
 		public MixerStatus() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
 		{
@@ -81,6 +83,16 @@ namespace UavTalk
 			Mixer10ElemNames.Add("0");
 			Mixer10=new UAVObjectField<float>("Mixer10", "", Mixer10ElemNames, null, this);
 			fields.Add(Mixer10);
+
+			List<String> Mixer11ElemNames = new List<String>();
+			Mixer11ElemNames.Add("0");
+			Mixer11=new UAVObjectField<float>("Mixer11", "", Mixer11ElemNames, null, this);
+			fields.Add(Mixer11);
+
+			List<String> Mixer12ElemNames = new List<String>();
+			Mixer12ElemNames.Add("0");
+			Mixer12=new UAVObjectField<float>("Mixer12", "", Mixer12ElemNames, null, this);
+			fields.Add(Mixer12);
 
 	
 

@@ -1,4 +1,4 @@
-﻿// Object ID: 616980594
+﻿// Object ID: 2586208902
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
@@ -10,7 +10,7 @@ namespace UavTalk
 {
 	public class ManualControlSettings : UAVDataObject
 	{
-		public const long OBJID = 616980594;
+		public const long OBJID = 2586208902;
 		public int NUMBYTES { get; set; }
 		protected const String NAME = "ManualControlSettings";
 	    protected static String DESCRIPTION = @"Settings to indicate how to decode receiver input by @ref ManualControlModule.";
@@ -18,10 +18,14 @@ namespace UavTalk
 		protected const bool ISSETTINGS = true;
 
 		public UAVObjectField<float> Deadband;
+		public UAVObjectField<float> ReturnToHomeAltitudeOffset;
 		public UAVObjectField<Int16> ChannelMin;
 		public UAVObjectField<Int16> ChannelNeutral;
 		public UAVObjectField<Int16> ChannelMax;
+		public UAVObjectField<UInt16> ResponseTime;
 		public UAVObjectField<UInt16> ArmedTimeout;
+		public UAVObjectField<UInt16> ArmingSequenceTime;
+		public UAVObjectField<UInt16> DisarmingSequenceTime;
 		public enum ChannelGroupsUavEnum
 		{
 			[Description("PWM")]
@@ -36,8 +40,10 @@ namespace UavTalk
 			SBus = 4, 
 			[Description("GCS")]
 			GCS = 5, 
+			[Description("OPLink")]
+			OPLink = 6, 
 			[Description("None")]
-			None = 6, 
+			None = 7, 
 		}
 		public UAVObjectField<ChannelGroupsUavEnum> ChannelGroups;
 		public UAVObjectField<byte> ChannelNumber;
@@ -59,6 +65,12 @@ namespace UavTalk
 			YawLeft = 6, 
 			[Description("Yaw Right")]
 			YawRight = 7, 
+			[Description("Accessory 0")]
+			Accessory0 = 8, 
+			[Description("Accessory 1")]
+			Accessory1 = 9, 
+			[Description("Accessory 2")]
+			Accessory2 = 10, 
 		}
 		public UAVObjectField<ArmingUavEnum> Arming;
 		public enum Stabilization1SettingsUavEnum
@@ -69,22 +81,16 @@ namespace UavTalk
 			Rate = 1, 
 			[Description("Attitude")]
 			Attitude = 2, 
-			[Description("AttitudePlus")]
-			AttitudePlus = 3, 
 			[Description("AxisLock")]
-			AxisLock = 4, 
+			AxisLock = 3, 
 			[Description("WeakLeveling")]
-			WeakLeveling = 5, 
+			WeakLeveling = 4, 
 			[Description("VirtualBar")]
-			VirtualBar = 6, 
+			VirtualBar = 5, 
 			[Description("RelayRate")]
-			RelayRate = 7, 
+			RelayRate = 6, 
 			[Description("RelayAttitude")]
-			RelayAttitude = 8, 
-			[Description("POI")]
-			POI = 9, 
-			[Description("CoordinatedFlight")]
-			CoordinatedFlight = 10, 
+			RelayAttitude = 7, 
 		}
 		public UAVObjectField<Stabilization1SettingsUavEnum> Stabilization1Settings;
 		public enum Stabilization2SettingsUavEnum
@@ -95,22 +101,16 @@ namespace UavTalk
 			Rate = 1, 
 			[Description("Attitude")]
 			Attitude = 2, 
-			[Description("AttitudePlus")]
-			AttitudePlus = 3, 
 			[Description("AxisLock")]
-			AxisLock = 4, 
+			AxisLock = 3, 
 			[Description("WeakLeveling")]
-			WeakLeveling = 5, 
+			WeakLeveling = 4, 
 			[Description("VirtualBar")]
-			VirtualBar = 6, 
+			VirtualBar = 5, 
 			[Description("RelayRate")]
-			RelayRate = 7, 
+			RelayRate = 6, 
 			[Description("RelayAttitude")]
-			RelayAttitude = 8, 
-			[Description("POI")]
-			POI = 9, 
-			[Description("CoordinatedFlight")]
-			CoordinatedFlight = 10, 
+			RelayAttitude = 7, 
 		}
 		public UAVObjectField<Stabilization2SettingsUavEnum> Stabilization2Settings;
 		public enum Stabilization3SettingsUavEnum
@@ -121,22 +121,16 @@ namespace UavTalk
 			Rate = 1, 
 			[Description("Attitude")]
 			Attitude = 2, 
-			[Description("AttitudePlus")]
-			AttitudePlus = 3, 
 			[Description("AxisLock")]
-			AxisLock = 4, 
+			AxisLock = 3, 
 			[Description("WeakLeveling")]
-			WeakLeveling = 5, 
+			WeakLeveling = 4, 
 			[Description("VirtualBar")]
-			VirtualBar = 6, 
+			VirtualBar = 5, 
 			[Description("RelayRate")]
-			RelayRate = 7, 
+			RelayRate = 6, 
 			[Description("RelayAttitude")]
-			RelayAttitude = 8, 
-			[Description("POI")]
-			POI = 9, 
-			[Description("CoordinatedFlight")]
-			CoordinatedFlight = 10, 
+			RelayAttitude = 7, 
 		}
 		public UAVObjectField<Stabilization3SettingsUavEnum> Stabilization3Settings;
 		public UAVObjectField<byte> FlightModeNumber;
@@ -154,18 +148,40 @@ namespace UavTalk
 			Autotune = 4, 
 			[Description("AltitudeHold")]
 			AltitudeHold = 5, 
+			[Description("AltitudeVario")]
+			AltitudeVario = 6, 
 			[Description("VelocityControl")]
-			VelocityControl = 6, 
+			VelocityControl = 7, 
 			[Description("PositionHold")]
-			PositionHold = 7, 
-			[Description("ReturnToHome")]
-			ReturnToHome = 8, 
+			PositionHold = 8, 
+			[Description("ReturnToBase")]
+			ReturnToBase = 9, 
+			[Description("Land")]
+			Land = 10, 
 			[Description("PathPlanner")]
-			PathPlanner = 9, 
-			[Description("TabletControl")]
-			TabletControl = 10, 
+			PathPlanner = 11, 
+			[Description("POI")]
+			POI = 12, 
 		}
 		public UAVObjectField<FlightModePositionUavEnum> FlightModePosition;
+		public enum FailsafeBehaviorUavEnum
+		{
+			[Description("None")]
+			None = 0, 
+			[Description("ModePos1")]
+			ModePos1 = 1, 
+			[Description("ModePos2")]
+			ModePos2 = 2, 
+			[Description("ModePos3")]
+			ModePos3 = 3, 
+			[Description("ModePos4")]
+			ModePos4 = 4, 
+			[Description("ModePos5")]
+			ModePos5 = 5, 
+			[Description("ModePos6")]
+			ModePos6 = 6, 
+		}
+		public UAVObjectField<FailsafeBehaviorUavEnum> FailsafeBehavior;
 
 		public ManualControlSettings() : base (OBJID, ISSINGLEINST, ISSETTINGS, NAME)
 		{
@@ -175,6 +191,11 @@ namespace UavTalk
 			DeadbandElemNames.Add("0");
 			Deadband=new UAVObjectField<float>("Deadband", "%", DeadbandElemNames, null, this);
 			fields.Add(Deadband);
+
+			List<String> ReturnToHomeAltitudeOffsetElemNames = new List<String>();
+			ReturnToHomeAltitudeOffsetElemNames.Add("0");
+			ReturnToHomeAltitudeOffset=new UAVObjectField<float>("ReturnToHomeAltitudeOffset", "m", ReturnToHomeAltitudeOffsetElemNames, null, this);
+			fields.Add(ReturnToHomeAltitudeOffset);
 
 			List<String> ChannelMinElemNames = new List<String>();
 			ChannelMinElemNames.Add("Throttle");
@@ -215,10 +236,30 @@ namespace UavTalk
 			ChannelMax=new UAVObjectField<Int16>("ChannelMax", "us", ChannelMaxElemNames, null, this);
 			fields.Add(ChannelMax);
 
+			List<String> ResponseTimeElemNames = new List<String>();
+			ResponseTimeElemNames.Add("Roll");
+			ResponseTimeElemNames.Add("Pitch");
+			ResponseTimeElemNames.Add("Yaw");
+			ResponseTimeElemNames.Add("Accessory0");
+			ResponseTimeElemNames.Add("Accessory1");
+			ResponseTimeElemNames.Add("Accessory2");
+			ResponseTime=new UAVObjectField<UInt16>("ResponseTime", "ms", ResponseTimeElemNames, null, this);
+			fields.Add(ResponseTime);
+
 			List<String> ArmedTimeoutElemNames = new List<String>();
 			ArmedTimeoutElemNames.Add("0");
 			ArmedTimeout=new UAVObjectField<UInt16>("ArmedTimeout", "ms", ArmedTimeoutElemNames, null, this);
 			fields.Add(ArmedTimeout);
+
+			List<String> ArmingSequenceTimeElemNames = new List<String>();
+			ArmingSequenceTimeElemNames.Add("0");
+			ArmingSequenceTime=new UAVObjectField<UInt16>("ArmingSequenceTime", "ms", ArmingSequenceTimeElemNames, null, this);
+			fields.Add(ArmingSequenceTime);
+
+			List<String> DisarmingSequenceTimeElemNames = new List<String>();
+			DisarmingSequenceTimeElemNames.Add("0");
+			DisarmingSequenceTime=new UAVObjectField<UInt16>("DisarmingSequenceTime", "ms", DisarmingSequenceTimeElemNames, null, this);
+			fields.Add(DisarmingSequenceTime);
 
 			List<String> ChannelGroupsElemNames = new List<String>();
 			ChannelGroupsElemNames.Add("Throttle");
@@ -237,6 +278,7 @@ namespace UavTalk
 			ChannelGroupsEnumOptions.Add("DSM (FlexiPort)");
 			ChannelGroupsEnumOptions.Add("S.Bus");
 			ChannelGroupsEnumOptions.Add("GCS");
+			ChannelGroupsEnumOptions.Add("OPLink");
 			ChannelGroupsEnumOptions.Add("None");
 			ChannelGroups=new UAVObjectField<ChannelGroupsUavEnum>("ChannelGroups", "Channel Group", ChannelGroupsElemNames, ChannelGroupsEnumOptions, this);
 			fields.Add(ChannelGroups);
@@ -265,6 +307,9 @@ namespace UavTalk
 			ArmingEnumOptions.Add("Pitch Aft");
 			ArmingEnumOptions.Add("Yaw Left");
 			ArmingEnumOptions.Add("Yaw Right");
+			ArmingEnumOptions.Add("Accessory 0");
+			ArmingEnumOptions.Add("Accessory 1");
+			ArmingEnumOptions.Add("Accessory 2");
 			Arming=new UAVObjectField<ArmingUavEnum>("Arming", "", ArmingElemNames, ArmingEnumOptions, this);
 			fields.Add(Arming);
 
@@ -276,14 +321,11 @@ namespace UavTalk
 			Stabilization1SettingsEnumOptions.Add("None");
 			Stabilization1SettingsEnumOptions.Add("Rate");
 			Stabilization1SettingsEnumOptions.Add("Attitude");
-			Stabilization1SettingsEnumOptions.Add("AttitudePlus");
 			Stabilization1SettingsEnumOptions.Add("AxisLock");
 			Stabilization1SettingsEnumOptions.Add("WeakLeveling");
 			Stabilization1SettingsEnumOptions.Add("VirtualBar");
 			Stabilization1SettingsEnumOptions.Add("RelayRate");
 			Stabilization1SettingsEnumOptions.Add("RelayAttitude");
-			Stabilization1SettingsEnumOptions.Add("POI");
-			Stabilization1SettingsEnumOptions.Add("CoordinatedFlight");
 			Stabilization1Settings=new UAVObjectField<Stabilization1SettingsUavEnum>("Stabilization1Settings", "", Stabilization1SettingsElemNames, Stabilization1SettingsEnumOptions, this);
 			fields.Add(Stabilization1Settings);
 
@@ -295,14 +337,11 @@ namespace UavTalk
 			Stabilization2SettingsEnumOptions.Add("None");
 			Stabilization2SettingsEnumOptions.Add("Rate");
 			Stabilization2SettingsEnumOptions.Add("Attitude");
-			Stabilization2SettingsEnumOptions.Add("AttitudePlus");
 			Stabilization2SettingsEnumOptions.Add("AxisLock");
 			Stabilization2SettingsEnumOptions.Add("WeakLeveling");
 			Stabilization2SettingsEnumOptions.Add("VirtualBar");
 			Stabilization2SettingsEnumOptions.Add("RelayRate");
 			Stabilization2SettingsEnumOptions.Add("RelayAttitude");
-			Stabilization2SettingsEnumOptions.Add("POI");
-			Stabilization2SettingsEnumOptions.Add("CoordinatedFlight");
 			Stabilization2Settings=new UAVObjectField<Stabilization2SettingsUavEnum>("Stabilization2Settings", "", Stabilization2SettingsElemNames, Stabilization2SettingsEnumOptions, this);
 			fields.Add(Stabilization2Settings);
 
@@ -314,14 +353,11 @@ namespace UavTalk
 			Stabilization3SettingsEnumOptions.Add("None");
 			Stabilization3SettingsEnumOptions.Add("Rate");
 			Stabilization3SettingsEnumOptions.Add("Attitude");
-			Stabilization3SettingsEnumOptions.Add("AttitudePlus");
 			Stabilization3SettingsEnumOptions.Add("AxisLock");
 			Stabilization3SettingsEnumOptions.Add("WeakLeveling");
 			Stabilization3SettingsEnumOptions.Add("VirtualBar");
 			Stabilization3SettingsEnumOptions.Add("RelayRate");
 			Stabilization3SettingsEnumOptions.Add("RelayAttitude");
-			Stabilization3SettingsEnumOptions.Add("POI");
-			Stabilization3SettingsEnumOptions.Add("CoordinatedFlight");
 			Stabilization3Settings=new UAVObjectField<Stabilization3SettingsUavEnum>("Stabilization3Settings", "", Stabilization3SettingsElemNames, Stabilization3SettingsEnumOptions, this);
 			fields.Add(Stabilization3Settings);
 
@@ -344,13 +380,28 @@ namespace UavTalk
 			FlightModePositionEnumOptions.Add("Stabilized3");
 			FlightModePositionEnumOptions.Add("Autotune");
 			FlightModePositionEnumOptions.Add("AltitudeHold");
+			FlightModePositionEnumOptions.Add("AltitudeVario");
 			FlightModePositionEnumOptions.Add("VelocityControl");
 			FlightModePositionEnumOptions.Add("PositionHold");
-			FlightModePositionEnumOptions.Add("ReturnToHome");
+			FlightModePositionEnumOptions.Add("ReturnToBase");
+			FlightModePositionEnumOptions.Add("Land");
 			FlightModePositionEnumOptions.Add("PathPlanner");
-			FlightModePositionEnumOptions.Add("TabletControl");
+			FlightModePositionEnumOptions.Add("POI");
 			FlightModePosition=new UAVObjectField<FlightModePositionUavEnum>("FlightModePosition", "", FlightModePositionElemNames, FlightModePositionEnumOptions, this);
 			fields.Add(FlightModePosition);
+
+			List<String> FailsafeBehaviorElemNames = new List<String>();
+			FailsafeBehaviorElemNames.Add("0");
+			List<String> FailsafeBehaviorEnumOptions = new List<String>();
+			FailsafeBehaviorEnumOptions.Add("None");
+			FailsafeBehaviorEnumOptions.Add("ModePos1");
+			FailsafeBehaviorEnumOptions.Add("ModePos2");
+			FailsafeBehaviorEnumOptions.Add("ModePos3");
+			FailsafeBehaviorEnumOptions.Add("ModePos4");
+			FailsafeBehaviorEnumOptions.Add("ModePos5");
+			FailsafeBehaviorEnumOptions.Add("ModePos6");
+			FailsafeBehavior=new UAVObjectField<FailsafeBehaviorUavEnum>("FailsafeBehavior", "", FailsafeBehaviorElemNames, FailsafeBehaviorEnumOptions, this);
+			fields.Add(FailsafeBehavior);
 
 	
 
@@ -393,6 +444,7 @@ namespace UavTalk
 		public void setDefaultFieldValues()
 		{
 			Deadband.setValue((float)0);
+			ReturnToHomeAltitudeOffset.setValue((float)10);
 			ChannelMin.setValue((Int16)1000,0);
 			ChannelMin.setValue((Int16)1000,1);
 			ChannelMin.setValue((Int16)1000,2);
@@ -420,7 +472,15 @@ namespace UavTalk
 			ChannelMax.setValue((Int16)2000,6);
 			ChannelMax.setValue((Int16)2000,7);
 			ChannelMax.setValue((Int16)2000,8);
+			ResponseTime.setValue((UInt16)0,0);
+			ResponseTime.setValue((UInt16)0,1);
+			ResponseTime.setValue((UInt16)0,2);
+			ResponseTime.setValue((UInt16)0,3);
+			ResponseTime.setValue((UInt16)0,4);
+			ResponseTime.setValue((UInt16)0,5);
 			ArmedTimeout.setValue((UInt16)30000);
+			ArmingSequenceTime.setValue((UInt16)1000);
+			DisarmingSequenceTime.setValue((UInt16)1000);
 			ChannelGroups.setValue(ChannelGroupsUavEnum.None,0);
 			ChannelGroups.setValue(ChannelGroupsUavEnum.None,1);
 			ChannelGroups.setValue(ChannelGroupsUavEnum.None,2);
@@ -442,20 +502,21 @@ namespace UavTalk
 			Arming.setValue(ArmingUavEnum.AlwaysDisarmed);
 			Stabilization1Settings.setValue(Stabilization1SettingsUavEnum.Attitude,0);
 			Stabilization1Settings.setValue(Stabilization1SettingsUavEnum.Attitude,1);
-			Stabilization1Settings.setValue(Stabilization1SettingsUavEnum.Rate,2);
+			Stabilization1Settings.setValue(Stabilization1SettingsUavEnum.AxisLock,2);
 			Stabilization2Settings.setValue(Stabilization2SettingsUavEnum.Attitude,0);
 			Stabilization2Settings.setValue(Stabilization2SettingsUavEnum.Attitude,1);
 			Stabilization2Settings.setValue(Stabilization2SettingsUavEnum.Rate,2);
-			Stabilization3Settings.setValue(Stabilization3SettingsUavEnum.Attitude,0);
-			Stabilization3Settings.setValue(Stabilization3SettingsUavEnum.Attitude,1);
+			Stabilization3Settings.setValue(Stabilization3SettingsUavEnum.Rate,0);
+			Stabilization3Settings.setValue(Stabilization3SettingsUavEnum.Rate,1);
 			Stabilization3Settings.setValue(Stabilization3SettingsUavEnum.Rate,2);
 			FlightModeNumber.setValue((byte)3);
-			FlightModePosition.setValue(FlightModePositionUavEnum.Manual,0);
-			FlightModePosition.setValue(FlightModePositionUavEnum.Stabilized1,1);
-			FlightModePosition.setValue(FlightModePositionUavEnum.Stabilized2,2);
-			FlightModePosition.setValue(FlightModePositionUavEnum.Stabilized3,3);
-			FlightModePosition.setValue(FlightModePositionUavEnum.ReturnToHome,4);
-			FlightModePosition.setValue(FlightModePositionUavEnum.PositionHold,5);
+			FlightModePosition.setValue(FlightModePositionUavEnum.Stabilized1,0);
+			FlightModePosition.setValue(FlightModePositionUavEnum.Stabilized2,1);
+			FlightModePosition.setValue(FlightModePositionUavEnum.Stabilized3,2);
+			FlightModePosition.setValue(FlightModePositionUavEnum.AltitudeHold,3);
+			FlightModePosition.setValue(FlightModePositionUavEnum.PositionHold,4);
+			FlightModePosition.setValue(FlightModePositionUavEnum.Manual,5);
+			FailsafeBehavior.setValue(FailsafeBehaviorUavEnum.None);
 		}
 
 		/**
