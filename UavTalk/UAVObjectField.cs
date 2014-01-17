@@ -19,9 +19,10 @@ namespace UavTalk
         public abstract void initialize(UAVObject obj);
         public abstract int pack(ByteBuffer dataOut);
         public abstract int unpack(ByteBuffer dataIn);
-        public abstract Object getValue();
-        public abstract Object getValue(int index);
+        protected Object getValue() { return getBaseValue(0); }
+        public Object getValue(int index) { return getBaseValue(index); }
         public String units { get; set; }
+        protected abstract Object getBaseValue(int index);
 
         public UAVObject parent;
         protected int numElements;
@@ -59,6 +60,7 @@ namespace UavTalk
             this.parent = parent;
             constructorInitialize(name, units, type, elementNames, options);
         }
+
 
         public UAVObjectField(String name, String units, List<String> elementNames, List<String> options, UAVObject parent)
         {
@@ -378,8 +380,12 @@ namespace UavTalk
         }
 
 
-        public override Object getValue()  { return getValue(0); }
-	    public override Object getValue(int index)  {
+        protected override object getBaseValue(int index)
+        {
+            return (object)getValue(index);
+        }
+
+	    public new T getValue(int index)  {
             lock(this)
             {
                 // Check that index is not out of bounds
